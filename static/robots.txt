@@ -1,3 +1,13 @@
-# allow crawling everything by default
+# Nordics Today - Robots.txt
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_app/
+Disallow: /.*
+
+# Sitemap location
+Sitemap: https://nordicstoday.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
