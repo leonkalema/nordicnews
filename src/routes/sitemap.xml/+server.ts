@@ -25,7 +25,15 @@ export const GET: RequestHandler = async ({ setHeaders }) => {
       { url: '/about', priority: '0.7', changefreq: 'monthly' },
       { url: '/contact', priority: '0.6', changefreq: 'monthly' },
       { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
-      { url: '/terms', priority: '0.5', changefreq: 'yearly' }
+      { url: '/terms', priority: '0.5', changefreq: 'yearly' },
+      { url: '/search', priority: '0.6', changefreq: 'weekly' },
+      { url: '/category/breaking', priority: '0.8', changefreq: 'daily' },
+      { url: '/category/politics', priority: '0.8', changefreq: 'daily' },
+      { url: '/category/business', priority: '0.8', changefreq: 'daily' },
+      { url: '/category/tech', priority: '0.8', changefreq: 'daily' },
+      { url: '/category/culture', priority: '0.7', changefreq: 'daily' },
+      { url: '/category/society', priority: '0.7', changefreq: 'daily' },
+      { url: '/category/sports', priority: '0.7', changefreq: 'daily' }
     ];
 
     // Generate sitemap XML

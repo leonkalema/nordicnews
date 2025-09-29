@@ -112,12 +112,22 @@
         {#if status === 404}
           <div class="mt-6">
             <h3 class="text-md font-medium text-gray-900 mb-3">Browse by Country:</h3>
-            <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="grid grid-cols-2 gap-2 text-sm mb-4">
               <a href="/sweden" class="text-blue-600 hover:text-blue-800">🇸🇪 Sweden</a>
               <a href="/norway" class="text-blue-600 hover:text-blue-800">🇳🇴 Norway</a>
               <a href="/denmark" class="text-blue-600 hover:text-blue-800">🇩🇰 Denmark</a>
               <a href="/finland" class="text-blue-600 hover:text-blue-800">🇫🇮 Finland</a>
               <a href="/iceland" class="text-blue-600 hover:text-blue-800">🇮🇸 Iceland</a>
+            </div>
+            
+            <h3 class="text-md font-medium text-gray-900 mb-3">Browse by Category:</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <a href="/category/breaking" class="text-blue-600 hover:text-blue-800">📰 Breaking News</a>
+              <a href="/category/politics" class="text-blue-600 hover:text-blue-800">🏛️ Politics</a>
+              <a href="/category/business" class="text-blue-600 hover:text-blue-800">💼 Business</a>
+              <a href="/category/tech" class="text-blue-600 hover:text-blue-800">💻 Technology</a>
+              <a href="/category/culture" class="text-blue-600 hover:text-blue-800">🎨 Culture</a>
+              <a href="/category/society" class="text-blue-600 hover:text-blue-800">👥 Society</a>
             </div>
           </div>
         {/if}
