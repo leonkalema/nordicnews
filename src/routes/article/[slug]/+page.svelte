@@ -17,6 +17,16 @@
 		article.content.split('\n\n').filter(p => p.trim().length > 0) : 
 		[];
 
+	// Helper function to format dates
+	function formatDate(dateString: string | null) {
+		if (!dateString) return 'No date';
+		return new Date(dateString).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	}
+
 	// Share functions
 	const shareOnFacebook = () => {
 		const url = encodeURIComponent(window.location.href);
@@ -69,15 +79,24 @@
 	<meta property="article:published_time" content={data.meta.publishedTime} />
 	<meta property="article:modified_time" content={data.meta.modifiedTime} />
 	<meta property="article:section" content={data.meta.section} />
-	{#each data.meta.tags || [] as tag}
-		<meta property="article:tag" content={tag} />
-	{/each}
+	{#if data.meta.tags}
+		{#each data.meta.tags as tag}
+			<meta property="article:tag" content={tag} />
+		{/each}
+	{/if}
 	
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={article.title} />
-	<meta name="twitter:description" content={data.meta.description} />
-	<meta name="twitter:image" content={data.meta.image} />
+	<meta name="twitter:description" content={article.excerpt || data.meta.description} />
+	<meta name="twitter:image" content={article.featured_image_url || 'https://nordicstoday.com/og-image.jpg'} />
+	<meta name="twitter:image:alt" content={article.featured_image_caption || article.title} />
+	
+	<!-- Additional Meta Tags for News -->
+	<meta name="news_keywords" content={article.keywords?.join(', ') || article.category_display} />
+	<meta name="original-source" content={article.original_url || 'Nordic News Sources'} />
+	<meta name="geo.region" content="Nordic Countries" />
+	<meta name="geo.placename" content="Nordic Region" />
 	
 	<!-- Structured Data -->
 	{@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
@@ -105,7 +124,7 @@
 				</div>
 				<div class="flex items-center gap-1">
 					<Calendar size={16} />
-					<time datetime={article.published_at}>{article.formatted_date}</time>
+					<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
 				</div>
 				<div class="flex items-center gap-1">
 					<Clock size={16} />
@@ -207,7 +226,7 @@
 				<footer class="mt-12 pt-8 border-t border-gray-200">
 					<div class="flex flex-wrap items-center justify-between gap-4">
 						<div class="text-sm text-gray-600">
-							<p>Published: {article.formatted_date}</p>
+							<p>Published: {formatDate(article.published_at)}</p>
 							{#if article.keywords && article.keywords.length > 0}
 								<div class="mt-2">
 									<span class="font-medium">Tags:</span>
