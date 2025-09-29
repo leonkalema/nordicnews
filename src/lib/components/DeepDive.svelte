@@ -4,6 +4,9 @@
 	export let latestArticles: ProcessedArticle[] = [];
 	export let articlesByCategory: Array<{category: string, articles: ProcessedArticle[]}> = [];
 	export let trendingArticles: ProcessedArticle[] = [];
+	
+	// Use trendingArticles for potential future trending section
+	$: hasTrendingArticles = trendingArticles.length > 0;
 
 	// Get category sections
 	$: businessTechArticles = articlesByCategory.find(cat => 
@@ -79,9 +82,31 @@
 				</div>
 			</div>
 
+			<!-- Politics News -->
+			<div class="bg-white p-6 rounded-lg shadow-md">
+				<h3 class="text-lg font-bold text-nordic-blue border-b-2 border-arctic-gray pb-2">Politics News</h3>
+				<ul class="mt-4 space-y-3">
+					{#each politicsArticles.slice(0, 4) as article}
+						<li>
+							<a href={article.url_slug} class="group">
+								<h4 class="text-sm font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2">
+									{article.title}
+								</h4>
+								<div class="flex items-center justify-between mt-1">
+									<span class="text-xs text-gray-500">{article.country_name}</span>
+									<span class="text-xs text-gray-400">{article.relative_time}</span>
+								</div>
+							</a>
+						</li>
+					{:else}
+						<li class="text-xs text-gray-500">No politics articles available</li>
+					{/each}
+				</ul>
+			</div>
+
 			<!-- Culture & Society -->
 			<div class="bg-white p-6 rounded-lg shadow-md">
-				<h3 class="text-lg font-bold text-nordic-blue border-b-2 border-arctic-gray pb-2">Culture & Society</h3>
+				<h3 class="text-lg font-bold text-nordic-blue border-b-2 border-arctic-gray pb-2">Society & Culture</h3>
 				<ul class="mt-4 space-y-3">
 					{#each cultureSocietyArticles.slice(0, 4) as article}
 						<li>
@@ -96,7 +121,7 @@
 							</a>
 						</li>
 					{:else}
-						<li class="text-xs text-gray-500">No culture/society articles available</li>
+						<li class="text-xs text-gray-500">No society/culture articles available</li>
 					{/each}
 				</ul>
 			</div>

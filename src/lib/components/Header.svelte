@@ -10,16 +10,15 @@
 
 	function handleSearch() {
 		if (searchQuery.trim()) {
-			// Handle search functionality here
-			console.log('Searching for:', searchQuery);
+			window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
 		}
 	}
 
 	const categories = [
 		{ name: 'Politics', slug: 'politics' },
 		{ name: 'Business', slug: 'business' },
-		{ name: 'Tech', slug: 'technology' },
-		{ name: 'Culture', slug: 'culture' }
+		{ name: 'Tech', slug: 'tech' },
+		{ name: 'Society', slug: 'society' }
 	];
 </script>
 
