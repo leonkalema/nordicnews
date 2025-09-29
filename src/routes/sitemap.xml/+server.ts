@@ -1,11 +1,18 @@
 import { fetchArticles } from '$lib/data/articles.js';
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async ({ setHeaders }) => {
+  // Set cache headers
+  setHeaders({
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'max-age=3600, public',
+    'X-Robots-Tag': 'noindex'
+  });
+
   try {
-    // Fetch all articles for sitemap
+    // Fetch all articles for sitemap with error handling
     const articlesResult = await fetchArticles({}, 1, 1000); // Get up to 1000 articles
-    const articles = articlesResult.articles;
+    const articles = articlesResult.articles || [];
 
     // Define static pages
     const staticPages = [
@@ -14,7 +21,11 @@ export const GET: RequestHandler = async () => {
       { url: '/norway', priority: '0.8', changefreq: 'daily' },
       { url: '/denmark', priority: '0.8', changefreq: 'daily' },
       { url: '/finland', priority: '0.8', changefreq: 'daily' },
-      { url: '/iceland', priority: '0.8', changefreq: 'daily' }
+      { url: '/iceland', priority: '0.8', changefreq: 'daily' },
+      { url: '/about', priority: '0.7', changefreq: 'monthly' },
+      { url: '/contact', priority: '0.6', changefreq: 'monthly' },
+      { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
+      { url: '/terms', priority: '0.5', changefreq: 'yearly' }
     ];
 
     // Generate sitemap XML
@@ -29,10 +40,21 @@ export const GET: RequestHandler = async () => {
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`).join('')}
-  ${articles.map(article => `
+  ${articles.filter(article => article.url_slug && article.title).map(article => {
+    // Validate article data
+    const publishedDate = article.published_at || new Date().toISOString();
+    const formattedDate = publishedDate.split('T')[0];
+    
+    // Validate date format
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(formattedDate)) {
+      console.warn(`Invalid date for article ${article.id}: ${publishedDate}`);
+      return '';
+    }
+    
+    return `
   <url>
     <loc>https://nordicstoday.com${article.url_slug}</loc>
-    <lastmod>${article.published_at}</lastmod>
+    <lastmod>${formattedDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <news:news>
@@ -40,17 +62,18 @@ export const GET: RequestHandler = async () => {
         <news:name>Nordics Today</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>${article.published_at}</news:publication_date>
+      <news:publication_date>${publishedDate}</news:publication_date>
       <news:title>${escapeXml(article.title)}</news:title>
-      <news:keywords>${article.keywords?.join(', ') || article.category_display}</news:keywords>
+      <news:keywords>${article.keywords?.join(', ') || article.category_display || 'Nordic news'}</news:keywords>
     </news:news>
     ${article.featured_image_url ? `
     <image:image>
       <image:loc>${article.featured_image_url}</image:loc>
       <image:title>${escapeXml(article.title)}</image:title>
-      <image:caption>${escapeXml(article.featured_image_caption || article.excerpt || '')}</image:caption>
+      <image:caption>${escapeXml(article.featured_image_caption || article.excerpt || article.title)}</image:caption>
     </image:image>` : ''}
-  </url>`).join('')}
+  </url>`;
+  }).filter(Boolean).join('')}
 </urlset>`;
 
     return new Response(sitemap, {

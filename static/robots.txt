@@ -1,13 +1,44 @@
 # Nordics Today - Robots.txt
 User-agent: *
 Allow: /
+
+# Block admin and private pages
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_app/
-Disallow: /.*
+
+# Explicitly allow important pages for better crawling
+Allow: /sweden/
+Allow: /norway/
+Allow: /denmark/
+Allow: /finland/
+Allow: /iceland/
+Allow: /article/
+Allow: /category/
+
+# Allow CSS, JS, and image files
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.webp
+Allow: /*.svg
+Allow: /*.ico
 
 # Sitemap location
 Sitemap: https://nordicstoday.com/sitemap.xml
 
 # Crawl delay for respectful crawling
 Crawl-delay: 1
+
+# Special instructions for Google News
+User-agent: Googlebot-News
+Allow: /
+Crawl-delay: 0
+
+# Special instructions for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
