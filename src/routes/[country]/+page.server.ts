@@ -35,14 +35,20 @@ export const load: PageServerLoad = async ({ params, url }) => {
     if (category) filters.category = category;
     if (search) filters.search = search;
 
-    // Fetch articles for this country
-    const articlesResult = await fetchArticles(filters, page, 20);
-
-    // Get featured articles from this country
+    // Get featured articles from this country (first)
     const featuredResult = await fetchArticles(
       { country: countryCode, featured: true }, 
       1, 
       3
+    );
+
+    // Fetch articles for this country (excluding featured ones)
+    const featuredIds = featuredResult.articles.map(a => a.id);
+    const articlesResult = await fetchArticles(filters, page, 20);
+    
+    // Filter out featured articles from main list
+    articlesResult.articles = articlesResult.articles.filter(
+      article => !featuredIds.includes(article.id)
     );
 
     // Get articles by category for this country

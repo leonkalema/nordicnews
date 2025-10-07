@@ -43,13 +43,13 @@ export const load: PageServerLoad = async ({ url }) => {
       ...latestArticles.map(a => a.id)
     ]);
 
-    // Get articles by country for "Across the Nordics" section (excluding already used)
+    // Get articles by country for "Across the Nordics" section
     const countryPromises = ['SE', 'NO', 'DK', 'FI', 'IS'].map(async (country) => {
       try {
-        const result = await fetchArticles({ country }, 1, 10); // Get more to filter from
+        const result = await fetchArticles({ country }, 1, 3);
         return {
           country,
-          articles: result.articles.filter(article => !usedArticleIds.has(article.id)).slice(0, 3)
+          articles: result.articles
         };
       } catch (error) {
         console.error(`Error fetching articles for ${country}:`, error);
