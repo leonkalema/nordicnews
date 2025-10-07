@@ -7,7 +7,7 @@
 	let { children } = $props();
 </script>
 
-<SEOHead />
+<SEOHead baseOnly={true} />
 
 <div class="min-h-screen flex flex-col bg-off-white">
 	<Header />

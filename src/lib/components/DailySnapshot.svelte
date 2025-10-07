@@ -41,7 +41,7 @@
 								<div class="flex items-center gap-4 mt-4 text-sm text-gray-300">
 									<span>{featuredArticle.relative_time}</span>
 									<span>•</span>
-									<span>{featuredArticle.source_name}</span>
+									
 								</div>
 							</div>
 						</div>
