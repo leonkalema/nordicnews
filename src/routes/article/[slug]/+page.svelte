@@ -74,8 +74,9 @@
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={article.title} />
 	<meta property="og:description" content={data.meta.description} />
-	<meta property="og:image" content={data.meta.image} />
-	<meta property="og:url" content="https://nordicstoday.com/article/{article.slug}" />
+	<meta property="og:image" content={article.featured_image_url || 'https://nordicstoday.com/og-image.jpg'} />
+	<meta property="og:url" content={`https://nordicstoday.com/article/${article.slug}`} />
+	<meta property="og:site_name" content="Nordics Today" />
 	<meta property="article:published_time" content={data.meta.publishedTime} />
 	<meta property="article:modified_time" content={data.meta.modifiedTime} />
 	<meta property="article:section" content={data.meta.section} />

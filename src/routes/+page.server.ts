@@ -37,19 +37,18 @@ export const load: PageServerLoad = async ({ url }) => {
       !featuredArticleIds.has(article.id)
     ).slice(0, 12);
 
-    // Get IDs of all used articles to avoid duplicates in other sections
-    const usedArticleIds = new Set([
-      ...featuredArticles.map(a => a.id),
-      ...latestArticles.map(a => a.id)
-    ]);
-
-    // Get articles by country for "Across the Nordics" section
+    // Get articles by country for "Across the Nordics" section (only exclude featured)
     const countryPromises = ['SE', 'NO', 'DK', 'FI', 'IS'].map(async (country) => {
       try {
-        const result = await fetchArticles({ country }, 1, 3);
+        // Fetch more articles to have enough after filtering
+        const result = await fetchArticles({ country }, 1, 10);
+        // Only filter out featured articles (not latest), take top 3
+        const filteredArticles = result.articles
+          .filter(article => !featuredArticleIds.has(article.id))
+          .slice(0, 3);
         return {
           country,
-          articles: result.articles
+          articles: filteredArticles
         };
       } catch (error) {
         console.error(`Error fetching articles for ${country}:`, error);
@@ -65,15 +64,16 @@ export const load: PageServerLoad = async ({ url }) => {
       .filter(result => result.status === 'fulfilled')
       .map(result => (result as PromiseFulfilledResult<any>).value);
 
-    // Update used articles list with country articles
-    articlesByCountry.forEach(countryData => {
-      countryData.articles.forEach((article: any) => usedArticleIds.add(article.id));
-    });
+    // Build set of used article IDs (featured + country articles)
+    const usedArticleIds = new Set([
+      ...featuredArticleIds,
+      ...articlesByCountry.flatMap(c => c.articles.map((a: any) => a.id))
+    ]);
 
     // Get articles by category for thematic sections (excluding already used)
     const categoryPromises = ['business', 'politics', 'tech', 'culture'].map(async (category) => {
       try {
-        const result = await fetchArticles({ category }, 1, 10); // Get more to filter from
+        const result = await fetchArticles({ category }, 1, 10);
         return {
           category,
           articles: result.articles.filter(article => !usedArticleIds.has(article.id)).slice(0, 4)
