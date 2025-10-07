@@ -43,7 +43,7 @@
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibent text-gray-900 mb-4">4. Intellectual Property</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">4. Intellectual Property</h2>
       <p class="mb-4">
         The content on Nordics Today, including articles, translations, images, and design elements, is protected by copyright and other intellectual property laws. Original Nordic content belongs to their respective publishers.
       </p>
