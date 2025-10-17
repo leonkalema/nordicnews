@@ -2,13 +2,21 @@
 	import SEOHead from '$lib/components/SEOHead.svelte';
 	import DailySnapshot from '$lib/components/DailySnapshot.svelte';
 	import AcrossTheNordics from '$lib/components/AcrossTheNordics.svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
+
+	// Pagination and infinite scroll
+	let currentPage = 1;
+	let loading = false;
+	let hasMore = true;
+	let allArticles: any[] = data.articles || [];
+	const articlesPerPage = 12;
 
 	// SEO optimized for "English news in Sweden"
 	$: seoData = {
 		title: 'English News in Sweden | Latest Swedish News in English | Nordics Today',
-		description: 'Latest news from Sweden translated to English. Get real-time updates on Swedish politics, business, culture, and breaking news for English speakers in Sweden.',
+		description: 'Latest news from Sweden in English. Get real-time updates on Swedish politics, business, culture, and breaking news for English speakers in Sweden.',
 		keywords: ['English news in Sweden', 'Swedish news in English', 'Sweden news English', 'English speaking Sweden news', 'Swedish politics English', 'Stockholm news English', 'Sweden breaking news English', 'Swedish business news English'],
 		url: '/sweden',
 		type: 'website',
@@ -16,7 +24,7 @@
 			"@context": "https://schema.org",
 			"@type": "CollectionPage",
 			"name": "English News in Sweden",
-			"description": "Latest Swedish news translated to English for English speakers",
+			"description": "Latest Swedish news in English for English speakers",
 			"url": "https://nordicstoday.com/sweden",
 			"about": {
 				"@type": "Country",
@@ -36,11 +44,48 @@
 	};
 
 	// Filter articles for Sweden
-	$: swedenArticles = data.articles?.filter(article => 
+	$: swedenArticles = allArticles.filter((article: any) => 
 		article.source_country === 'SE' || 
-		article.raw_category?.toLowerCase().includes('sweden') ||
-		article.raw_title?.toLowerCase().includes('sweden')
-	) || [];
+		article.category?.toLowerCase().includes('sweden') ||
+		article.title?.toLowerCase().includes('sweden')
+	);
+
+	// Paginated articles for display
+	$: displayedArticles = swedenArticles.slice(0, currentPage * articlesPerPage);
+
+	// Load more articles function
+	async function loadMoreArticles() {
+		if (loading || !hasMore) return;
+		
+		loading = true;
+		try {
+			const response = await fetch(`/api/articles?country=SE&limit=20&offset=${allArticles.length}`);
+			const newArticles = await response.json();
+			
+			if (newArticles.length === 0) {
+				hasMore = false;
+			} else {
+				allArticles = [...allArticles, ...newArticles];
+				currentPage++;
+			}
+		} catch (error) {
+			console.error('Error loading more articles:', error);
+		} finally {
+			loading = false;
+		}
+	}
+
+	// Infinite scroll detection
+	onMount(() => {
+		const handleScroll = () => {
+			if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+				loadMoreArticles();
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	});
 </script>
 
 <SEOHead {...seoData} />
@@ -51,43 +96,72 @@
 			English News in Sweden
 		</h1>
 		<p class="text-xl text-gray-600 max-w-3xl">
-			Stay informed with the latest Swedish news translated to English. 
+			Stay informed with the latest Swedish news in English. 
 			From Stockholm politics to Swedish business, culture, and breaking news - 
-			all in English for English speakers living in or interested in Sweden.
+			comprehensive coverage for English speakers living in or interested in Sweden.
 		</p>
 	</header>
 
-	{#if swedenArticles.length > 0}
+	{#if displayedArticles.length > 0}
 		<section class="mb-12">
 			<h2 class="text-2xl font-semibold mb-6">Latest Swedish News in English</h2>
 			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-				{#each swedenArticles.slice(0, 9) as article}
+				{#each displayedArticles as article}
 					<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-						{#if article.image_url}
-							<img src={article.image_url} alt={article.image_alt || article.title} class="w-full h-48 object-cover" />
+						{#if article.featured_image_url}
+							<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-48 object-cover" />
 						{/if}
 						<div class="p-6">
 							<h3 class="font-semibold text-lg mb-2 line-clamp-2">
-								<a href="/article/{article.slug}" class="hover:text-blue-600">
+								<a href={article.url_slug} class="hover:text-blue-600">
 									{article.title}
 								</a>
 							</h3>
 							<p class="text-gray-600 text-sm mb-3 line-clamp-3">
-								{article.summary}
+								{article.summary || article.excerpt}
 							</p>
 							<div class="flex justify-between items-center text-sm text-gray-500">
-								<span>{article.source_name}</span>
+								<span> </span>
 								<time datetime={article.published_date}>
-									{new Date(article.published_date).toLocaleDateString('en-US', { 
-										month: 'short', 
-										day: 'numeric',
-										year: 'numeric'
-									})}
+									{article.relative_time}
 								</time>
 							</div>
 						</div>
 					</article>
 				{/each}
+			</div>
+
+			<!-- Loading indicator -->
+			{#if loading}
+				<div class="text-center py-8">
+					<div class="inline-flex items-center">
+						<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+							<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+							<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+						</svg>
+						<span class="text-gray-600">Loading more articles...</span>
+					</div>
+				</div>
+			{/if}
+
+			<!-- Load more button (fallback for non-JS users) -->
+			{#if hasMore && !loading}
+				<div class="text-center py-8">
+					<button 
+						on:click={loadMoreArticles}
+						class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+					>
+						Load More Articles
+					</button>
+				</div>
+			{/if}
+
+			<!-- SEO pagination info -->
+			<div class="text-center text-sm text-gray-500 mt-8">
+				Showing {displayedArticles.length} of {swedenArticles.length} articles
+				{#if hasMore}
+					• Scroll down for more
+				{/if}
 			</div>
 		</section>
 	{:else}
@@ -96,25 +170,6 @@
 		</div>
 	{/if}
 
-	<section class="bg-blue-50 rounded-lg p-8 mb-12">
-		<h2 class="text-2xl font-semibold mb-4">Why Choose English News in Sweden?</h2>
-		<div class="grid md:grid-cols-2 gap-6">
-			<div>
-				<h3 class="font-semibold mb-2">For English Speakers in Sweden</h3>
-				<p class="text-gray-600">
-					Whether you're an expat, international student, or business professional in Sweden, 
-					stay connected with local news that affects your daily life.
-				</p>
-			</div>
-			<div>
-				<h3 class="font-semibold mb-2">Real-Time Translation</h3>
-				<p class="text-gray-600">
-					Get Swedish news translated to English as it happens. From Dagens Nyheter to SVT, 
-					we bring you the most important Swedish stories in English.
-				</p>
-			</div>
-		</div>
-	</section>
 </div>
 
 <style>
@@ -123,6 +178,7 @@
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+		line-clamp: 2;
 	}
 	
 	.line-clamp-3 {
@@ -130,5 +186,6 @@
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+		line-clamp: 3;
 	}
 </style>
