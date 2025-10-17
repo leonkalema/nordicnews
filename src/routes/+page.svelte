@@ -7,20 +7,21 @@
 
 	export let data;
 
-	// Enhanced SEO data for homepage
+	// Enhanced SEO data for homepage - OPTIMIZED FOR TARGET KEYWORDS
 	$: seoData = {
-		title: data.meta?.title || 'Nordics today - Your Daily Source for Nordic News',
-		description: data.meta?.description || 'The latest news and analysis from Sweden, Norway, Denmark, Finland, and Iceland, translated for a global audience.',
-		keywords: ['Nordic news', 'Sweden news', 'Norway news', 'Denmark news', 'Finland news', 'Iceland news', 'Scandinavian news', 'European news'],
+		title: data.meta?.title || 'English News in Sweden & Norway | Nordic News in English | Nordics Today',
+		description: data.meta?.description || 'Latest Swedish and Norwegian news translated to English. Get real-time updates from Sweden, Norway, Denmark, Finland & Iceland in English for English speakers.',
+		keywords: ['English news in Sweden', 'English news in Norway', 'Swedish news in English', 'Norwegian news in English', 'Nordic news in English', 'Sweden news English', 'Norway news English', 'English speaking Sweden news', 'English language Nordic news', 'Nordic news', 'Scandinavian news'],
 		url: '',
 		type: 'website',
 		structuredData: {
 			"@context": "https://schema.org",
 			"@type": "NewsMediaOrganization",
-			"name": "Nordics today",
+			"name": "Nordics Today - English News in Sweden & Norway",
+			"alternateName": "English Nordic News",
 			"url": "https://nordicstoday.com",
 			"logo": "https://nordicstoday.com/logo.png",
-			"description": "The latest news and analysis from Sweden, Norway, Denmark, Finland, and Iceland",
+			"description": "English-language news service covering Sweden, Norway, Denmark, Finland, and Iceland for English speakers",
 			"sameAs": [
 				"https://twitter.com/nordicstoday",
 				"https://facebook.com/nordicstoday"
@@ -30,8 +31,34 @@
 				"addressRegion": "Nordic Countries",
 				"addressCountry": "EU"
 			},
-			"areaServed": ["Sweden", "Norway", "Denmark", "Finland", "Iceland"],
-			"knowsLanguage": ["en", "sv", "no", "da", "fi", "is"],
+			"areaServed": [
+				{
+					"@type": "Country",
+					"name": "Sweden"
+				},
+				{
+					"@type": "Country", 
+					"name": "Norway"
+				},
+				{
+					"@type": "Country",
+					"name": "Denmark"
+				},
+				{
+					"@type": "Country",
+					"name": "Finland"
+				},
+				{
+					"@type": "Country",
+					"name": "Iceland"
+				}
+			],
+			"inLanguage": "en",
+			"audience": {
+				"@type": "Audience",
+				"audienceType": "English speakers in Nordic countries"
+			},
+			"knowsLanguage": ["en"],
 			"mainEntity": {
 				"@type": "WebSite",
 				"name": "Nordics today",

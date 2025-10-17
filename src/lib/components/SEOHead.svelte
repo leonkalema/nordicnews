@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let title: string = 'Nordics Today - Your Daily Source for Nordic News';
-	export let description: string = 'The latest news and analysis from Sweden, Norway, Denmark, Finland, and Iceland, translated for a global audience.';
-	export let keywords: string[] = ['Nordic news', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Iceland', 'Scandinavian news'];
+	export let title: string = 'English News in Sweden & Norway | Nordic News in English | Nordics Today';
+	export let description: string = 'Latest Swedish and Norwegian news translated to English. Get real-time updates from Sweden, Norway, Denmark, Finland & Iceland in English for English speakers.';
+	export let keywords: string[] = ['English news in Sweden', 'English news in Norway', 'Swedish news in English', 'Norwegian news in English', 'Nordic news in English', 'Sweden news English', 'Norway news English'];
 	export let image: string = '/og-image.jpg';
 	export let url: string = '';
 	export let type: string = 'website';
@@ -103,9 +103,13 @@
 	<meta name="distribution" content="global" />
 	<meta name="rating" content="general" />
 	
-	<!-- Geo Tags for Nordic Focus -->
+	<!-- Enhanced Geo Tags for Nordic Focus -->
 	<meta name="geo.region" content="EU" />
 	<meta name="geo.placename" content="Nordic Countries" />
+	<meta name="geo.position" content="59.3293;18.0686" />
+	<meta name="ICBM" content="59.3293, 18.0686" />
+	<meta name="DC.coverage" content="Sweden, Norway, Denmark, Finland, Iceland" />
+	<meta name="DC.subject" content="English news in Nordic countries" />
 	
 	<!-- Structured Data -->
 	{@html `<script type="application/ld+json">${JSON.stringify(finalStructuredData)}</script>`}
