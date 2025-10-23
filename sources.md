@@ -74,9 +74,9 @@ This document contains local kommun and regional news websites across Nordic cou
 
 ### Regional Coverage:
 - **Vísir** (Reykjavík/national with local sections) - https://www.visir.is/
-- **Morgunblaðið** (national/regional coverage) - https://www.mbl.is/
+- **Morgunblaðið** (national/regional coverage) - https://www.mbl.is/   *** 
 - **Austurfrétt** (East Iceland) - https://www.austurfrett.is/
-- **Skessuhorn** (West Iceland) - https://www.skessuhorn.is/
+- **Skessuhorn** (West Iceland) - https://www.skessuhorn.is/ ** 
 - **Bæjarins besta** (Westfjords/Ísafjörður) - https://www.bb.is/
 
 ---

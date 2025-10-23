@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ url }) => {
       trendingResult
     ] = await Promise.allSettled([
       fetchFeaturedArticles(5), // Top 5 featured articles for Daily Snapshot
-      fetchArticles({}, 1, 20), // Get more latest articles to filter from
+      fetchArticles({}, 1, 40), // Get 40 latest articles to have enough for all sections
       fetchTrendingArticles(8) // Top 8 trending articles
     ]);
 
@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ url }) => {
     // Filter latest articles to exclude featured ones for "The Latest" section
     const latestArticles = allLatestArticles.articles.filter(article => 
       !featuredArticleIds.has(article.id)
-    ).slice(0, 12);
+    ).slice(0, 30); // Get 30 articles to have enough for all homepage sections
 
     // Get articles by country for "Across the Nordics" section (only exclude featured)
     const countryPromises = ['SE', 'NO', 'DK', 'FI', 'IS'].map(async (country) => {

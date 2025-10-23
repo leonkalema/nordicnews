@@ -9,9 +9,9 @@
 
 	// Enhanced SEO data for homepage - OPTIMIZED FOR TARGET KEYWORDS
 	$: seoData = {
-		title: data.meta?.title || 'English News in Sweden & Norway | Nordic News in English | Nordics Today',
-		description: data.meta?.description || 'Latest Swedish and Norwegian news translated to English. Get real-time updates from Sweden, Norway, Denmark, Finland & Iceland in English for English speakers.',
-		keywords: ['English news in Sweden', 'English news in Norway', 'Swedish news in English', 'Norwegian news in English', 'Nordic news in English', 'Sweden news English', 'Norway news English', 'English speaking Sweden news', 'English language Nordic news', 'Nordic news', 'Scandinavian news'],
+		title: data.meta?.title || 'Nordics Today - English News from Sweden, Norway & Nordic Countries',
+		description: data.meta?.description || 'Breaking news from Sweden, Norway, Denmark, Finland & Iceland translated to English. Daily updates on Nordic politics, business, culture and society.',
+		keywords: ['Nordic news', 'Sweden news', 'Norway news', 'Denmark news', 'Finland news', 'Iceland news', 'Scandinavian news', 'English Nordic news', 'Nordic countries news', 'Swedish news English', 'Norwegian news English'],
 		url: '',
 		type: 'website',
 		structuredData: {
