@@ -28,9 +28,9 @@
 		<div class="lg:col-span-3">
 			<h2 class="text-2xl font-bold text-nordic-blue mb-6">The Latest</h2>
 			
-			<!-- Top 3 Featured Articles in Grid -->
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-				{#each latestArticles.slice(0, 3) as article}
+			<!-- Top 4 Featured Articles in Grid -->
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+				{#each latestArticles.slice(0, 4) as article}
 					<a href={article.url_slug} class="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
 						<img 
 							src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
@@ -51,7 +51,7 @@
 
 			<!-- More Articles in Compact List -->
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-				{#each latestArticles.slice(3, 11) as article}
+				{#each latestArticles.slice(4, 16) as article}
 					<a href={article.url_slug} class="flex items-start gap-4 group p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
 						<img 
 							src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
