@@ -3,6 +3,7 @@
 	import { Share, Calendar, MapPin, Eye, Clock, ArrowLeft, Facebook, Twitter, Linkedin } from 'lucide-svelte';
 	import { getCountryFlag } from '$lib/supabase.js';
 	import type { PageData } from './$types';
+	import { marked } from 'marked';
 
 	export let data: PageData;
 
@@ -12,10 +13,14 @@
 
 	let showShareMenu = false;
 
-	// Format the article content with proper paragraphs
-	$: formattedContent = article.content ? 
-		article.content.split('\n\n').filter(p => p.trim().length > 0) : 
-		[];
+	// Configure marked for safe HTML rendering
+	marked.setOptions({
+		breaks: true,
+		gfm: true
+	});
+
+	// Parse markdown content to HTML
+	$: htmlContent = article.content ? marked.parse(article.content) : '';
 
 	// Helper function to format dates
 	function formatDate(dateString: string | null) {
@@ -213,11 +218,9 @@
 				{/if}
 
 				<!-- Article Body -->
-				<div class="prose prose-lg max-w-none">
-					{#if formattedContent.length > 0}
-						{#each formattedContent as paragraph}
-							<p class="mb-6 text-gray-800 leading-relaxed">{paragraph}</p>
-						{/each}
+				<div class="prose prose-lg max-w-none article-content">
+					{#if htmlContent}
+						{@html htmlContent}
 					{:else}
 						<p class="text-gray-600 italic">Article content is being processed...</p>
 					{/if}
@@ -320,3 +323,58 @@
 		</div>
 	</main>
 </article>
+
+<style>
+	:global(.article-content h2) {
+		@apply text-2xl font-bold text-gray-900 mt-8 mb-4;
+	}
+	
+	:global(.article-content h3) {
+		@apply text-xl font-semibold text-gray-800 mt-6 mb-3;
+	}
+	
+	:global(.article-content h4) {
+		@apply text-lg font-semibold text-gray-800 mt-4 mb-2;
+	}
+	
+	:global(.article-content p) {
+		@apply mb-4 text-gray-800 leading-relaxed;
+	}
+	
+	:global(.article-content ul),
+	:global(.article-content ol) {
+		@apply mb-4 ml-6;
+	}
+	
+	:global(.article-content li) {
+		@apply mb-2 text-gray-800;
+	}
+	
+	:global(.article-content strong) {
+		@apply font-bold text-gray-900;
+	}
+	
+	:global(.article-content em) {
+		@apply italic;
+	}
+	
+	:global(.article-content a) {
+		@apply text-nordic-blue hover:underline;
+	}
+	
+	:global(.article-content blockquote) {
+		@apply border-l-4 border-nordic-blue pl-4 italic text-gray-700 my-4;
+	}
+	
+	:global(.article-content code) {
+		@apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+	}
+	
+	:global(.article-content pre) {
+		@apply bg-gray-100 p-4 rounded overflow-x-auto mb-4;
+	}
+	
+	:global(.article-content pre code) {
+		@apply bg-transparent p-0;
+	}
+</style>
