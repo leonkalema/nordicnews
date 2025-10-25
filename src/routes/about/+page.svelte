@@ -3,8 +3,8 @@
 </script>
 
 <SEOHead 
-  title="About Us - Nordics Today"
-  description="Learn about Nordics Today, your trusted source for Nordic news. We translate and deliver the latest news from Sweden, Norway, Denmark, Finland, and Iceland to a global audience."
+  title="About Nordics Today - English Nordic News & Analysis"
+  description="Nordics Today is an English-language news platform covering Sweden, Norway, Denmark, Finland, and Iceland. Get breaking news, politics, business, and culture from the Nordic region."
   type="website"
 />
 
@@ -13,12 +13,15 @@
   
   <div class="prose prose-lg max-w-none">
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Mission</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Who We Are</h2>
       <p class="mb-4">
-        Nordics Today bridges the language gap by bringing you the most important news and analysis from the Nordic countries—Sweden, Norway, Denmark, Finland, and Iceland—translated into English for a global audience.
+        Nordics Today is an English-language news platform dedicated to covering the Nordic region. We report on the stories that matter from Sweden, Norway, Denmark, Finland, and Iceland—from breaking political developments to cultural trends shaping Northern Europe.
       </p>
       <p class="mb-4">
-        We believe that Nordic perspectives on politics, society, technology, and culture offer valuable insights that deserve to reach beyond language barriers. Our team works around the clock to deliver timely, accurate translations of the most significant stories from the region.
+        The Nordic countries punch above their weight on the global stage. They're home to some of the world's most innovative companies, progressive policies, and unique approaches to everything from climate action to social welfare. Yet much of this news never reaches English-speaking audiences. That's where we come in.
+      </p>
+      <p class="mb-4">
+        We're journalists, editors, and Nordic affairs specialists who believe these stories deserve a wider audience. Whether you're an expat living in Scandinavia, a business professional tracking Nordic markets, or simply curious about this fascinating corner of Europe, we're here to keep you informed.
       </p>
     </section>
 
@@ -79,41 +82,41 @@
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Editorial Process</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">How We Work</h2>
       <p class="mb-4">
-        Our team of Nordic language specialists and journalists work to ensure accurate, contextual translations that preserve the original meaning and cultural nuances of each story.
+        Good journalism requires both speed and accuracy. Our editorial team monitors developments across all five Nordic countries daily, identifying stories that matter to our English-speaking readership.
       </p>
-      <ul class="list-disc pl-6 mb-4">
-        <li>We source content from reputable Nordic news outlets</li>
-        <li>Stories are translated by native speakers with journalism backgrounds</li>
-        <li>Each article includes source attribution and publication details</li>
-        <li>We prioritize stories with international relevance and impact</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Why Nordic News Matters</h2>
       <p class="mb-4">
-        The Nordic countries consistently rank among the world's happiest, most innovative, and most sustainable societies. Their approaches to:
+        We work with correspondents and partner organizations throughout the region to ensure our coverage is timely, accurate, and provides the context international readers need. Every story is reviewed for accuracy and includes clear source attribution.
       </p>
-      <ul class="list-disc pl-6 mb-4">
-        <li><strong>Climate action</strong> - Leading global efforts in renewable energy and carbon neutrality</li>
-        <li><strong>Social welfare</strong> - Pioneering models for work-life balance and social security</li>
-        <li><strong>Technology</strong> - Home to global tech giants and innovative startups</li>
-        <li><strong>Democracy</strong> - Transparent governance and high civic engagement</li>
-      </ul>
       <p class="mb-4">
-        These innovations and policies often serve as models for other nations, making Nordic news globally relevant.
+        Our focus is simple: if it's important news from the Nordics, we cover it. From parliamentary elections in Stockholm to startup funding rounds in Helsinki, from climate policy debates in Copenhagen to volcanic eruptions in Iceland—we're tracking the stories that shape the region.
       </p>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Contact & Collaboration</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Why the Nordics Matter</h2>
       <p class="mb-4">
-        We welcome news tips, story suggestions, and collaboration opportunities. Whether you're a Nordic resident with a story to share or an international reader with questions about Nordic affairs, we'd love to hear from you.
+        With a combined population of just 27 million people, the Nordic countries have an outsized influence on global affairs. They consistently top rankings for happiness, innovation, sustainability, and quality of life.
       </p>
       <p class="mb-4">
-        <a href="/contact" class="text-blue-600 hover:underline">Get in touch with our editorial team</a> or follow us on social media for daily updates.
+        When Denmark pioneers wind energy solutions, when Sweden debates immigration policy, when Norway manages its sovereign wealth fund, or when Finland revolutionizes education—the world pays attention. These aren't just regional stories. They're laboratories for policies and innovations that other countries study and often adopt.
+      </p>
+      <p class="mb-4">
+        Nordic companies like Spotify, IKEA, Novo Nordisk, and Ericsson are household names globally. The region's approach to balancing capitalism with social welfare, economic growth with environmental protection, has made it a model others look to—and debate.
+      </p>
+      <p class="mb-4">
+        For English speakers trying to understand what's happening in this influential region, reliable news coverage has been hard to find. That's the gap Nordics Today fills.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Get in Touch</h2>
+      <p class="mb-4">
+        Have a story tip? Questions about our coverage? Interested in partnering with us? We're always looking to connect with readers, sources, and fellow journalists covering the Nordic region.
+      </p>
+      <p class="mb-4">
+        <a href="/contact" class="text-blue-600 hover:underline">Contact our editorial team</a> or follow us on social media to stay updated on the latest Nordic news.
       </p>
     </section>
 
