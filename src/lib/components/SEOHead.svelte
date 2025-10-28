@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let title: string = 'Nordics Today - English News from Sweden, Norway & Nordic Countries';
-	export let description: string = 'Breaking news from Sweden, Norway, Denmark, Finland & Iceland translated to English. Daily updates on Nordic politics, business, culture and society.';
-	export let keywords: string[] = ['Nordic news', 'Sweden news', 'Norway news', 'Denmark news', 'Finland news', 'Iceland news', 'Scandinavian news', 'English Nordic news'];
+	export let title: string = 'Nordic News in English | NordicsToday - Latest Sweden & Scandinavia News for Expats';
+	export let description: string = 'English news from Sweden, Norway, Denmark, Finland & Iceland for expats and English speakers. Daily Nordic news updates on Swedish politics, culture, business and society.';
+	export let keywords: string[] = ['nordic news in english', 'sweden news in english', 'expat news sweden', 'scandinavian news english', 'english speaking news nordics', 'nordic expat community news', 'living in sweden news english', 'latest nordic countries news english'];
 	export let image: string = '/og-image.jpg';
 	export let url: string = '';
 	export let type: string = 'website';

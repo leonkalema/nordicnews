@@ -7,11 +7,37 @@
 
 	export let data;
 
-	// Enhanced SEO data for homepage - OPTIMIZED FOR TARGET KEYWORDS
+	// Enhanced SEO data for homepage - OPTIMIZED FOR ENGLISH SPEAKERS IN SWEDEN (Oct 2025)
 	$: seoData = {
-		title: data.meta?.title || 'Nordics Today - English News from Sweden, Norway & Nordic Countries',
-		description: data.meta?.description || 'Breaking news from Sweden, Norway, Denmark, Finland & Iceland translated to English. Daily updates on Nordic politics, business, culture and society.',
-		keywords: ['Nordic news', 'Sweden news', 'Norway news', 'Denmark news', 'Finland news', 'Iceland news', 'Scandinavian news', 'English Nordic news', 'Nordic countries news', 'Swedish news English', 'Norwegian news English'],
+		title: data.meta?.title || 'Nordic News in English | NordicsToday - Latest Sweden & Scandinavia News for Expats',
+		description: data.meta?.description || 'English news from Sweden, Norway, Denmark, Finland & Iceland. Daily Nordic news for expats and English speakers living in Scandinavia. Latest updates on Swedish politics, culture & society.',
+		keywords: [
+			// Core keywords for English speakers in Sweden
+			'nordic news in english',
+			'scandinavian news english',
+			'sweden news in english',
+			'expat news sweden',
+			'english speaking news nordics',
+			// Expat-focused terms
+			'nordic expat community news',
+			'living in sweden news english',
+			'life in sweden for foreigners english news',
+			'english language news sweden',
+			// Regional coverage
+			'latest nordic countries news english',
+			'norway news english',
+			'denmark news english',
+			'finland news english',
+			'iceland news english',
+			// Long-tail conversational
+			'where can i read nordic news in english',
+			'best english news aggregator nordic countries',
+			'what\'s happening in sweden for expats',
+			// Timely/seasonal
+			'nordic current events english',
+			'scandinavia today in english',
+			'latest news from sweden english'
+		],
 		url: '',
 		type: 'website',
 		structuredData: {
@@ -21,7 +47,7 @@
 			"alternateName": "English Nordic News",
 			"url": "https://nordicstoday.com",
 			"logo": "https://nordicstoday.com/logo.png",
-			"description": "English-language news service covering Sweden, Norway, Denmark, Finland, and Iceland for English speakers",
+			"description": "English-language news aggregator for expats and English speakers living in Sweden and the Nordic countries. Daily news from Sweden, Norway, Denmark, Finland, and Iceland translated to English.",
 			"sameAs": [
 				"https://twitter.com/nordicstoday",
 				"https://facebook.com/nordicstoday"
@@ -56,7 +82,11 @@
 			"inLanguage": "en",
 			"audience": {
 				"@type": "Audience",
-				"audienceType": "English speakers in Nordic countries"
+				"audienceType": "Expats, international residents, and English speakers living in Sweden and Nordic countries",
+				"geographicArea": {
+					"@type": "Place",
+					"name": "Sweden, Norway, Denmark, Finland, Iceland"
+				}
 			},
 			"knowsLanguage": ["en"],
 			"mainEntity": {
