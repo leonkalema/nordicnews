@@ -8,12 +8,12 @@
 	export let data;
 	
 	// Get country config from data
-	const { countryConfig } = data;
-	$: country = countryConfig.name;
-	$: countrySlug = countryConfig.slug;
-	$: countryCode = countryConfig.code;
-	$: parliament = countryConfig.parliament;
-	$: cities = countryConfig.cities;
+	$: countryConfig = data.countryConfig;
+	$: country = countryConfig?.name || '';
+	$: countrySlug = countryConfig?.slug || '';
+	$: countryCode = countryConfig?.code || '';
+	$: parliament = countryConfig?.parliament || '';
+	$: cities = countryConfig?.cities || [];
 
 	// Pagination and infinite scroll
 	let currentPage = 1;

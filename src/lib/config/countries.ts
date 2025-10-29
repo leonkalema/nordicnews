@@ -117,3 +117,13 @@ export function getCityBySlug(countrySlug: string, citySlug: string): CityConfig
 export function getCategoryBySlug(slug: string) {
 	return CATEGORIES.find(c => c.slug === slug);
 }
+
+export function getCityConfig(citySlug: string): { city: CityConfig; country: CountryConfig } | undefined {
+	for (const country of COUNTRIES) {
+		const city = country.cities.find(c => c.slug === citySlug);
+		if (city) {
+			return { city, country };
+		}
+	}
+	return undefined;
+}
