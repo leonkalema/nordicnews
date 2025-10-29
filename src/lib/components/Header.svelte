@@ -34,11 +34,11 @@
 			<!-- Desktop Navigation - Countries -->
 			<nav class="hidden md:flex space-x-8 flex-1 justify-center">
 				<a href="/" class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">HOME</a>
-				<a href="/sweden" class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">SWEDEN</a>
-				<a href="/norway" class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">NORWAY</a>
-				<a href="/denmark" class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">DENMARK</a>
-				<a href="/finland" class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">FINLAND</a>
-				<a href="/iceland" class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">ICELAND</a>
+				<a href="/sweden" data-sveltekit-reload class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">SWEDEN</a>
+				<a href="/norway" data-sveltekit-reload class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">NORWAY</a>
+				<a href="/denmark" data-sveltekit-reload class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">DENMARK</a>
+				<a href="/finland" data-sveltekit-reload class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">FINLAND</a>
+				<a href="/iceland" data-sveltekit-reload class="text-sm font-medium text-gray-900 hover:text-nordic-blue transition-colors uppercase tracking-wide">ICELAND</a>
 			</nav>
 
 			<!-- Search -->
@@ -89,11 +89,11 @@
 			<nav class="px-4 pt-2 pb-3 space-y-1">
 				<!-- Countries -->
 				<a href="/" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Home</a>
-				<a href="/sweden" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Sweden</a>
-				<a href="/norway" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Norway</a>
-				<a href="/denmark" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Denmark</a>
-				<a href="/finland" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Finland</a>
-				<a href="/iceland" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Iceland</a>
+				<a href="/sweden" data-sveltekit-reload class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Sweden</a>
+				<a href="/norway" data-sveltekit-reload class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Norway</a>
+				<a href="/denmark" data-sveltekit-reload class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Denmark</a>
+				<a href="/finland" data-sveltekit-reload class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Finland</a>
+				<a href="/iceland" data-sveltekit-reload class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nordic-blue">Iceland</a>
 				
 				<!-- Divider -->
 				<div class="border-t border-gray-200 my-2"></div>

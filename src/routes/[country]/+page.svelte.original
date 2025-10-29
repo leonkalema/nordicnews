@@ -205,7 +205,7 @@
 			<div class="mb-6">
 				<div class="flex justify-between items-center mb-2">
 					<h2 class="text-2xl font-bold text-gray-900">Swedish Politics in English</h2>
-					<a href="/category/politics" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+					<a href="/sweden/politics" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
 				</div>
 				<p class="text-gray-600 text-sm">Riksdag debates, government policy, and political developments from Stockholm</p>
 			</div>
@@ -239,7 +239,7 @@
 			<div class="mb-6">
 				<div class="flex justify-between items-center mb-2">
 					<h2 class="text-2xl font-bold text-gray-900">Swedish Business News</h2>
-					<a href="/category/business" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+					<a href="/sweden/business" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
 				</div>
 				<p class="text-gray-600 text-sm">Stockholm finance, startups, corporate news, and economic developments</p>
 			</div>
@@ -273,7 +273,7 @@
 			<div class="mb-6">
 				<div class="flex justify-between items-center mb-2">
 					<h2 class="text-2xl font-bold text-gray-900">Swedish Technology & Innovation</h2>
-					<a href="/category/tech" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+					<a href="/sweden/tech" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
 				</div>
 				<p class="text-gray-600 text-sm">Tech startups, innovation, digital trends, and Swedish tech industry news</p>
 			</div>
@@ -307,7 +307,7 @@
 			<div class="mb-6">
 				<div class="flex justify-between items-center mb-2">
 					<h2 class="text-2xl font-bold text-gray-900">Swedish Society & Culture</h2>
-					<a href="/category/society" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+					<a href="/sweden/society" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
 				</div>
 				<p class="text-gray-600 text-sm">Life in Sweden, social issues, cultural events, and community news</p>
 			</div>
