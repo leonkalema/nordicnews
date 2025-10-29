@@ -3,7 +3,7 @@ import type { PageLoad } from './$types';
 export const load: PageLoad = async ({ fetch }) => {
 	try {
 		// Fetch articles specifically for Iceland
-		const response = await fetch('/api/articles?country=IS&limit=20');
+		const response = await fetch('/api/articles?country=IS&limit=100');
 		const articles = await response.json();
 
 		return {

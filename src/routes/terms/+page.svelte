@@ -26,7 +26,7 @@
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">2. Description of Service</h2>
       <p class="mb-4">
-        Nordics Today provides news and analysis from Sweden, Norway, Denmark, Finland, and Iceland, translated for a global audience. Our content is sourced from various Nordic news outlets and translated into English.
+        Nordics Today provides news and analysis from Sweden, Norway, Denmark, Finland, and Iceland for a global audience. Our content is sourced from various Nordic news outlets and presented in English.
       </p>
     </section>
 
@@ -45,14 +45,14 @@
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">4. Intellectual Property</h2>
       <p class="mb-4">
-        The content on Nordics Today, including articles, translations, images, and design elements, is protected by copyright and other intellectual property laws. Original Nordic content belongs to their respective publishers.
+        The content on Nordics Today, including articles, images, and design elements, is protected by copyright and other intellectual property laws. Original Nordic content belongs to their respective publishers.
       </p>
     </section>
 
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">5. Content Accuracy</h2>
       <p class="mb-4">
-        While we strive to provide accurate translations and timely news, we do not guarantee the accuracy, completeness, or reliability of any content. News is translated from Nordic languages and may contain interpretation nuances.
+        While we strive to provide accurate and timely news, we do not guarantee the accuracy, completeness, or reliability of any content. News is presented from Nordic sources and may contain interpretation nuances.
       </p>
     </section>
 

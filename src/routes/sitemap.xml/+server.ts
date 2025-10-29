@@ -17,16 +17,27 @@ export const GET: RequestHandler = async ({ setHeaders }) => {
     // Define static pages
     const staticPages = [
       { url: '', priority: '1.0', changefreq: 'daily' },
-      { url: '/sweden', priority: '0.8', changefreq: 'daily' },
-      { url: '/norway', priority: '0.8', changefreq: 'daily' },
-      { url: '/denmark', priority: '0.8', changefreq: 'daily' },
-      { url: '/finland', priority: '0.8', changefreq: 'daily' },
-      { url: '/iceland', priority: '0.8', changefreq: 'daily' },
+      // Country pillar pages
+      { url: '/sweden', priority: '0.9', changefreq: 'daily' },
+      { url: '/norway', priority: '0.9', changefreq: 'daily' },
+      { url: '/denmark', priority: '0.9', changefreq: 'daily' },
+      { url: '/finland', priority: '0.9', changefreq: 'daily' },
+      { url: '/iceland', priority: '0.9', changefreq: 'daily' },
+      // City hub pages
+      { url: '/stockholm', priority: '0.8', changefreq: 'daily' },
+      { url: '/gothenburg', priority: '0.8', changefreq: 'daily' },
+      { url: '/malmo', priority: '0.8', changefreq: 'daily' },
+      { url: '/oslo', priority: '0.8', changefreq: 'daily' },
+      { url: '/copenhagen', priority: '0.8', changefreq: 'daily' },
+      { url: '/helsinki', priority: '0.8', changefreq: 'daily' },
+      { url: '/reykjavik', priority: '0.8', changefreq: 'daily' },
+      // Other pages
       { url: '/about', priority: '0.7', changefreq: 'monthly' },
       { url: '/contact', priority: '0.6', changefreq: 'monthly' },
       { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
       { url: '/terms', priority: '0.5', changefreq: 'yearly' },
       { url: '/search', priority: '0.6', changefreq: 'weekly' },
+      // Category pages
       { url: '/category/breaking', priority: '0.8', changefreq: 'daily' },
       { url: '/category/politics', priority: '0.8', changefreq: 'daily' },
       { url: '/category/business', priority: '0.8', changefreq: 'daily' },

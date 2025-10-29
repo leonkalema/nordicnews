@@ -39,6 +39,59 @@
 				"@type": "NewsMediaOrganization",
 				"name": "Nordics Today",
 				"url": "https://nordicstoday.com"
+			},
+			"mainEntity": {
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "Where can I read Swedish news in English?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Nordics Today provides daily Swedish news in English, covering politics from the Riksdag, Stockholm business updates, society issues, and cultural events for expats and global readers."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What is the best English news site for Sweden?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Nordics Today is a comprehensive English news aggregator for Sweden, offering real-time coverage of Swedish politics, business, technology, and society from Stockholm, Gothenburg, and Malmö."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Does Sweden have English newspapers?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "While most Swedish newspapers publish in Swedish, Nordics Today provides Swedish news in English, making it accessible for expats, international residents, and English speakers worldwide."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "How can expats follow Swedish politics in English?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Nordics Today covers Swedish political news in English, including Riksdag debates, government policy changes, and election updates, making it easy for expats to stay informed about Swedish politics."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What Swedish cities are covered in English news?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Nordics Today covers news from major Swedish cities including Stockholm, Gothenburg, Malmö, Uppsala, and other regions, providing comprehensive English coverage of local and national events."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Is Swedish business news available in English?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Yes, Nordics Today provides Swedish business news in English, covering Stockholm's financial sector, Swedish startups, corporate news, and economic developments for international investors and professionals."
+						}
+					}
+				]
 			}
 		}
 	};
@@ -49,6 +102,25 @@
 		article.category?.toLowerCase().includes('sweden') ||
 		article.title?.toLowerCase().includes('sweden')
 	);
+
+	// Category-specific articles - matching your actual database categories
+	$: politicsArticles = swedenArticles.filter((a: any) => 
+		a.category === 'politics'
+	).slice(0, 4);
+	
+	$: businessArticles = swedenArticles.filter((a: any) => 
+		a.category === 'business'
+	).slice(0, 4);
+	
+	$: techArticles = swedenArticles.filter((a: any) => 
+		a.category === 'tech'
+	).slice(0, 4);
+	
+	$: societyArticles = swedenArticles.filter((a: any) => 
+		a.category === 'society' || 
+		a.category === 'culture' ||
+		a.category === 'breaking'  // Include breaking news in society section
+	).slice(0, 4);
 
 	// Paginated articles for display
 	$: displayedArticles = swedenArticles.slice(0, currentPage * articlesPerPage);
@@ -95,16 +167,178 @@
 		<h1 class="text-4xl font-bold text-gray-900 mb-4">
 			English News in Sweden
 		</h1>
-		<p class="text-xl text-gray-600 max-w-3xl">
-			Stay informed with the latest Swedish news in English. 
-			From Stockholm politics to Swedish business, culture, and breaking news - 
-			comprehensive coverage for English speakers living in or interested in Sweden.
+		<p class="text-lg text-gray-700 max-w-4xl leading-relaxed">
+			Nordics Today provides daily Swedish news in English, covering politics from the Riksdag, 
+			Stockholm business updates, society issues, and cultural events for expats and global readers. 
+			Whether you're following government policy changes, tracking Swedish business developments in 
+			Gothenburg and Malmö, or staying informed about life in Sweden, our comprehensive coverage 
+			delivers real-time English news from across the country. From breaking news to in-depth analysis 
+			of Swedish politics, technology innovation, and societal trends, we make Swedish news accessible 
+			for international residents, expats, and English speakers worldwide.
 		</p>
 	</header>
 
 	{#if displayedArticles.length > 0}
+		<!-- City Hubs Section -->
+		<section class="mb-12 bg-blue-50 rounded-lg p-8">
+			<h2 class="text-2xl font-bold text-gray-900 mb-4">English News by Swedish City</h2>
+			<p class="text-gray-700 mb-6">Get localized news coverage from Sweden's major cities in English</p>
+			<div class="grid gap-6 md:grid-cols-3">
+				<a href="/stockholm" class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+					<h3 class="text-xl font-bold text-gray-900 mb-2">Stockholm News in English</h3>
+					<p class="text-gray-600 text-sm">Capital city politics, business, culture, and local events from Stockholm</p>
+				</a>
+				<a href="/gothenburg" class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+					<h3 class="text-xl font-bold text-gray-900 mb-2">Gothenburg News in English</h3>
+					<p class="text-gray-600 text-sm">West coast updates, port news, business, and Gothenburg local stories</p>
+				</a>
+				<a href="/malmo" class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+					<h3 class="text-xl font-bold text-gray-900 mb-2">Malmö News in English</h3>
+					<p class="text-gray-600 text-sm">Southern Sweden coverage, Öresund region, and Malmö city news</p>
+				</a>
+			</div>
+		</section>
+
+		<!-- Category Modules -->
+		{#if politicsArticles.length > 0}
 		<section class="mb-12">
-			<h2 class="text-2xl font-semibold mb-6">Latest Swedish News in English</h2>
+			<div class="mb-6">
+				<div class="flex justify-between items-center mb-2">
+					<h2 class="text-2xl font-bold text-gray-900">Swedish Politics in English</h2>
+					<a href="/category/politics" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+				</div>
+				<p class="text-gray-600 text-sm">Riksdag debates, government policy, and political developments from Stockholm</p>
+			</div>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				{#each politicsArticles as article}
+					<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+						{#if article.featured_image_url}
+							<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-40 object-cover" />
+						{/if}
+						<div class="p-4">
+							<h3 class="font-semibold text-base mb-2 line-clamp-2">
+								<a href={article.url_slug} class="hover:text-blue-600">
+									{article.title}
+								</a>
+							</h3>
+							<p class="text-gray-600 text-sm mb-2 line-clamp-2">
+								{article.summary || article.excerpt}
+							</p>
+							<time datetime={article.published_date} class="text-xs text-gray-500">
+								{article.relative_time}
+							</time>
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+		{/if}
+
+		{#if businessArticles.length > 0}
+		<section class="mb-12">
+			<div class="mb-6">
+				<div class="flex justify-between items-center mb-2">
+					<h2 class="text-2xl font-bold text-gray-900">Swedish Business News</h2>
+					<a href="/category/business" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+				</div>
+				<p class="text-gray-600 text-sm">Stockholm finance, startups, corporate news, and economic developments</p>
+			</div>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				{#each businessArticles as article}
+					<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+						{#if article.featured_image_url}
+							<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-40 object-cover" />
+						{/if}
+						<div class="p-4">
+							<h3 class="font-semibold text-base mb-2 line-clamp-2">
+								<a href={article.url_slug} class="hover:text-blue-600">
+									{article.title}
+								</a>
+							</h3>
+							<p class="text-gray-600 text-sm mb-2 line-clamp-2">
+								{article.summary || article.excerpt}
+							</p>
+							<time datetime={article.published_date} class="text-xs text-gray-500">
+								{article.relative_time}
+							</time>
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+		{/if}
+
+		{#if techArticles.length > 0}
+		<section class="mb-12">
+			<div class="mb-6">
+				<div class="flex justify-between items-center mb-2">
+					<h2 class="text-2xl font-bold text-gray-900">Swedish Technology & Innovation</h2>
+					<a href="/category/tech" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+				</div>
+				<p class="text-gray-600 text-sm">Tech startups, innovation, digital trends, and Swedish tech industry news</p>
+			</div>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				{#each techArticles as article}
+					<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+						{#if article.featured_image_url}
+							<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-40 object-cover" />
+						{/if}
+						<div class="p-4">
+							<h3 class="font-semibold text-base mb-2 line-clamp-2">
+								<a href={article.url_slug} class="hover:text-blue-600">
+									{article.title}
+								</a>
+							</h3>
+							<p class="text-gray-600 text-sm mb-2 line-clamp-2">
+								{article.summary || article.excerpt}
+							</p>
+							<time datetime={article.published_date} class="text-xs text-gray-500">
+								{article.relative_time}
+							</time>
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+		{/if}
+
+		{#if societyArticles.length > 0}
+		<section class="mb-12">
+			<div class="mb-6">
+				<div class="flex justify-between items-center mb-2">
+					<h2 class="text-2xl font-bold text-gray-900">Swedish Society & Culture</h2>
+					<a href="/category/society" class="text-blue-600 hover:text-blue-800 font-semibold">View all →</a>
+				</div>
+				<p class="text-gray-600 text-sm">Life in Sweden, social issues, cultural events, and community news</p>
+			</div>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				{#each societyArticles as article}
+					<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+						{#if article.featured_image_url}
+							<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-40 object-cover" />
+						{/if}
+						<div class="p-4">
+							<h3 class="font-semibold text-base mb-2 line-clamp-2">
+								<a href={article.url_slug} class="hover:text-blue-600">
+									{article.title}
+								</a>
+							</h3>
+							<p class="text-gray-600 text-sm mb-2 line-clamp-2">
+								{article.summary || article.excerpt}
+							</p>
+							<time datetime={article.published_date} class="text-xs text-gray-500">
+								{article.relative_time}
+							</time>
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+		{/if}
+
+		<!-- All Articles Section -->
+		<section class="mb-12">
+			<h2 class="text-2xl font-semibold mb-6">All Swedish News in English</h2>
 			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 				{#each displayedArticles as article}
 					<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
@@ -162,6 +396,37 @@
 				{#if hasMore}
 					• Scroll down for more
 				{/if}
+			</div>
+		</section>
+
+		<!-- FAQ Section -->
+		<section class="mb-12 bg-gray-50 rounded-lg p-8">
+			<h2 class="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
+			<div class="space-y-6">
+				<div class="bg-white rounded-lg p-6 shadow-sm">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Where can I read Swedish news in English?</h3>
+					<p class="text-gray-700">Nordics Today provides daily Swedish news in English, covering politics from the Riksdag, Stockholm business updates, society issues, and cultural events for expats and global readers.</p>
+				</div>
+				<div class="bg-white rounded-lg p-6 shadow-sm">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">What is the best English news site for Sweden?</h3>
+					<p class="text-gray-700">Nordics Today is a comprehensive English news aggregator for Sweden, offering real-time coverage of Swedish politics, business, technology, and society from Stockholm, Gothenburg, and Malmö.</p>
+				</div>
+				<div class="bg-white rounded-lg p-6 shadow-sm">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Does Sweden have English newspapers?</h3>
+					<p class="text-gray-700">While most Swedish newspapers publish in Swedish, Nordics Today provides Swedish news in English, making it accessible for expats, international residents, and English speakers worldwide.</p>
+				</div>
+				<div class="bg-white rounded-lg p-6 shadow-sm">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">How can expats follow Swedish politics in English?</h3>
+					<p class="text-gray-700">Nordics Today covers Swedish political news in English, including Riksdag debates, government policy changes, and election updates, making it easy for expats to stay informed about Swedish politics.</p>
+				</div>
+				<div class="bg-white rounded-lg p-6 shadow-sm">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">What Swedish cities are covered in English news?</h3>
+					<p class="text-gray-700">Nordics Today covers news from major Swedish cities including Stockholm, Gothenburg, Malmö, Uppsala, and other regions, providing comprehensive English coverage of local and national events.</p>
+				</div>
+				<div class="bg-white rounded-lg p-6 shadow-sm">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Is Swedish business news available in English?</h3>
+					<p class="text-gray-700">Yes, Nordics Today provides Swedish business news in English, covering Stockholm's financial sector, Swedish startups, corporate news, and economic developments for international investors and professionals.</p>
+				</div>
 			</div>
 		</section>
 	{:else}

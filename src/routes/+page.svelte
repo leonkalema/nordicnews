@@ -47,7 +47,7 @@
 			"alternateName": "English Nordic News",
 			"url": "https://nordicstoday.com",
 			"logo": "https://nordicstoday.com/logo.png",
-			"description": "English-language news aggregator for expats and English speakers living in Sweden and the Nordic countries. Daily news from Sweden, Norway, Denmark, Finland, and Iceland translated to English.",
+			"description": "English-language news aggregator for expats and English speakers living in Sweden and the Nordic countries. Daily news from Sweden, Norway, Denmark, Finland, and Iceland in English.",
 			"sameAs": [
 				"https://twitter.com/nordicstoday",
 				"https://facebook.com/nordicstoday"
