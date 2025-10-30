@@ -75,6 +75,13 @@
 	<meta name="description" content={data.meta.description} />
 	<meta name="keywords" content={data.meta.keywords?.join(', ')} />
 	
+	<!-- Canonical URL -->
+	<link rel="canonical" href={`https://nordicstoday.com/article/${article.slug}`} />
+	
+	<!-- Hreflang Tags -->
+	<link rel="alternate" hreflang="en" href={`https://nordicstoday.com/article/${article.slug}`} />
+	<link rel="alternate" hreflang="x-default" href={`https://nordicstoday.com/article/${article.slug}`} />
+	
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={article.title} />

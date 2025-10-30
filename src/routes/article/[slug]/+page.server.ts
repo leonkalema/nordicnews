@@ -79,6 +79,12 @@ export const load: PageServerLoad = async ({ params }) => {
       }
     };
 
+    // Generate SEO-optimized description (150-160 chars)
+    let description = article.meta_description || article.summary || article.excerpt || '';
+    if (description.length > 160) {
+      description = description.substring(0, 157) + '...';
+    }
+
     return {
       article,
       relatedArticles: {
@@ -91,7 +97,7 @@ export const load: PageServerLoad = async ({ params }) => {
         title: article.meta_description ? 
           `${article.title} - Nordics Today` : 
           `${article.title} - ${article.country_name} News - Nordics Today`,
-        description: article.meta_description || article.summary || article.excerpt,
+        description: description,
         keywords: article.keywords || [
           article.category_display,
           article.country_name,
