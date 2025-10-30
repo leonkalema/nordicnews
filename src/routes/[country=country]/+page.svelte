@@ -24,9 +24,9 @@
 
 	// SEO optimized - dynamic for all countries
 	$: seoData = {
-		title: `English News in ${country} | Latest ${country} News in English | Nordics Today`,
-		description: `Latest news from ${country} in English. Get real-time updates on ${country} politics, business, culture, and breaking news for English speakers in ${country}.`,
-		keywords: [`English news in ${country}`, `${country} news in English`, `${country} news English`, `English speaking ${country} news`, `${country} politics English`, `${country} breaking news English`, `${country} business news English`],
+		title: `${country} News in English | Latest ${country} Updates | Nordics Today`,
+		description: `Latest ${country} news in English. Real-time updates on ${country} politics, business, culture for English speakers. Read ${country} news today.`,
+		keywords: [`${country} news in English`, `${country} news English`, `English news ${country}`, `${country} breaking news English`, `${country} ${parliament} English`, `${country} politics English`, `${country} expat news`],
 		url: `/${countrySlug}`,
 		type: 'website',
 		structuredData: {

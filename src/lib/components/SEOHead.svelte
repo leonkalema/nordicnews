@@ -56,6 +56,10 @@
 	<!-- Canonical URL -->
 	<link rel="canonical" href={canonicalUrl} />
 	
+	<!-- Hreflang Tags for International SEO -->
+	<link rel="alternate" hreflang="en" href={canonicalUrl} />
+	<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+	
 	<!-- Favicon and Icons -->
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
