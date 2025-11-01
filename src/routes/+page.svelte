@@ -9,7 +9,7 @@
 
 	// Enhanced SEO data for homepage - OPTIMIZED FOR ENGLISH SPEAKERS IN SWEDEN (Oct 2025)
 	$: seoData = {
-		title: data.meta?.title || 'Nordic News in English | NordicsToday - Latest Sweden & Scandinavia News for Expats',
+		title: data.meta?.title || 'Nordics Today - Your Daily Source for Nordic News',
 		description: data.meta?.description || 'English news from Sweden, Norway, Denmark, Finland & Iceland. Daily Nordic news for expats and English speakers living in Scandinavia. Latest updates on Swedish politics, culture & society.',
 		keywords: [
 			// Core keywords for English speakers in Sweden
@@ -43,8 +43,8 @@
 		structuredData: {
 			"@context": "https://schema.org",
 			"@type": "NewsMediaOrganization",
-			"name": "Nordics Today - English News in Sweden & Norway",
-			"alternateName": "English Nordic News",
+			"name": "Nordics Today",
+			"alternateName": "NordicsToday",
 			"url": "https://nordicstoday.com",
 			"logo": "https://nordicstoday.com/logo.png",
 			"description": "English-language news aggregator for expats and English speakers living in Sweden and the Nordic countries. Daily news from Sweden, Norway, Denmark, Finland, and Iceland in English.",
@@ -91,7 +91,7 @@
 			"knowsLanguage": ["en"],
 			"mainEntity": {
 				"@type": "WebSite",
-				"name": "Nordics today",
+				"name": "Nordics Today",
 				"url": "https://nordicstoday.com",
 				"potentialAction": {
 					"@type": "SearchAction",

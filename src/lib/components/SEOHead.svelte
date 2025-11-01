@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let title: string = 'Nordic News in English | NordicsToday - Latest Sweden & Scandinavia News for Expats';
+	export let title: string = 'Nordics Today - Your Daily Source for Nordic News';
 	export let description: string = 'English news from Sweden, Norway, Denmark, Finland & Iceland for expats and English speakers. Daily Nordic news updates on Swedish politics, culture, business and society.';
 	export let keywords: string[] = ['nordic news in english', 'sweden news in english', 'expat news sweden', 'scandinavian news english', 'english speaking news nordics', 'nordic expat community news', 'living in sweden news english', 'latest nordic countries news english'];
 	export let image: string = '/og-image.jpg';
