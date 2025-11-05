@@ -12,11 +12,13 @@ export const load: PageServerLoad = async ({ url }) => {
     const [
       featuredResult,
       allLatestResult,
-      trendingResult
+      trendingResult,
+      guideArticlesResult
     ] = await Promise.allSettled([
       fetchFeaturedArticles(5), // Top 5 featured articles for Daily Snapshot
       fetchArticles({}, 1, 40), // Get 40 latest articles to have enough for all sections
-      fetchTrendingArticles(8) // Top 8 trending articles
+      fetchTrendingArticles(8), // Top 8 trending articles
+      fetchArticles({ category: 'guide' }, 1, 6) // Top 6 guide articles
     ]);
 
     // Extract data from Promise.allSettled results
@@ -28,23 +30,31 @@ export const load: PageServerLoad = async ({ url }) => {
     
     const trendingArticles: ProcessedArticle[] = 
       trendingResult.status === 'fulfilled' ? trendingResult.value : [];
+    
+    const guideArticles: ProcessedArticle[] = 
+      guideArticlesResult.status === 'fulfilled' ? guideArticlesResult.value.articles : [];
 
-    // Get IDs of featured articles to avoid duplicates
+    // Get IDs of featured and guide articles to avoid duplicates
     const featuredArticleIds = new Set(featuredArticles.map(a => a.id));
+    const guideArticleIds = new Set(guideArticles.map(a => a.id));
 
-    // Filter latest articles to exclude featured ones for "The Latest" section
+    // Filter latest articles to exclude featured ones and guides for "The Latest" section
     const latestArticles = allLatestArticles.articles.filter(article => 
-      !featuredArticleIds.has(article.id)
+      !featuredArticleIds.has(article.id) && 
+      !['guide', 'editorial', 'comparison'].includes(article.category as string)
     ).slice(0, 30); // Get 30 articles to have enough for all homepage sections
 
-    // Get articles by country for "Across the Nordics" section (only exclude featured)
+    // Get articles by country for "Across the Nordics" section (exclude featured and guides)
     const countryPromises = ['SE', 'NO', 'DK', 'FI', 'IS'].map(async (country) => {
       try {
         // Fetch more articles to have enough after filtering
         const result = await fetchArticles({ country }, 1, 10);
-        // Only filter out featured articles (not latest), take top 3
+        // Filter out featured articles and guides
         const filteredArticles = result.articles
-          .filter(article => !featuredArticleIds.has(article.id))
+          .filter(article => 
+            !featuredArticleIds.has(article.id) &&
+            !['guide', 'editorial', 'comparison'].includes(article.category as string)
+          )
           .slice(0, 3);
         return {
           country,
@@ -100,6 +110,9 @@ export const load: PageServerLoad = async ({ url }) => {
     };
 
     return {
+      // Expert Guides (NEW - featured above news)
+      guideArticles,
+      
       // Daily Snapshot data
       featuredArticles,
       
@@ -127,6 +140,7 @@ export const load: PageServerLoad = async ({ url }) => {
     
     // Return minimal fallback data
     return {
+      guideArticles: [],
       featuredArticles: [],
       articlesByCountry: [],
       latestArticles: [],

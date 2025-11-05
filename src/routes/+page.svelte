@@ -4,6 +4,7 @@
 	import DeepDive from '$lib/components/DeepDive.svelte';
 	import LongRead from '$lib/components/LongRead.svelte';
 	import SEOHead from '$lib/components/SEOHead.svelte';
+	import FeaturedGuides from '$lib/components/FeaturedGuides.svelte';
 
 	export let data;
 
@@ -105,6 +106,7 @@
 
 <SEOHead {...seoData} />
 
+<FeaturedGuides guideArticles={data.guideArticles || []} />
 <DailySnapshot featuredArticles={data.featuredArticles || []} />
 <AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />
 <DeepDive 

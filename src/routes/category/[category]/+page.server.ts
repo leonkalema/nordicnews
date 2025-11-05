@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
   const { category } = params;
   
   // Validate category parameter
-  const validCategories = ['breaking', 'business', 'politics', 'tech', 'culture', 'sports', 'society'];
+  const validCategories = ['breaking', 'business', 'politics', 'tech', 'culture', 'sports', 'society', 'guide', 'editorial', 'comparison'];
   if (!validCategories.includes(category.toLowerCase())) {
     throw error(404, 'Category not found');
   }

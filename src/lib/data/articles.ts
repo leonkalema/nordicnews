@@ -253,6 +253,7 @@ export async function fetchFeaturedArticles(limit: number = FEATURED_LIMIT): Pro
         image_credit
       `)
       .not('featured_image_url', 'is', null)
+      .not('category', 'in', '("guide","editorial","comparison")')
       .order('published_at', { ascending: false })
       .limit(limit);
 
@@ -380,6 +381,7 @@ export async function fetchTrendingArticles(limit: number = 10): Promise<Process
         featured_image_alt
       `)
       .gte('published_at', yesterday.toISOString())
+      .not('category', 'in', '("guide","editorial","comparison")')
       .order('view_count', { ascending: false })
       .limit(limit);
 

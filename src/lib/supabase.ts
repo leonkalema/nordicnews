@@ -45,7 +45,10 @@ export const CATEGORY_NAMES: Record<string, string> = {
   'tech': 'Technology',
   'culture': 'Culture',
   'sports': 'Sports',
-  'society': 'Society'
+  'society': 'Society',
+  'guide': 'Expert Guides',
+  'editorial': 'Analysis & Opinion',
+  'comparison': 'Comparisons'
 };
 
 // Helper function to format dates for Nordic audience
