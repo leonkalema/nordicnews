@@ -15,9 +15,9 @@ export const load: PageServerLoad = async ({ url }) => {
       trendingResult,
       guideArticlesResult
     ] = await Promise.allSettled([
-      fetchFeaturedArticles(5), // Top 5 featured articles for Daily Snapshot
-      fetchArticles({}, 1, 40), // Get 40 latest articles to have enough for all sections
-      fetchTrendingArticles(8), // Top 8 trending articles
+      fetchFeaturedArticles(15), // Fetch more to account for filtering
+      fetchArticles({}, 1, 100), // Fetch more articles since we're filtering out guides
+      fetchTrendingArticles(20), // Fetch more trending
       fetchArticles({ category: 'guide' }, 1, 6) // Top 6 guide articles
     ]);
 
@@ -48,7 +48,7 @@ export const load: PageServerLoad = async ({ url }) => {
     const countryPromises = ['SE', 'NO', 'DK', 'FI', 'IS'].map(async (country) => {
       try {
         // Fetch more articles to have enough after filtering
-        const result = await fetchArticles({ country }, 1, 10);
+        const result = await fetchArticles({ country }, 1, 20);
         // Filter out featured articles and guides
         const filteredArticles = result.articles
           .filter(article => 
@@ -83,7 +83,7 @@ export const load: PageServerLoad = async ({ url }) => {
     // Get articles by category for thematic sections (excluding already used)
     const categoryPromises = ['business', 'politics', 'tech', 'culture'].map(async (category) => {
       try {
-        const result = await fetchArticles({ category }, 1, 10);
+        const result = await fetchArticles({ category }, 1, 20);
         return {
           category,
           articles: result.articles.filter(article => !usedArticleIds.has(article.id)).slice(0, 4)
