@@ -20,7 +20,7 @@
 	});
 
 	// Parse markdown content to HTML
-	$: htmlContent = article.content ? marked.parse(article.content) : '';
+	$: htmlContent = article?.content ? marked.parse(article.content) : '';
 
 	// Helper function to format dates
 	function formatDate(dateString: string | null) {
@@ -153,9 +153,16 @@
 			</div>
 
 			<!-- Article Title -->
-			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
 				{article.title}
 			</h1>
+
+			<!-- Author Byline -->
+			<div class="flex items-center gap-2 text-sm text-gray-600 mb-6">
+				<span class="font-medium text-gray-900">By {article.source_name || 'Nordic News Desk'}</span>
+				<span>•</span>
+				<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
+			</div>
 
 			<!-- Article Summary -->
 			{#if article.summary || article.excerpt}

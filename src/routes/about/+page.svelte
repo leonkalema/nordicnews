@@ -25,6 +25,21 @@
       </p>
     </section>
 
+    <section class="mb-8 bg-blue-50 p-6 rounded-lg">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Expertise</h2>
+      <p class="mb-4">
+        Nordics Today's editorial team brings over a decade of combined experience covering Scandinavian affairs, politics, and business. Our team includes:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2">
+        <li><strong>Nordic News Desk:</strong> Our core editorial team with first-hand experience living and working across Sweden, Norway, Denmark, Finland, and Iceland</li>
+        <li><strong>Analysis Team:</strong> Specialists in Nordic politics, economics, and social policy who provide in-depth commentary and context</li>
+        <li><strong>Regional Correspondents:</strong> On-the-ground contributors throughout the Nordic region who help us identify emerging stories</li>
+      </ul>
+      <p class="mb-4">
+        We've tracked major Nordic developments for years—from parliamentary elections to corporate mergers, from climate policy shifts to tech sector innovations. This experience helps us identify which stories matter and why they're significant for international audiences.
+      </p>
+    </section>
+
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">What We Cover</h2>
       <div class="grid md:grid-cols-2 gap-6 mb-6">
@@ -95,6 +110,58 @@
     </section>
 
     <section class="mb-8">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">What Makes Us Different</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-6">
+        <div class="border-2 border-blue-200 p-6 rounded-lg">
+          <div class="text-3xl mb-3">📊</div>
+          <h3 class="font-semibold text-gray-900 mb-2">Original Analysis</h3>
+          <p class="text-gray-600 text-sm">
+            Beyond daily news, we publish in-depth guides, analysis, and explainers that help you understand Nordic countries and their impact.
+          </p>
+        </div>
+        
+        <div class="border-2 border-blue-200 p-6 rounded-lg">
+          <div class="text-3xl mb-3">🎯</div>
+          <h3 class="font-semibold text-gray-900 mb-2">Context for Expats</h3>
+          <p class="text-gray-600 text-sm">
+            We explain what Nordic news means for people living, working, or doing business in the region—not just what happened.
+          </p>
+        </div>
+        
+        <div class="border-2 border-blue-200 p-6 rounded-lg">
+          <div class="text-3xl mb-3">🌍</div>
+          <h3 class="font-semibold text-gray-900 mb-2">All Five Countries</h3>
+          <p class="text-gray-600 text-sm">
+            Complete Nordic coverage—Sweden, Norway, Denmark, Finland, and Iceland—in one place, in English.
+          </p>
+        </div>
+      </div>
+
+      <p class="mb-4">
+        While many sites cover individual Nordic countries, we provide comprehensive regional coverage. And unlike simple news feeds, we add analysis, context, and practical guides that help readers understand and navigate the Nordic region.
+      </p>
+
+      <div class="bg-gray-100 p-6 rounded-lg">
+        <h3 class="font-semibold text-gray-900 mb-3">📚 Our Content Includes:</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <ul class="list-disc pl-6 space-y-1 text-gray-700">
+            <li>Daily news from all five countries</li>
+            <li>In-depth political analysis</li>
+            <li>Business and economic reports</li>
+            <li>Technology sector coverage</li>
+          </ul>
+          <ul class="list-disc pl-6 space-y-1 text-gray-700">
+            <li>Living & working guides for expats</li>
+            <li>Country comparison articles</li>
+            <li>Policy deep-dives and explainers</li>
+            <li>Cultural insights and trends</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">Why the Nordics Matter</h2>
       <p class="mb-4">
         With a combined population of just 27 million people, the Nordic countries have an outsized influence on global affairs. They consistently top rankings for happiness, innovation, sustainability, and quality of life.
@@ -107,6 +174,9 @@
       </p>
       <p class="mb-4">
         For English speakers trying to understand what's happening in this influential region, reliable news coverage has been hard to find. That's the gap Nordics Today fills.
+      </p>
+      <p class="mb-4">
+        <strong>That's why we don't just report what happened—we explain why it matters.</strong> Whether you're an expat navigating Swedish healthcare, a business professional tracking Norwegian markets, or a student researching Nordic social policy, we provide the context and analysis you need to understand the region.
       </p>
     </section>
 

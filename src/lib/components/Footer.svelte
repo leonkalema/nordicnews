@@ -31,6 +31,7 @@
 				<ul class="mt-4 space-y-2 text-sm">
 					<li><a href="/about" class="hover:text-nordic-blue transition-colors">About Us</a></li>
 					<li><a href="/contact" class="hover:text-nordic-blue transition-colors">Contact</a></li>
+					<li><a href="/editorial-policy" class="hover:text-nordic-blue transition-colors">Editorial Policy</a></li>
 					<li><a href="/privacy" class="hover:text-nordic-blue transition-colors">Privacy Policy</a></li>
 					<li><a href="/terms" class="hover:text-nordic-blue transition-colors">Terms of Service</a></li>
 				</ul>

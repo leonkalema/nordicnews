@@ -15,6 +15,7 @@
 	}
 
 	const categories = [
+		{ name: 'Guides', slug: 'guide' },
 		{ name: 'Politics', slug: 'politics' },
 		{ name: 'Business', slug: 'business' },
 		{ name: 'Tech', slug: 'tech' },
