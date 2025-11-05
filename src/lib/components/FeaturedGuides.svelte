@@ -39,7 +39,7 @@
 						{guide.title}
 					</h3>
 					<div class="flex items-center justify-between text-xs text-gray-500">
-						<span class="truncate">{guide.source_name || 'Nordic News Desk'}</span>
+						<span class="truncate">Nordics Today News Team</span>
 					</div>
 				</div>
 			</a>

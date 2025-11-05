@@ -159,7 +159,7 @@
 
 			<!-- Author Byline -->
 			<div class="flex items-center gap-2 text-sm text-gray-600 mb-6">
-				<span class="font-medium text-gray-900">By {article.source_name || 'Nordic News Desk'}</span>
+				<span class="font-medium text-gray-900">By Nordics Today News Team</span>
 				<span>•</span>
 				<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
 			</div>
