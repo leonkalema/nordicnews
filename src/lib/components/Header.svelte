@@ -29,7 +29,9 @@
 		<div class="flex justify-between items-center py-3">
 			<!-- Logo -->
 			<div class="flex-shrink-0">
-				<a href="/" class="text-xl font-bold text-nordic-blue">NT</a>
+				<a href="/" class="flex items-center">
+					<img src="/logo.png" alt="Nordics Today" class="h-16 w-auto" />
+				</a>
 			</div>
 
 			<!-- Desktop Navigation - Countries -->
