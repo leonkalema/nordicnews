@@ -130,60 +130,36 @@
 	<header class="bg-white">
 		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 			<!-- Article Meta -->
-			<div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
-				<div class="flex items-center gap-2">
-					<span>{getCountryFlag(article.country)}</span>
-					<span class="font-medium">{article.country_name}</span>
+			<div class="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-600 mb-6">
+				<div class="flex flex-wrap items-center gap-4">
+					<div class="flex items-center gap-2">
+						<span>{getCountryFlag(article.country)}</span>
+						<span class="font-medium">{article.country_name}</span>
+					</div>
+					<div class="flex items-center gap-1">
+						<Calendar size={16} />
+						<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
+					</div>
+					<div class="flex items-center gap-1">
+						<Clock size={16} />
+						<span>{article.relative_time}</span>
+					</div>
+					<div class="flex items-center gap-1">
+						<Eye size={16} />
+						<span>{article.view_count || 0} views</span>
+					</div>
+					<span class="px-2 py-1 bg-nordic-blue text-white text-xs font-semibold rounded-full">
+						{article.category_display}
+					</span>
 				</div>
-				<div class="flex items-center gap-1">
-					<Calendar size={16} />
-					<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
-				</div>
-				<div class="flex items-center gap-1">
-					<Clock size={16} />
-					<span>{article.relative_time}</span>
-				</div>
-				<div class="flex items-center gap-1">
-					<Eye size={16} />
-					<span>{article.view_count || 0} views</span>
-				</div>
-				<span class="px-2 py-1 bg-nordic-blue text-white text-xs font-semibold rounded-full">
-					{article.category_display}
-				</span>
-			</div>
-
-			<!-- Article Title -->
-			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
-				{article.title}
-			</h1>
-
-			<!-- Author Byline -->
-			<div class="flex items-center gap-2 text-sm text-gray-600 mb-6">
-				<span class="font-medium text-gray-900">By Nordics Today News Team</span>
-				<span>•</span>
-				<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
-			</div>
-
-			<!-- Article Summary -->
-			{#if article.summary || article.excerpt}
-				<p class="text-xl text-gray-700 leading-relaxed mb-8 font-medium">
-					{article.summary || article.excerpt}
-				</p>
-			{/if}
-
-			<!-- Share & Source Info -->
-			<div class="flex flex-wrap items-center justify-between gap-4 py-6 border-t border-b border-gray-200">
-				<div class="flex items-center gap-4">
 				
-				</div>
-
-				<!-- Share Button -->
+				<!-- Compact Share Button -->
 				<div class="relative share-menu">
 					<button 
 						on:click={() => showShareMenu = !showShareMenu}
-						class="flex items-center gap-2 px-4 py-2 bg-nordic-blue text-white rounded-lg hover:bg-blue-700 transition-colors"
+						class="flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm"
 					>
-						<Share size={18} />
+						<Share size={14} />
 						Share
 					</button>
 
@@ -209,6 +185,26 @@
 					{/if}
 				</div>
 			</div>
+
+			<!-- Article Title -->
+			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
+				{article.title}
+			</h1>
+
+			<!-- Author Byline -->
+			<div class="flex items-center gap-2 text-sm text-gray-600 mb-6">
+				<span class="font-medium text-gray-900">By Nordics Today News Team</span>
+				<span>•</span>
+				<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
+			</div>
+
+			<!-- Article Summary -->
+			{#if article.summary || article.excerpt}
+				<p class="text-xl text-gray-700 leading-relaxed mb-8 font-medium">
+					{article.summary || article.excerpt}
+				</p>
+			{/if}
+
 		</div>
 	</header>
 
