@@ -62,13 +62,7 @@
 	<link rel="alternate" hreflang="en" href={canonicalUrl} />
 	<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 	
-	<!-- Favicon and Icons (using logo.png as requested) -->
-	<link rel="icon" type="image/png" href="/logo.png?v=5" />
-	<link rel="icon" type="image/x-icon" href="/favicon.ico?v=5" />
-	<link rel="shortcut icon" href="/favicon.ico?v=5" />
-	<link rel="apple-touch-icon" href="/logo.png?v=5" />
-	<link rel="manifest" href="/site.webmanifest" />
-	<meta name="theme-color" content="#1e40af" />
+	<!-- Icons are managed globally in app.html -->
 	{#if !baseOnly}
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={type} />
