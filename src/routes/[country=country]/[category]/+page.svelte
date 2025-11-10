@@ -42,6 +42,36 @@
 	};
 </script>
 
+<svelte:head>
+  <!-- Breadcrumbs: Home -> Country -> Category -->
+  <script type="application/ld+json">
+    {@html JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nordicstoday.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": countryName,
+          "item": `https://nordicstoday.com/${data.country}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": categoryName,
+          "item": `https://nordicstoday.com/${data.country}/${data.category}`
+        }
+      ]
+    })}
+  </script>
+</svelte:head>
+
 <SEOHead {...seoData} />
 
 <div class="container mx-auto px-4 py-8">

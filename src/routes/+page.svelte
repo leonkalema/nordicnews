@@ -8,103 +8,93 @@
 
 	export let data;
 
-	// Enhanced SEO data for homepage - OPTIMIZED FOR ENGLISH SPEAKERS IN SWEDEN (Oct 2025)
+	
 	$: seoData = {
 		title: data.meta?.title || 'Nordics Today - Your Daily Source for Nordic News',
 		description: data.meta?.description || 'English news from Sweden, Norway, Denmark, Finland & Iceland. Daily Nordic news for expats and English speakers living in Scandinavia. Latest updates on Swedish politics, culture & society.',
 		keywords: [
-			// Core keywords for English speakers in Sweden
 			'nordic news in english',
-			'scandinavian news english',
 			'sweden news in english',
+			'scandinavian news english',
 			'expat news sweden',
-			'english speaking news nordics',
-			// Expat-focused terms
-			'nordic expat community news',
-			'living in sweden news english',
-			'life in sweden for foreigners english news',
-			'english language news sweden',
-			// Regional coverage
-			'latest nordic countries news english',
 			'norway news english',
 			'denmark news english',
 			'finland news english',
 			'iceland news english',
-			// Long-tail conversational
-			'where can i read nordic news in english',
-			'best english news aggregator nordic countries',
-			'what\'s happening in sweden for expats',
-			// Timely/seasonal
-			'nordic current events english',
-			'scandinavia today in english',
-			'latest news from sweden english'
+			'living in sweden news',
+			'nordic current events'
 		],
 		url: '',
 		type: 'website',
 		structuredData: {
 			"@context": "https://schema.org",
-			"@type": "NewsMediaOrganization",
-			"name": "Nordics Today",
-			"alternateName": "NordicsToday",
-			"url": "https://nordicstoday.com",
-			"logo": "https://nordicstoday.com/logo.png",
-			"description": "English-language news aggregator for expats and English speakers living in Sweden and the Nordic countries. Daily news from Sweden, Norway, Denmark, Finland, and Iceland in English.",
-			"sameAs": [
-				"https://twitter.com/nordicstoday",
-				"https://facebook.com/nordicstoday"
-			],
-			"address": {
-				"@type": "PostalAddress",
-				"addressRegion": "Nordic Countries",
-				"addressCountry": "EU"
-			},
-			"areaServed": [
+			"@graph": [
 				{
-					"@type": "Country",
-					"name": "Sweden"
+					"@type": "NewsMediaOrganization",
+					"@id": "https://nordicstoday.com/#organization",
+					"name": "Nordics Today",
+					"alternateName": "NordicsToday",
+					"url": "https://nordicstoday.com",
+					"logo": "https://nordicstoday.com/logo.png",
+					"sameAs": [
+						"https://twitter.com/nordicstoday",
+						"https://facebook.com/nordicstoday"
+					],
+					"inLanguage": "en"
 				},
 				{
-					"@type": "Country", 
-					"name": "Norway"
+					"@type": "WebSite",
+					"@id": "https://nordicstoday.com/#website",
+					"name": "Nordics Today",
+					"url": "https://nordicstoday.com",
+					"potentialAction": {
+						"@type": "SearchAction",
+						"target": "https://nordicstoday.com/search?q={search_term_string}",
+						"query-input": "required name=search_term_string"
+					}
 				},
 				{
-					"@type": "Country",
-					"name": "Denmark"
+					"@type": "CollectionPage",
+					"@id": "https://nordicstoday.com/#webpage",
+					"url": "https://nordicstoday.com",
+					"name": "Nordics Today - Nordic News in English",
+					"isPartOf": { "@id": "https://nordicstoday.com/#website" },
+					"about": { "@id": "https://nordicstoday.com/#organization" },
+					"description": "English-language news from Sweden and the Nordic countries for expats and English speakers."
 				},
 				{
-					"@type": "Country",
-					"name": "Finland"
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nordicstoday.com/" }
+					]
 				},
 				{
-					"@type": "Country",
-					"name": "Iceland"
+					"@type": "ItemList",
+					"itemListElement": (data.latestArticles || []).slice(0, 10).map((article, index) => ({
+						"@type": "ListItem",
+						"position": index + 1,
+						"url": `https://nordicstoday.com${article.url_slug}`
+					}))
 				}
-			],
-			"inLanguage": "en",
-			"audience": {
-				"@type": "Audience",
-				"audienceType": "Expats, international residents, and English speakers living in Sweden and Nordic countries",
-				"geographicArea": {
-					"@type": "Place",
-					"name": "Sweden, Norway, Denmark, Finland, Iceland"
-				}
-			},
-			"knowsLanguage": ["en"],
-			"mainEntity": {
-				"@type": "WebSite",
-				"name": "Nordics Today",
-				"url": "https://nordicstoday.com",
-				"potentialAction": {
-					"@type": "SearchAction",
-					"target": "https://nordicstoday.com/search?q={search_term_string}",
-					"query-input": "required name=search_term_string"
-				}
-			}
+			]
 		}
 	};
 </script>
 
 <SEOHead {...seoData} />
+
+<!-- Intro section for crawlable content and H1 -->
+<section class="max-w-4xl mx-auto px-4 py-12 text-center">
+  <h1 class="text-4xl font-bold text-gray-900 mb-4">
+    Nordic News in English
+  </h1>
+  <p class="text-xl text-gray-700 mb-2">
+    Daily news from across Scandinavia, curated for expats and English speakers.
+  </p>
+  <p class="text-gray-600">
+    Covering Sweden, Norway, Denmark, Finland, and Iceland.
+  </p>
+</section>
 
 <FeaturedGuides guideArticles={data.guideArticles || []} />
 <DailySnapshot featuredArticles={data.featuredArticles || []} />
@@ -127,7 +117,7 @@
 			<a href={article.url_slug} class="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
 				<img 
 					src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
-					alt={article.featured_image_alt || article.title} 
+					alt={article.featured_image_alt || `${article.title} - ${article.country_name} news`} 
 					class="w-full h-32 object-cover" 
 				/>
 				<div class="p-3">

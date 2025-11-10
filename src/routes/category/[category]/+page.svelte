@@ -5,6 +5,7 @@
   export let data;
   
   $: category = data.category;
+  $: categorySlug = category?.slug || (category?.name || '').toLowerCase();
   $: articles = data.articles || [];
   $: featuredArticles = data.featuredArticles || [];
   $: articlesByCountry = data.articlesByCountry || [];
@@ -42,10 +43,35 @@
   }
 </script>
 
+<svelte:head>
+  <!-- Breadcrumbs: Home -> Category -->
+  <script type="application/ld+json">
+    {@html JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nordicstoday.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": category?.name || String(category),
+          "item": `https://nordicstoday.com/category/${categorySlug || ''}`
+        }
+      ]
+    })}
+  </script>
+</svelte:head>
+
 <SEOHead 
   title={data.meta?.title || `${category.name} News - Nordics Today`}
   description={data.meta?.description || `Latest ${category.name.toLowerCase()} news from Nordic countries`}
   keywords={data.meta?.keywords || [`${category.name} news`, 'Nordic news']}
+  url={`/category/${categorySlug || ''}`}
   type="website"
 />
 

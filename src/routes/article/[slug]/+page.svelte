@@ -89,6 +89,7 @@
 	<meta property="og:image" content={article.featured_image_url || 'https://nordicstoday.com/og-image.jpg'} />
 	<meta property="og:url" content={`https://nordicstoday.com/article/${article.slug}`} />
 	<meta property="og:site_name" content="Nordics Today" />
+	<meta property="article:author" content="Nordics Today News Team" />
 	<meta property="article:published_time" content={data.meta.publishedTime} />
 	<meta property="article:modified_time" content={data.meta.modifiedTime} />
 	<meta property="article:section" content={data.meta.section} />
@@ -112,7 +113,31 @@
 	<meta name="geo.placename" content="Nordic Region" />
 	
 	<!-- Structured Data -->
-	{@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
+	<script type="application/ld+json">
+		{@html JSON.stringify(structuredData)}
+	</script>
+
+	<!-- Breadcrumbs -->
+	<script type="application/ld+json">
+		{@html JSON.stringify({
+		  "@context": "https://schema.org",
+		  "@type": "BreadcrumbList",
+		  "itemListElement": [
+		    {
+		      "@type": "ListItem",
+		      "position": 1,
+		      "name": "Home",
+		      "item": "https://nordicstoday.com/"
+		    },
+		    {
+		      "@type": "ListItem",
+		      "position": 2,
+		      "name": article.title,
+		      "item": `https://nordicstoday.com/article/${article.slug}`
+		    }
+		  ]
+		})}
+	</script>
 </svelte:head>
 
 <article class="min-h-screen bg-off-white">
