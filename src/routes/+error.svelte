@@ -9,6 +9,7 @@
   let errorTitle = '';
   let errorDescription = '';
   let suggestions: string[] = [];
+  let robots: string = 'noindex, nofollow';
   
   onMount(() => {
     // Log error for monitoring
@@ -27,8 +28,8 @@
         ];
         break;
       case 500:
-        errorTitle = 'Server Error';
-        errorDescription = 'We are experiencing technical difficulties. Our team has been notified and is working to resolve this issue.';
+        errorTitle = 'Temporary issue';
+        errorDescription = 'We are experiencing a temporary problem. Our team has been notified and is working to resolve this.';
         suggestions = [
           'Try refreshing the page',
           'Come back in a few minutes',
@@ -56,9 +57,11 @@
 </script>
 
 <SEOHead 
-  title="{errorTitle} - Nordics Today"
+  title="{errorTitle}"
   description="{errorDescription}"
   type="website"
+  robots={robots}
+  baseOnly={true}
 />
 
 <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">

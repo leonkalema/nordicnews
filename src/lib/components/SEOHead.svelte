@@ -15,6 +15,8 @@
 	export let structuredData: any = null;
 	// When true, only render base meta (no OG/Twitter) to avoid overriding page-specific tags
 	export let baseOnly: boolean = false;
+    // Robots directive, configurable so error pages can set noindex
+    export let robots: string = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
 	// Generate canonical URL
 	$: canonicalUrl = url ? `https://nordicstoday.com${url}` : 'https://nordicstoday.com';
@@ -50,8 +52,8 @@
 	<meta name="description" content={description} />
 	<meta name="keywords" content={keywords.join(', ')} />
 	<meta name="author" content={author} />
-	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-	<meta name="googlebot" content="index, follow" />
+	<meta name="robots" content={robots} />
+	<meta name="googlebot" content={robots} />
 	
 	<!-- Canonical URL -->
 	<link rel="canonical" href={canonicalUrl} />

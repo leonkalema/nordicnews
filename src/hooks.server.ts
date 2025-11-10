@@ -75,6 +75,15 @@ export const handle: Handle = async ({ event, resolve }) => {
       response.headers.set('Cache-Control', 'public, max-age=1800, s-maxage=3600');
     }
   }
+  else {
+    // For non-200 responses, prevent indexing by search engines
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    // If maintenance/unavailable, hint crawlers when to retry
+    if (response.status === 503) {
+      // Retry after 15 minutes
+      response.headers.set('Retry-After', '900');
+    }
+  }
   
   return response;
 };
