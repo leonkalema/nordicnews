@@ -4,6 +4,7 @@
 	import AcrossTheNordics from '$lib/components/AcrossTheNordics.svelte';
 	import CountryFAQ from '$lib/components/CountryFAQ.svelte';
 	import { onMount } from 'svelte';
+    import { serializeJsonLd } from '$lib/utils/json-ld';
 
 	export let data;
 	
@@ -131,26 +132,24 @@
 	<meta name="sveltekit:reload" content="true" />
 
     <!-- Breadcrumbs: Home -> Country -->
-    <script type="application/ld+json">
-      {@html JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://nordicstoday.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": country,
-            "item": `https://nordicstoday.com/${countrySlug}`
-          }
-        ]
-      })}
-    </script>
+    {@html `<script type="application/ld+json">${serializeJsonLd({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nordicstoday.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": country,
+          "item": `https://nordicstoday.com/${countrySlug}`
+        }
+      ]
+    })}</script>`}
 </svelte:head>
 
 <SEOHead {...seoData} />

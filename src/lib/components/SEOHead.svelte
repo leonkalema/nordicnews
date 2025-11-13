@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { serializeJsonLd } from '$lib/utils/json-ld';
 	export let title: string = 'Nordics Today - Your Daily Source for Nordic News';
 	export let description: string = 'English news from Sweden, Norway, Denmark, Finland & Iceland for expats and English speakers. Daily Nordic news updates on Swedish politics, culture, business and society.';
 	export let keywords: string[] = ['nordic news in english', 'sweden news in english', 'expat news sweden', 'scandinavian news english', 'english speaking news nordics', 'nordic expat community news', 'living in sweden news english', 'latest nordic countries news english'];
@@ -113,5 +114,5 @@
 	<meta name="DC.subject" content="English news in Nordic countries" />
 	
 	<!-- Structured Data -->
-	{@html `<script type="application/ld+json">${JSON.stringify(finalStructuredData)}</script>`}
+	{@html `<script type="application/ld+json">${serializeJsonLd(finalStructuredData)}</script>`}
 </svelte:head>

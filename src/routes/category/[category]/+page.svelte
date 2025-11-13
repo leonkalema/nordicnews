@@ -1,6 +1,7 @@
 <script lang="ts">
   import SEOHead from '$lib/components/SEOHead.svelte';
   import { page } from '$app/stores';
+  import { serializeJsonLd } from '$lib/utils/json-ld';
   
   export let data;
   
@@ -45,26 +46,24 @@
 
 <svelte:head>
   <!-- Breadcrumbs: Home -> Category -->
-  <script type="application/ld+json">
-    {@html JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://nordicstoday.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": category?.name || String(category),
-          "item": `https://nordicstoday.com/category/${categorySlug || ''}`
-        }
-      ]
-    })}
-  </script>
+  {@html `<script type="application/ld+json">${serializeJsonLd({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://nordicstoday.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": category?.name || String(category),
+        "item": `https://nordicstoday.com/category/${categorySlug || ''}`
+      }
+    ]
+  })}</script>`}
 </svelte:head>
 
 <SEOHead 

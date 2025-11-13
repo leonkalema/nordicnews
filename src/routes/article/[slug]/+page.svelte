@@ -4,6 +4,7 @@
 	import { getCountryFlag } from '$lib/supabase.js';
 	import type { PageData } from './$types';
 	import { marked } from 'marked';
+    import { serializeJsonLd } from '$lib/utils/json-ld';
 
 	export let data: PageData;
 
@@ -113,31 +114,27 @@
 	<meta name="geo.placename" content="Nordic Region" />
 	
 	<!-- Structured Data -->
-	<script type="application/ld+json">
-		{@html JSON.stringify(structuredData)}
-	</script>
+	{@html `<script type="application/ld+json">${serializeJsonLd(structuredData)}</script>`}
 
 	<!-- Breadcrumbs -->
-	<script type="application/ld+json">
-		{@html JSON.stringify({
-		  "@context": "https://schema.org",
-		  "@type": "BreadcrumbList",
-		  "itemListElement": [
-		    {
-		      "@type": "ListItem",
-		      "position": 1,
-		      "name": "Home",
-		      "item": "https://nordicstoday.com/"
-		    },
-		    {
-		      "@type": "ListItem",
-		      "position": 2,
-		      "name": article.title,
-		      "item": `https://nordicstoday.com/article/${article.slug}`
-		    }
-		  ]
-		})}
-	</script>
+	{@html `<script type="application/ld+json">${serializeJsonLd({
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": "https://nordicstoday.com/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": article.title,
+	      "item": `https://nordicstoday.com/article/${article.slug}`
+	    }
+	  ]
+	})}</script>`}
 </svelte:head>
 
 <article class="min-h-screen bg-off-white">
