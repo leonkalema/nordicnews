@@ -53,29 +53,45 @@
 			{/if}
 		</div>
 
-			<!-- Top Stories Sidebar -->
-			<div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
-				<div class="bg-gradient-to-r from-nordic-blue to-blue-700 px-6 py-4">
-					<h2 class="text-xl font-bold text-white">Top Stories</h2>
+			<!-- Right Sidebar -->
+			<div>
+				<!-- Sidebar Banner Ad -->
+				<div class="mb-8">
+					<a href="https://fcnordljus.se/register" target="_blank" rel="noopener noreferrer sponsored" class="block">
+						<img
+							src="https://efqogymhexbveihxtzsj.supabase.co/storage/v1/object/public/ads/New%20to.png"
+							alt="Register with FC Nordljus"
+							loading="lazy"
+							decoding="async"
+							class="w-full h-auto rounded-xl shadow-md"
+						/>
+					</a>
 				</div>
-				<ul class="divide-y divide-gray-100">
-					{#each topStories as story, index}
-						<li class="p-6 hover:bg-gray-50 transition-colors">
-							<a href={story.url_slug} class="group block">
-								<div class="flex gap-4">
-									<span class="flex-shrink-0 w-8 h-8 bg-nordic-blue text-white rounded-full flex items-center justify-center font-bold text-sm">{index + 1}</span>
-									<div class="flex-1">
-										<span class="inline-block text-xs font-bold text-nordic-blue uppercase tracking-wide mb-1">{story.category_display}</span>
-										<h3 class="font-bold text-gray-900 group-hover:text-nordic-blue transition-colors leading-snug">{story.title}</h3>
-										<p class="text-xs text-gray-500 mt-2">{story.relative_time}</p>
+
+				<!-- Top Stories Sidebar -->
+				<div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+					<div class="bg-gradient-to-r from-nordic-blue to-blue-700 px-6 py-4">
+						<h2 class="text-xl font-bold text-white">Top Stories</h2>
+					</div>
+					<ul class="divide-y divide-gray-100">
+						{#each topStories as story, index}
+							<li class="p-6 hover:bg-gray-50 transition-colors">
+								<a href={story.url_slug} class="group block">
+									<div class="flex gap-4">
+										<span class="flex-shrink-0 w-8 h-8 bg-nordic-blue text-white rounded-full flex items-center justify-center font-bold text-sm">{index + 1}</span>
+										<div class="flex-1">
+											<span class="inline-block text-xs font-bold text-nordic-blue uppercase tracking-wide mb-1">{story.category_display}</span>
+											<h3 class="font-bold text-gray-900 group-hover:text-nordic-blue transition-colors leading-snug">{story.title}</h3>
+											<p class="text-xs text-gray-500 mt-2">{story.relative_time}</p>
+										</div>
 									</div>
-								</div>
-							</a>
-						</li>
-					{:else}
-						<li class="p-6 text-gray-500 text-sm">No top stories available</li>
-					{/each}
-				</ul>
+								</a>
+							</li>
+						{:else}
+							<li class="p-6 text-gray-500 text-sm">No top stories available</li>
+						{/each}
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

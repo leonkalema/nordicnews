@@ -96,18 +96,6 @@
   </p>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 pb-8">
-  <a href="https://fcnordljus.se/register" target="_blank" rel="noopener noreferrer sponsored" class="block">
-    <img 
-      src="https://efqogymhexbveihxtzsj.supabase.co/storage/v1/object/public/ads/New%20to.png" 
-      alt="Register with FC Nordljus" 
-      loading="lazy" 
-      decoding="async" 
-      class="w-full h-auto rounded-xl shadow-md" 
-    />
-  </a>
-</section>
-
 <FeaturedGuides guideArticles={data.guideArticles || []} />
 <DailySnapshot featuredArticles={data.featuredArticles || []} />
 <AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />
