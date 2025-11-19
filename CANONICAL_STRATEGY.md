@@ -202,3 +202,9 @@ Your site has:
 - ✅ Proper implementation in SEOHead component
 
 **No canonical issues. Link equity is properly consolidated. Google knows exactly which pages to rank.** ✅
+
+
+Add Amazon affiliate links to all 33 guides
+	2.	Add Booking.com affiliate links (Nordic hotels)
+	3.	Add Wise/Revolut referral links (banking guides)
+	4.	Sign up for Impact/ShareASale (travel, language learning affiliates)
