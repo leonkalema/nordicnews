@@ -41,6 +41,19 @@
 		url: `/${data.country}/${data.category}`,
 		type: 'website'
 	};
+
+	// Compute og:locale per country for OpenGraph
+	function ogLocaleForCountry(slug: string): string {
+		const map: Record<string, string> = {
+			sweden: 'en_SE',
+			norway: 'en_NO',
+			denmark: 'en_DK',
+			finland: 'en_FI',
+			iceland: 'en_IS'
+		};
+		return map[slug] || 'en_US';
+	}
+	$: ogLocale = ogLocaleForCountry(data.country);
 </script>
 
 <svelte:head>
@@ -69,9 +82,18 @@
       }
     ]
   })}</script>`}
+
+  <!-- Hreflang alternates for equivalent category pages in each Nordic country -->
+  <link rel="alternate" hreflang="x-default" href={`https://nordicstoday.com/${data.country}/${data.category}`} />
+  <link rel="alternate" hreflang="en" href={`https://nordicstoday.com/${data.country}/${data.category}`} />
+  <link rel="alternate" hreflang="en-SE" href={`https://nordicstoday.com/sweden/${data.category}`} />
+  <link rel="alternate" hreflang="en-NO" href={`https://nordicstoday.com/norway/${data.category}`} />
+  <link rel="alternate" hreflang="en-DK" href={`https://nordicstoday.com/denmark/${data.category}`} />
+  <link rel="alternate" hreflang="en-FI" href={`https://nordicstoday.com/finland/${data.category}`} />
+  <link rel="alternate" hreflang="en-IS" href={`https://nordicstoday.com/iceland/${data.category}`} />
 </svelte:head>
 
-<SEOHead {...seoData} />
+<SEOHead {...seoData} locale={ogLocale} />
 
 <div class="container mx-auto px-4 py-8">
 	<!-- Breadcrumb -->

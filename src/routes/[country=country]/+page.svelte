@@ -126,6 +126,19 @@
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
+
+	// OpenGraph locale based on country slug
+	function ogLocaleForCountry(slug: string): string {
+		const map: Record<string, string> = {
+			sweden: 'en_SE',
+			norway: 'en_NO',
+			denmark: 'en_DK',
+			finland: 'en_FI',
+			iceland: 'en_IS'
+		};
+		return map[slug] || 'en_US';
+	}
+	$: ogLocale = ogLocaleForCountry(countrySlug);
 </script>
 
 <svelte:head>
@@ -150,9 +163,18 @@
         }
       ]
     })}</script>`}
+
+    <!-- Hreflang alternates for country hubs -->
+    <link rel="alternate" hreflang="x-default" href={`https://nordicstoday.com/${countrySlug}`} />
+    <link rel="alternate" hreflang="en" href={`https://nordicstoday.com/${countrySlug}`} />
+    <link rel="alternate" hreflang="en-SE" href="https://nordicstoday.com/sweden" />
+    <link rel="alternate" hreflang="en-NO" href="https://nordicstoday.com/norway" />
+    <link rel="alternate" hreflang="en-DK" href="https://nordicstoday.com/denmark" />
+    <link rel="alternate" hreflang="en-FI" href="https://nordicstoday.com/finland" />
+    <link rel="alternate" hreflang="en-IS" href="https://nordicstoday.com/iceland" />
 </svelte:head>
 
-<SEOHead {...seoData} />
+<SEOHead {...seoData} locale={ogLocale} />
 
 <!-- Hero Section - Clean Black & White -->
 <div class="relative overflow-hidden bg-black text-white border-b-4 border-white">

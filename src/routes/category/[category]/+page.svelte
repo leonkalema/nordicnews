@@ -11,6 +11,22 @@
   $: featuredArticles = data.featuredArticles || [];
   $: articlesByCountry = data.articlesByCountry || [];
   $: currentPage = parseInt($page.url.searchParams.get('page') || '1');
+  $: totalPages = data.pagination?.totalPages || 1;
+  function buildHref(targetPage: number) {
+    const params = new URLSearchParams($page.url.searchParams);
+    if (targetPage === 1) params.delete('page'); else params.set('page', String(targetPage));
+    return `/category/${categorySlug || ''}${params.toString() ? `?${params.toString()}` : ''}`;
+  }
+
+  // CollectionPage JSON-LD for category listings
+  $: collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `${category?.name || ''} News`,
+    "description": `Latest ${String(category?.name || '').toLowerCase()} news from the Nordic region`,
+    "url": `https://nordicstoday.com/category/${categorySlug || ''}`,
+    "inLanguage": "en"
+  };
   
   function formatDate(dateString: string | null) {
     if (!dateString) return 'No date';
@@ -64,6 +80,15 @@
       }
     ]
   })}</script>`}
+
+  {#if totalPages > 1}
+    {#if currentPage > 1}
+      <link rel="prev" href={buildHref(currentPage - 1)} />
+    {/if}
+    {#if currentPage < totalPages}
+      <link rel="next" href={buildHref(currentPage + 1)} />
+    {/if}
+  {/if}
 </svelte:head>
 
 <SEOHead 
@@ -72,6 +97,7 @@
   keywords={data.meta?.keywords || [`${category.name} news`, 'Nordic news']}
   url={`/category/${categorySlug || ''}`}
   type="website"
+  structuredData={collectionSchema}
 />
 
 <div class="max-w-6xl mx-auto px-4 py-8">
@@ -100,6 +126,9 @@
                 src={article.featured_image_url} 
                 alt={article.featured_image_caption || article.title}
                 class="w-full h-48 object-cover"
+                decoding="async"
+                loading="lazy"
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
               >
             {/if}
             

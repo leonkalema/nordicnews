@@ -31,6 +31,7 @@
 		"description": description,
 		"publisher": {
 			"@type": "Organization",
+			"@id": "https://nordicstoday.com/#org",
 			"name": "Nordics Today",
 			"logo": {
 				"@type": "ImageObject",

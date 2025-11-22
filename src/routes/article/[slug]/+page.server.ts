@@ -47,6 +47,8 @@ export const load: PageServerLoad = async ({ params }) => {
       : [];
 
     // Generate structured data for SEO
+    const hasAuthorPerson = Boolean((article as any).author || (article as any).author_name);
+    const authorName = (article as any).author || (article as any).author_name || article.source_name;
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
@@ -54,30 +56,18 @@ export const load: PageServerLoad = async ({ params }) => {
       "description": article.summary || article.excerpt,
       "image": article.featured_image_url ? [article.featured_image_url] : [],
       "datePublished": article.published_at,
-      "dateModified": article.published_at,
-      "author": {
-        "@type": "Organization",
-        "name": article.source_name
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Nordics Today",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://nordicstoday.com/logo.png"
-        }
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": `https://nordicstoday.com/article/${article.slug}`
-      },
+      "dateModified": (article as any).updated_at || article.published_at,
+      "author": hasAuthorPerson
+        ? { "@type": "Person", "name": authorName }
+        : { "@type": "Organization", "name": authorName },
+      "publisher": { "@id": "https://nordicstoday.com/#org" },
+      "mainEntityOfPage": { "@type": "WebPage", "@id": `https://nordicstoday.com/article/${article.slug}` },
       "articleSection": article.category_display,
       "keywords": article.keywords || [],
-      "locationCreated": {
-        "@type": "Place",
-        "name": article.country_name
-      }
-    };
+      "isAccessibleForFree": true,
+      "inLanguage": "en",
+      "locationCreated": { "@type": "Place", "name": article.country_name }
+    } as const;
 
     // Generate SEO-optimized description (150-160 chars)
     let description = article.meta_description || article.summary || article.excerpt || '';

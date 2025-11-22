@@ -8,6 +8,7 @@
   $: articles = data.articles || [];
   $: totalResults = data.totalResults || 0;
   $: currentPage = parseInt($page.url.searchParams.get('page') || '1');
+  $: totalPages = data.pagination?.totalPages || 1;
   $: hasResults = articles.length > 0;
   $: hasError = data.error;
   
@@ -16,6 +17,11 @@
   $: seoDescription = query 
     ? `Found ${totalResults} articles about "${query}" from Nordic countries. Search the latest news from Sweden, Norway, Denmark, Finland, and Iceland.`
     : 'Search the latest news and analysis from Nordic countries. Find articles from Sweden, Norway, Denmark, Finland, and Iceland.';
+  function buildHref(targetPage: number) {
+    const params = new URLSearchParams($page.url.searchParams);
+    if (targetPage === 1) params.delete('page'); else params.set('page', String(targetPage));
+    return `/search${params.toString() ? `?${params.toString()}` : ''}`;
+  }
 
   function formatDate(dateString: string | null) {
     if (!dateString) return 'No date';
@@ -158,7 +164,7 @@
     </div>
 
     <!-- Pagination -->
-    {#if data.pagination && data.pagination.total_pages > 1}
+    {#if data.pagination && data.pagination.totalPages > 1}
       <div class="mt-8 flex justify-center">
         <nav class="flex items-center gap-2">
           {#if currentPage > 1}
@@ -170,8 +176,8 @@
             </a>
           {/if}
           
-          {#each Array.from({length: Math.min(5, data.pagination.total_pages)}, (_, i) => i + Math.max(1, currentPage - 2)) as pageNum}
-            {#if pageNum <= data.pagination.total_pages}
+          {#each Array.from({length: Math.min(5, data.pagination.totalPages)}, (_, i) => i + Math.max(1, currentPage - 2)) as pageNum}
+            {#if pageNum <= data.pagination.totalPages}
               <a 
                 href="/search?q={encodeURIComponent(query)}&page={pageNum}"
                 class="px-3 py-2 {pageNum === currentPage ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'} rounded"
@@ -181,7 +187,7 @@
             {/if}
           {/each}
           
-          {#if currentPage < data.pagination.total_pages}
+          {#if currentPage < data.pagination.totalPages}
             <a 
               href="/search?q={encodeURIComponent(query)}&page={currentPage + 1}"
               class="px-3 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded"

@@ -4,11 +4,29 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import SEOHead from '$lib/components/SEOHead.svelte';
 	import CookieBanner from '$lib/components/CookieBanner.svelte';
+	import { serializeJsonLd } from '$lib/utils/json-ld';
 
 	let { children } = $props();
 </script>
 
 <SEOHead baseOnly={true} />
+
+<svelte:head>
+  {@html `<script type="application/ld+json">${serializeJsonLd({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://nordicstoday.com/#org",
+    "name": "Nordics Today",
+    "url": "https://nordicstoday.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://nordicstoday.com/logo.png"
+    },
+    "sameAs": [
+      "https://twitter.com/nordicstoday"
+    ]
+  })}</script>`}
+</svelte:head>
 
 <div class="min-h-screen flex flex-col bg-off-white">
 	<Header />

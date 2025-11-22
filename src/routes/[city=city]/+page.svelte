@@ -11,6 +11,19 @@
 	$: countrySlug = countryConfig?.slug || '';
 	$: articles = data.articles || [];
 
+	// OpenGraph locale mapping from country slug
+	function ogLocaleFor(slug: string): string {
+		const map: Record<string, string> = {
+			sweden: 'en_SE',
+			norway: 'en_NO',
+			denmark: 'en_DK',
+			finland: 'en_FI',
+			iceland: 'en_IS'
+		};
+		return map[slug] || 'en_US';
+	}
+	$: ogLocale = ogLocaleFor(countrySlug);
+
 	$: seoData = {
 		title: `${cityName} News in English | Latest ${cityName} Updates | Nordics Today`,
 		description: `Latest news from ${cityName} in English. Get real-time updates on ${cityName} politics, business, culture, and local events.`,
@@ -20,7 +33,12 @@
 	};
 </script>
 
-<SEOHead {...seoData} />
+<svelte:head>
+  <link rel="alternate" hreflang="x-default" href={`https://nordicstoday.com/${citySlug}`} />
+  <link rel="alternate" hreflang="en" href={`https://nordicstoday.com/${citySlug}`} />
+</svelte:head>
+
+<SEOHead {...seoData} locale={ogLocale} />
 
 <div class="container mx-auto px-4 py-8">
 	<!-- Breadcrumb -->
@@ -44,7 +62,14 @@
 			{#each articles as article}
 				<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
 					{#if article.featured_image_url}
-						<img src={article.featured_image_url} alt={article.title} class="w-full h-48 object-cover" />
+						<img 
+							src={article.featured_image_url} 
+							alt={article.title} 
+							class="w-full h-48 object-cover"
+							decoding="async"
+							loading="lazy"
+							sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+						/>
 					{/if}
 					<div class="p-6">
 						<h2 class="font-semibold text-lg mb-2">

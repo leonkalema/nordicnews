@@ -12,6 +12,30 @@
 	$: relatedArticles = data.relatedArticles;
 	$: structuredData = data.structuredData;
 
+	// OpenGraph locale mapping by country code (fallback en_US)
+	function ogLocaleFor(countryCode?: string, countryName?: string) {
+		const map: Record<string, string> = {
+			SE: 'en_SE',
+			NO: 'en_NO',
+			DK: 'en_DK',
+			FI: 'en_FI',
+			IS: 'en_IS'
+		};
+		const code = (countryCode || '').toUpperCase();
+		if (map[code]) return map[code];
+		// Try by name if needed
+		const byName: Record<string, string> = {
+			Sweden: 'en_SE',
+			Norway: 'en_NO',
+			Denmark: 'en_DK',
+			Finland: 'en_FI',
+			Iceland: 'en_IS'
+		};
+		return byName[countryName || ''] || 'en_US';
+	}
+
+	$: ogLocale = ogLocaleFor(article?.country, article?.country_name);
+
 	let showShareMenu = false;
 
 	// Configure marked for safe HTML rendering
@@ -90,9 +114,13 @@
 	<meta property="og:image" content={article.featured_image_url || 'https://nordicstoday.com/og-image.jpg'} />
 	<meta property="og:url" content={`https://nordicstoday.com/article/${article.slug}`} />
 	<meta property="og:site_name" content="Nordics Today" />
+	<meta property="og:locale" content={ogLocale} />
 	<meta property="article:author" content="Nordics Today News Team" />
 	<meta property="article:published_time" content={data.meta.publishedTime} />
 	<meta property="article:modified_time" content={data.meta.modifiedTime} />
+	{#if data.meta.modifiedTime}
+		<meta property="og:updated_time" content={data.meta.modifiedTime} />
+	{/if}
 	<meta property="article:section" content={data.meta.section} />
 	{#if data.meta.tags}
 		{#each data.meta.tags as tag}
@@ -242,6 +270,9 @@
 							src={article.featured_image_url} 
 							alt={article.featured_image_alt || article.title}
 							class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+							decoding="async"
+							loading="eager"
+							fetchpriority="high"
 						/>
 						{#if article.featured_image_caption}
 							<p class="text-sm text-gray-600 mt-2 italic">{article.featured_image_caption}</p>
