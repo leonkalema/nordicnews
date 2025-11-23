@@ -9,7 +9,7 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 // Type definitions based on your database schema
 export interface PublishedArticle {
   id: string;
-  raw_news_id: string;
+  raw_news_id: string | null;
   title: string;
   content: string;
   summary: string | null;
@@ -26,6 +26,9 @@ export interface PublishedArticle {
   featured_image_alt: string;
   featured_image_caption: string | null;
   image_credit: string | null;
+  author_name?: string | null;
+  author_slug?: string | null;
+  author_id?: string | null;
 }
 
 // Country code to name mapping

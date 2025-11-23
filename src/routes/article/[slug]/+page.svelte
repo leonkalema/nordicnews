@@ -115,7 +115,10 @@
 	<meta property="og:url" content={`https://nordicstoday.com/article/${article.slug}`} />
 	<meta property="og:site_name" content="Nordics Today" />
 	<meta property="og:locale" content={ogLocale} />
-	<meta property="article:author" content="Nordics Today News Team" />
+	<meta
+		property="article:author"
+		content={article.author_name || 'Nordics Today'}
+	/>
 	<meta property="article:published_time" content={data.meta.publishedTime} />
 	<meta property="article:modified_time" content={data.meta.modifiedTime} />
 	{#if data.meta.modifiedTime}
@@ -243,7 +246,15 @@
 
 			<!-- Author Byline -->
 			<div class="flex items-center gap-2 text-sm text-gray-600 mb-6">
-				<span class="font-medium text-gray-900">By Nordics Today News Team</span>
+				{#if article.author_name}
+					{#if article.author_slug}
+						<a href={`/author/${article.author_slug}`} class="font-medium text-gray-900 hover:underline">By {article.author_name}</a>
+					{:else}
+						<span class="font-medium text-gray-900">By {article.author_name}</span>
+					{/if}
+				{:else}
+					<span class="font-medium text-gray-900">By Nordics Today</span>
+				{/if}
 				<span>•</span>
 				<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
 			</div>

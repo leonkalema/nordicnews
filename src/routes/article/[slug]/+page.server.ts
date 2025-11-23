@@ -48,7 +48,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
     // Generate structured data for SEO
     const hasAuthorPerson = Boolean((article as any).author || (article as any).author_name);
-    const authorName = (article as any).author || (article as any).author_name || article.source_name;
+    const authorName = (article as any).author || (article as any).author_name || 'Nordics Today';
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
