@@ -14,7 +14,7 @@ export interface PublishedArticle {
   content: string;
   summary: string | null;
   country: 'SE' | 'NO' | 'DK' | 'FI' | 'IS';
-  category: 'breaking' | 'business' | 'politics' | 'tech' | 'culture' | 'sports' | 'society';
+  category: 'breaking' | 'business' | 'politics' | 'tech' | 'culture' | 'sports' | 'society' | 'guide' | 'editorial' | 'comparison';
   source_name: string;
   original_url: string;
   slug: string;
@@ -77,7 +77,16 @@ export function formatRelativeTime(dateString: string | null): string {
   try {
     const now = new Date();
     const date = new Date(dateString);
-    const diffInMs = now.getTime() - date.getTime();
+    let diffInMs = now.getTime() - date.getTime();
+    // Clamp negatives due to clock/zone differences
+    if (diffInMs < 0) {
+      // If it's in the near future, treat as just published
+      if (Math.abs(diffInMs) < 2 * 60 * 60 * 1000) {
+        return 'Just now';
+      }
+      // Otherwise fallback to absolute date
+      return formatDate(dateString);
+    }
     const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
     const diffInDays = Math.floor(diffInHours / 24);
 
