@@ -31,8 +31,8 @@
 						class="w-full h-full object-cover"
 					/>
 				</div>
-				<span class="text-xs text-gray-400 uppercase tracking-wide">{guide.country_name}</span>
-				<h3 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-1">
+				<span class="text-xs text-gray-400 uppercase tracking-widest">{guide.country_name}</span>
+				<h3 class="font-serif text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-2">
 					{guide.title}
 				</h3>
 			</a>

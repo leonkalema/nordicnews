@@ -24,9 +24,9 @@
 <section class="bg-gray-50 py-16">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Section Header -->
-		<div class="mb-10">
-			<h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">By Country</h2>
-			<p class="text-2xl font-semibold text-gray-900">Across the Nordics</p>
+		<div class="mb-12">
+			<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">By Country</h2>
+			<p class="font-serif text-3xl font-semibold text-gray-900">Across the Nordics</p>
 		</div>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -50,10 +50,10 @@
 						{#each countryData.articles.slice(0, 3) as article}
 							<article class="border-b border-gray-100 pb-3 last:border-b-0 last:pb-0">
 								<a href={article.url_slug} class="group/article block">
-									<h4 class="text-sm font-medium text-gray-900 group-hover/article:text-gray-600 transition-colors line-clamp-2 leading-snug">
+									<h4 class="font-serif text-sm font-medium text-gray-900 group-hover/article:text-gray-600 transition-colors line-clamp-2 leading-snug">
 										{article.title}
 									</h4>
-									<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
+									<span class="text-xs text-gray-400 mt-2 block">{article.relative_time}</span>
 								</a>
 							</article>
 						{:else}

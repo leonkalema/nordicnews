@@ -84,8 +84,8 @@
 <SEOHead {...seoData} />
 
 <!-- Minimal intro -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-  <h1 class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 border-b border-gray-100">
+  <h1 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
     Nordic News in English
   </h1>
 </section>

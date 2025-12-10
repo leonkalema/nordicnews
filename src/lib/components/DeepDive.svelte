@@ -22,13 +22,13 @@
 	)?.articles || [];
 </script>
 
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 	<div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
 		<!-- Latest News Feed -->
 		<div class="lg:col-span-3">
-			<div class="mb-8">
-				<h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Latest</h2>
-				<p class="text-2xl font-semibold text-gray-900">Recent Stories</p>
+			<div class="mb-10">
+				<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Latest</h2>
+				<p class="font-serif text-3xl font-semibold text-gray-900">Recent Stories</p>
 			</div>
 			
 			<!-- Featured Articles Grid -->
@@ -42,8 +42,8 @@
 								class="w-full h-full object-cover" 
 							/>
 						</div>
-						<span class="text-xs text-gray-500 uppercase tracking-wide">{article.category_display}</span>
-						<h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-1 mb-2">{article.title}</h3>
+						<span class="text-xs text-gray-400 uppercase tracking-widest">{article.category_display}</span>
+						<h3 class="font-serif text-xl font-semibold text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-2 mb-2">{article.title}</h3>
 						<p class="text-sm text-gray-500 line-clamp-2">{article.excerpt}</p>
 						<span class="text-xs text-gray-400 mt-2 block">{article.relative_time}</span>
 					</a>
@@ -61,8 +61,8 @@
 								class="w-24 h-20 object-cover flex-shrink-0" 
 							/>
 							<div class="flex-1 min-w-0">
-								<span class="text-xs text-gray-500 uppercase tracking-wide">{article.category_display}</span>
-								<h3 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-1">{article.title}</h3>
+								<span class="text-xs text-gray-400 uppercase tracking-widest">{article.category_display}</span>
+								<h3 class="font-serif text-base font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-1">{article.title}</h3>
 								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
 							</div>
 						</a>
@@ -82,7 +82,7 @@
 					{#each businessTechArticles.slice(0, 4) as article}
 						<li>
 							<a href={article.url_slug} class="group block">
-								<h4 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
+								<h4 class="font-serif text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
 									{article.title}
 								</h4>
 								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
@@ -101,7 +101,7 @@
 					{#each politicsArticles.slice(0, 4) as article}
 						<li>
 							<a href={article.url_slug} class="group block">
-								<h4 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
+								<h4 class="font-serif text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
 									{article.title}
 								</h4>
 								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
@@ -120,7 +120,7 @@
 					{#each cultureSocietyArticles.slice(0, 4) as article}
 						<li>
 							<a href={article.url_slug} class="group block">
-								<h4 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
+								<h4 class="font-serif text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
 									{article.title}
 								</h4>
 								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
