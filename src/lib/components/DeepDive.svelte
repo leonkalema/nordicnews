@@ -22,130 +22,114 @@
 	)?.articles || [];
 </script>
 
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-	<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-		<!-- Latest News Feed - Expanded -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+	<div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+		<!-- Latest News Feed -->
 		<div class="lg:col-span-3">
-			<h2 class="text-2xl font-bold text-nordic-blue mb-6">The Latest</h2>
+			<div class="mb-8">
+				<h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Latest</h2>
+				<p class="text-2xl font-semibold text-gray-900">Recent Stories</p>
+			</div>
 			
-			<!-- Top 4 Featured Articles in Grid -->
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+			<!-- Featured Articles Grid -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 				{#each latestArticles.slice(0, 4) as article}
-					<a href={article.url_slug} class="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-						<img 
-							src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
-							alt={article.featured_image_alt || article.title} 
-							class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300" 
-						/>
-						<div class="p-4">
-							<div class="flex items-center gap-2 mb-2">
-								<span class="text-xs font-semibold text-nordic-blue bg-blue-50 px-2 py-1 rounded">{article.category_display}</span>
-								<span class="text-xs text-gray-400">{article.relative_time}</span>
-							</div>
-							<h3 class="text-base font-semibold text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 mb-2">{article.title}</h3>
-							<p class="text-sm text-gray-600 line-clamp-2">{article.excerpt}</p>
+					<a href={article.url_slug} class="group block">
+						<div class="aspect-[16/10] overflow-hidden mb-4">
+							<img 
+								src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
+								alt={article.featured_image_alt || article.title} 
+								class="w-full h-full object-cover" 
+							/>
 						</div>
+						<span class="text-xs text-gray-500 uppercase tracking-wide">{article.category_display}</span>
+						<h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-1 mb-2">{article.title}</h3>
+						<p class="text-sm text-gray-500 line-clamp-2">{article.excerpt}</p>
+						<span class="text-xs text-gray-400 mt-2 block">{article.relative_time}</span>
 					</a>
 				{/each}
 			</div>
 
-			<!-- More Articles in Compact List -->
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-				{#each latestArticles.slice(4, 16) as article}
-					<a href={article.url_slug} class="flex items-start gap-4 group p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-						<img 
-							src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
-							alt={article.featured_image_alt || article.title} 
-							class="w-20 h-16 object-cover rounded flex-shrink-0" 
-						/>
-						<div class="flex-1 min-w-0">
-							<div class="flex items-center gap-2 mb-1">
-								<span class="text-xs font-semibold text-gray-500">{article.category_display}</span>
-								<span class="text-xs text-gray-400">{article.relative_time}</span>
+			<!-- More Articles List -->
+			<div class="border-t border-gray-200 pt-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					{#each latestArticles.slice(4, 12) as article}
+						<a href={article.url_slug} class="group flex gap-4 py-4 border-b border-gray-100">
+							<img 
+								src={article.featured_image_url || 'https://images.unsplash.com/photo-1558981852-425c1b4a4a68?q=80&w=2070&auto=format&fit=crop'} 
+								alt={article.featured_image_alt || article.title} 
+								class="w-24 h-20 object-cover flex-shrink-0" 
+							/>
+							<div class="flex-1 min-w-0">
+								<span class="text-xs text-gray-500 uppercase tracking-wide">{article.category_display}</span>
+								<h3 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-1">{article.title}</h3>
+								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
 							</div>
-							<h3 class="text-sm font-semibold text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2">{article.title}</h3>
-						</div>
-					</a>
-				{:else}
-					<p class="text-gray-500 text-center py-8 col-span-2">No additional articles available</p>
-				{/each}
+						</a>
+					{:else}
+						<p class="text-gray-500 text-center py-8 col-span-2">No additional articles available</p>
+					{/each}
+				</div>
 			</div>
 		</div>
 
-		<!-- Compact Sidebar -->
-		<div class="space-y-6">
+		<!-- Sidebar -->
+		<div class="space-y-10">
 			<!-- Business & Tech -->
-			<div class="bg-white p-4 rounded-lg shadow-md">
-				<h3 class="text-base font-bold text-nordic-blue border-b border-gray-200 pb-2 mb-3">Business & Tech</h3>
-				<ul class="space-y-2">
-					{#each businessTechArticles.slice(0, 5) as article}
+			<div>
+				<h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 pb-3 mb-4">Business & Tech</h3>
+				<ul class="space-y-4">
+					{#each businessTechArticles.slice(0, 4) as article}
 						<li>
 							<a href={article.url_slug} class="group block">
-								<h4 class="text-xs font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 leading-tight">
+								<h4 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
 									{article.title}
 								</h4>
-								<div class="flex items-center justify-between mt-1">
-									<span class="text-xs text-gray-500">{article.country_name}</span>
-									<span class="text-xs text-gray-400">{article.relative_time}</span>
-								</div>
+								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
 							</a>
 						</li>
 					{:else}
-						<li class="text-xs text-gray-500">No business/tech articles available</li>
+						<li class="text-xs text-gray-400">No articles available</li>
 					{/each}
 				</ul>
 			</div>
 
-			<!-- Politics News -->
-			<div class="bg-white p-4 rounded-lg shadow-md">
-				<h3 class="text-base font-bold text-nordic-blue border-b border-gray-200 pb-2 mb-3">Politics</h3>
-				<ul class="space-y-2">
-					{#each politicsArticles.slice(0, 5) as article}
+			<!-- Politics -->
+			<div>
+				<h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 pb-3 mb-4">Politics</h3>
+				<ul class="space-y-4">
+					{#each politicsArticles.slice(0, 4) as article}
 						<li>
 							<a href={article.url_slug} class="group block">
-								<h4 class="text-xs font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 leading-tight">
+								<h4 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
 									{article.title}
 								</h4>
-								<div class="flex items-center justify-between mt-1">
-									<span class="text-xs text-gray-500">{article.country_name}</span>
-									<span class="text-xs text-gray-400">{article.relative_time}</span>
-								</div>
+								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
 							</a>
 						</li>
 					{:else}
-						<li class="text-xs text-gray-500">No politics articles available</li>
+						<li class="text-xs text-gray-400">No articles available</li>
 					{/each}
 				</ul>
 			</div>
 
-			<!-- Culture & Society -->
-			<div class="bg-white p-4 rounded-lg shadow-md">
-				<h3 class="text-base font-bold text-nordic-blue border-b border-gray-200 pb-2 mb-3">Society & Culture</h3>
-				<ul class="space-y-2">
-					{#each cultureSocietyArticles.slice(0, 5) as article}
+			<!-- Society & Culture -->
+			<div>
+				<h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 pb-3 mb-4">Society & Culture</h3>
+				<ul class="space-y-4">
+					{#each cultureSocietyArticles.slice(0, 4) as article}
 						<li>
 							<a href={article.url_slug} class="group block">
-								<h4 class="text-xs font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 leading-tight">
+								<h4 class="text-sm font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 leading-snug">
 									{article.title}
 								</h4>
-								<div class="flex items-center justify-between mt-1">
-									<span class="text-xs text-gray-500">{article.country_name}</span>
-									<span class="text-xs text-gray-400">{article.relative_time}</span>
-								</div>
+								<span class="text-xs text-gray-400 mt-1 block">{article.relative_time}</span>
 							</a>
 						</li>
 					{:else}
-						<li class="text-xs text-gray-500">No society/culture articles available</li>
+						<li class="text-xs text-gray-400">No articles available</li>
 					{/each}
 				</ul>
-			</div>
-
-			<!-- Ad Slot - Compact -->
-			<div class="bg-gray-100 p-4 rounded-lg shadow-md text-center">
-				<span class="text-xs text-gray-500">Advertisement</span>
-				<div class="h-32 flex items-center justify-center">
-					<p class="text-gray-400 text-sm">Ad Slot</p>
-				</div>
 			</div>
 		</div>
 	</div>
