@@ -2,58 +2,49 @@
 	import { Twitter, Facebook, Linkedin } from 'svelte-lucide-icons';
 </script>
 
-<footer class="bg-gray-100 text-gray-800 py-12">
+<footer class="bg-white border-t border-gray-200 py-16">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
 			<!-- Site Info -->
 			<div class="md:col-span-2">
-				<h3 class="text-2xl font-bold">Nordics Today</h3>
-				<p class="mt-2 text-sm text-gray-600">
-					Your source for Nordic news in English. Get the latest news from Sweden, Norway, Denmark, Finland, and Iceland. Daily coverage of Scandinavian politics, business news, breaking stories, and Nordic culture.
+				<h3 class="font-serif text-2xl font-bold text-gray-900">Nordics Today</h3>
+				<p class="mt-4 text-sm text-gray-500 leading-relaxed max-w-md">
+					Your source for Nordic news in English. Daily coverage of Sweden, Norway, Denmark, Finland, and Iceland.
 				</p>
+				<div class="flex space-x-4 mt-6">
+					<a href="https://x.com/nordicstoday" target="_blank" rel="noopener" class="text-gray-400 hover:text-black transition-colors" aria-label="Follow us on X">
+						<Twitter size={18} />
+					</a>
+				</div>
 			</div>
 
 			<!-- Nordic Countries -->
 			<div>
-				<h4 class="text-lg font-semibold">Nordic Countries</h4>
-				<ul class="mt-4 space-y-2 text-sm">
-					<li><a href="/sweden" class="hover:text-nordic-blue transition-colors">Latest News from Sweden</a></li>
-					<li><a href="/norway" class="hover:text-nordic-blue transition-colors">Norway News Today</a></li>
-					<li><a href="/denmark" class="hover:text-nordic-blue transition-colors">Denmark Breaking News</a></li>
-					<li><a href="/finland" class="hover:text-nordic-blue transition-colors">Finland News & Updates</a></li>
-					<li><a href="/iceland" class="hover:text-nordic-blue transition-colors">Iceland Current Events</a></li>
+				<h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Countries</h4>
+				<ul class="space-y-3 text-sm">
+					<li><a href="/sweden" class="text-gray-600 hover:text-black transition-colors">Sweden</a></li>
+					<li><a href="/norway" class="text-gray-600 hover:text-black transition-colors">Norway</a></li>
+					<li><a href="/denmark" class="text-gray-600 hover:text-black transition-colors">Denmark</a></li>
+					<li><a href="/finland" class="text-gray-600 hover:text-black transition-colors">Finland</a></li>
+					<li><a href="/iceland" class="text-gray-600 hover:text-black transition-colors">Iceland</a></li>
 				</ul>
 			</div>
 
 			<!-- Quick Links -->
 			<div>
-				<h4 class="text-lg font-semibold">About</h4>
-				<ul class="mt-4 space-y-2 text-sm">
-					<li><a href="/about" class="hover:text-nordic-blue transition-colors">About Us</a></li>
-					<li><a href="/contact" class="hover:text-nordic-blue transition-colors">Contact</a></li>
-					<li><a href="/editorial-policy" class="hover:text-nordic-blue transition-colors">Editorial Policy</a></li>
-					<li><a href="/privacy" class="hover:text-nordic-blue transition-colors">Privacy Policy</a></li>
-					<li><a href="/terms" class="hover:text-nordic-blue transition-colors">Terms of Service</a></li>
+				<h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Company</h4>
+				<ul class="space-y-3 text-sm">
+					<li><a href="/about" class="text-gray-600 hover:text-black transition-colors">About</a></li>
+					<li><a href="/contact" class="text-gray-600 hover:text-black transition-colors">Contact</a></li>
+					<li><a href="/contribute" class="text-gray-600 hover:text-black transition-colors">Contribute</a></li>
+					<li><a href="/editorial-policy" class="text-gray-600 hover:text-black transition-colors">Editorial Policy</a></li>
+					<li><a href="/privacy" class="text-gray-600 hover:text-black transition-colors">Privacy</a></li>
 				</ul>
-				<div class="mt-6">
-					<h5 class="text-sm font-semibold mb-2">Follow Us</h5>
-					<div class="flex space-x-3">
-						<button class="hover:text-nordic-blue transition-colors" aria-label="Twitter" title="Follow us on Twitter">
-							<Twitter size={20} />
-						</button>
-						<button class="hover:text-nordic-blue transition-colors" aria-label="Facebook" title="Follow us on Facebook">
-							<Facebook size={20} />
-						</button>
-						<button class="hover:text-nordic-blue transition-colors" aria-label="LinkedIn" title="Follow us on LinkedIn">
-							<Linkedin size={20} />
-						</button>
-					</div>
-				</div>
 			</div>
 		</div>
 
-		<div class="mt-8 border-t border-gray-300 pt-8 text-center text-sm text-gray-500">
-			<p>&copy; {new Date().getFullYear()} Nordics Today. All Rights Reserved.</p>
+		<div class="mt-12 pt-8 border-t border-gray-100 text-center">
+			<p class="text-xs text-gray-400">&copy; {new Date().getFullYear()} Nordics Today. All rights reserved.</p>
 		</div>
 	</div>
 </footer>

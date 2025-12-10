@@ -241,12 +241,12 @@
 			</div>
 
 			<!-- Article Title -->
-			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
+			<h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
 				{article.title}
 			</h1>
 
 			<!-- Author Byline -->
-			<div class="flex items-center gap-2 text-sm text-gray-600 mb-6">
+			<div class="flex items-center gap-3 text-sm text-gray-500 mb-8">
 				{#if article.author_name}
 					{#if article.author_slug}
 						<a href={`/author/${article.author_slug}`} class="font-medium text-gray-900 hover:underline">By {article.author_name}</a>
