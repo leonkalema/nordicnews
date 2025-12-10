@@ -12,6 +12,8 @@
   $: articlesByCountry = data.articlesByCountry || [];
   $: currentPage = parseInt($page.url.searchParams.get('page') || '1');
   $: totalPages = data.pagination?.totalPages || 1;
+  $: isOpinion = categorySlug === 'opinion';
+  
   function buildHref(targetPage: number) {
     const params = new URLSearchParams($page.url.searchParams);
     if (targetPage === 1) params.delete('page'); else params.set('page', String(targetPage));
@@ -22,11 +24,53 @@
   $: collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": `${category?.name || ''} News`,
-    "description": `Latest ${String(category?.name || '').toLowerCase()} news from the Nordic region`,
+    "name": isOpinion ? "Opinion & Expert Commentary" : `${category?.name || ''} News`,
+    "description": isOpinion 
+      ? "Expert opinions, analysis, and perspectives from academics, researchers, and industry leaders on Nordic affairs"
+      : `Latest ${String(category?.name || '').toLowerCase()} news from the Nordic region`,
     "url": `https://nordicstoday.com/category/${categorySlug || ''}`,
     "inLanguage": "en"
   };
+  
+  // FAQ Schema for Opinion section (SEO boost)
+  $: opinionFaqSchema = isOpinion ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Opinion section on Nordics Today?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Opinion section features expert perspectives, analysis, and commentary from academics, researchers, industry leaders, and qualified contributors on topics affecting the Nordic region. These are not news articles but informed viewpoints."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do opinion pieces reflect the editorial position of Nordics Today?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Opinion pieces represent the personal views of their authors only. They do not necessarily reflect the editorial position or views of Nordics Today or its staff."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I submit an opinion piece to Nordics Today?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We welcome submissions from academics, researchers, and industry experts. Please use our submission form at nordicstoday.com/contribute to submit your article along with your credentials and bio. All submissions undergo editorial review."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who can contribute opinion pieces?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We accept submissions from qualified contributors including university professors, researchers, policy experts, industry executives, and other professionals with demonstrated expertise in Nordic affairs, business, politics, or society."
+        }
+      }
+    ]
+  } : null;
   
   function formatDate(dateString: string | null) {
     if (!dateString) return 'No date';
@@ -80,6 +124,11 @@
       }
     ]
   })}</script>`}
+  
+  <!-- FAQ Schema for Opinion section -->
+  {#if opinionFaqSchema}
+    {@html `<script type="application/ld+json">${serializeJsonLd(opinionFaqSchema)}</script>`}
+  {/if}
 
   {#if totalPages > 1}
     {#if currentPage > 1}
@@ -101,18 +150,72 @@
 />
 
 <div class="max-w-6xl mx-auto px-4 py-8">
-  <!-- Category Header -->
-  <div class="mb-8">
-    <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-3xl font-bold text-gray-900">{category.name} News</h1>
-      <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-        {data.pagination?.totalArticles || 0} articles
-      </span>
+  <!-- Opinion-specific Header with Disclaimer -->
+  {#if isOpinion}
+    <div class="mb-8">
+      <!-- Opinion Hero -->
+      <div class="bg-gradient-to-r from-slate-800 to-slate-600 text-white rounded-lg p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+          </svg>
+          <h1 class="text-3xl font-bold">Opinion & Expert Commentary</h1>
+        </div>
+        <p class="text-gray-300 text-lg max-w-2xl">
+          Expert perspectives, analysis, and insights from academics, researchers, and industry leaders on Nordic affairs.
+        </p>
+      </div>
+      
+      <!-- Legal Disclaimer - Important for liability -->
+      <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <div>
+            <h2 class="font-semibold text-amber-800 mb-1">Editorial Disclaimer</h2>
+            <p class="text-sm text-amber-700">
+              <strong>Opinion pieces represent the views of their authors only</strong> and do not necessarily reflect the editorial position of Nordics Today. 
+              All submissions undergo editorial review for quality but the arguments and conclusions remain the author's own.
+              <a href="/editorial-policy" class="underline hover:text-amber-900">Read our Editorial Policy</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contributor Info -->
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center gap-2 text-blue-800">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span class="text-sm font-medium">Are you an expert in Nordic affairs?</span>
+          </div>
+          <a href="/contribute" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            Submit an Opinion Piece
+          </a>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2 text-gray-500 text-sm">
+        <span class="bg-gray-100 px-3 py-1 rounded-full">{data.pagination?.totalArticles || 0} articles</span>
+      </div>
     </div>
-    <p class="text-gray-600 text-lg">
-      Latest {category.name.toLowerCase()} news and analysis from across the Nordic region
-    </p>
-  </div>
+  {:else}
+    <!-- Standard Category Header -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="text-3xl font-bold text-gray-900">{category.name} News</h1>
+        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+          {data.pagination?.totalArticles || 0} articles
+        </span>
+      </div>
+      <p class="text-gray-600 text-lg">
+        Latest {category.name.toLowerCase()} news and analysis from across the Nordic region
+      </p>
+    </div>
+  {/if}
 
   <!-- Featured Articles -->
   {#if featuredArticles.length > 0}
@@ -311,6 +414,48 @@
       <a href="/category/culture" class="bg-orange-100 hover:bg-orange-200 text-orange-800 px-3 py-1 rounded-full text-sm transition-colors">Culture</a>
       <a href="/category/society" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-800 px-3 py-1 rounded-full text-sm transition-colors">Society</a>
       <a href="/category/sports" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm transition-colors">Sports</a>
+      <a href="/category/opinion" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-1 rounded-full text-sm transition-colors">Opinion</a>
     </div>
   </section>
+  
+  <!-- FAQ Section for Opinion (visible for SEO) -->
+  {#if isOpinion}
+    <section class="mt-12 pt-8 border-t border-gray-200">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        <details class="bg-white border border-gray-200 rounded-lg">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50">
+            What is the Opinion section on Nordics Today?
+          </summary>
+          <p class="px-4 pb-4 text-gray-600">
+            The Opinion section features expert perspectives, analysis, and commentary from academics, researchers, industry leaders, and qualified contributors on topics affecting the Nordic region. These are not news articles but informed viewpoints.
+          </p>
+        </details>
+        <details class="bg-white border border-gray-200 rounded-lg">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50">
+            Do opinion pieces reflect the editorial position of Nordics Today?
+          </summary>
+          <p class="px-4 pb-4 text-gray-600">
+            No. Opinion pieces represent the personal views of their authors only. They do not necessarily reflect the editorial position or views of Nordics Today or its staff.
+          </p>
+        </details>
+        <details class="bg-white border border-gray-200 rounded-lg">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50">
+            How can I submit an opinion piece to Nordics Today?
+          </summary>
+          <p class="px-4 pb-4 text-gray-600">
+            We welcome submissions from academics, researchers, and industry experts. Please use our <a href="/contribute" class="text-blue-600 hover:underline">submission form</a> to submit your article with your credentials and bio. All submissions undergo editorial review.
+          </p>
+        </details>
+        <details class="bg-white border border-gray-200 rounded-lg">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50">
+            Who can contribute opinion pieces?
+          </summary>
+          <p class="px-4 pb-4 text-gray-600">
+            We accept submissions from qualified contributors including university professors, researchers, policy experts, industry executives, and other professionals with demonstrated expertise in Nordic affairs, business, politics, or society.
+          </p>
+        </details>
+      </div>
+    </section>
+  {/if}
 </div>

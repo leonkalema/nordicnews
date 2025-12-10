@@ -19,7 +19,8 @@
 		{ name: 'Politics', slug: 'politics' },
 		{ name: 'Business', slug: 'business' },
 		{ name: 'Tech', slug: 'tech' },
-		{ name: 'Society', slug: 'society' }
+		{ name: 'Society', slug: 'society' },
+		{ name: 'Opinion', slug: 'opinion' }
 	];
 </script>
 

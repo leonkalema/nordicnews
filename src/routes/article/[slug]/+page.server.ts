@@ -1,7 +1,17 @@
 import { fetchArticleBySlug, fetchArticles } from '$lib/data/articles.js';
-import { incrementViewCount } from '$lib/supabase.js';
+import { incrementViewCount, supabase } from '$lib/supabase.js';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+
+interface OpinionContributor {
+  name: string;
+  title: string;
+  institution: string;
+  bio: string;
+  linkedin_url: string | null;
+  website_url: string | null;
+  headshot_url: string | null;
+}
 
 export const load: PageServerLoad = async ({ params }) => {
   const { slug } = params;
@@ -18,6 +28,37 @@ export const load: PageServerLoad = async ({ params }) => {
     incrementViewCount(article.id).catch(err => 
       console.error('Failed to increment view count:', err)
     );
+    
+    // For opinion articles, fetch contributor info
+    let contributor: OpinionContributor | null = null;
+    console.log('[Opinion Debug] Article category:', article.category, 'ID:', article.id);
+    if ((article.category as string) === 'opinion') {
+      try {
+        const { data: submission, error: subError } = await supabase
+          .from('opinion_submissions')
+          .select('opinion_contributors(*)')
+          .eq('published_article_id', article.id)
+          .single();
+        
+        console.log('[Opinion Debug] Submission query result:', submission, 'Error:', subError);
+        
+        if (submission?.opinion_contributors) {
+          const c = submission.opinion_contributors as any;
+          contributor = {
+            name: c.name,
+            title: c.title,
+            institution: c.institution,
+            bio: c.bio,
+            linkedin_url: c.linkedin_url,
+            website_url: c.website_url,
+            headshot_url: c.headshot_url
+          };
+          console.log('[Opinion Debug] Contributor found:', contributor.name);
+        }
+      } catch (e) {
+        console.error('Failed to fetch contributor:', e);
+      }
+    }
 
     // Fetch related articles in parallel
     const [
@@ -77,6 +118,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
     return {
       article,
+      contributor,
       relatedArticles: {
         byCategory: relatedCategoryArticles,
         byCountry: relatedCountryArticles,

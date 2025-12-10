@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
   const { category } = params;
   
   // Validate category parameter
-  const validCategories = ['breaking', 'business', 'politics', 'tech', 'culture', 'sports', 'society', 'guide', 'editorial', 'comparison'];
+  const validCategories = ['breaking', 'business', 'politics', 'tech', 'culture', 'sports', 'society', 'guide', 'editorial', 'comparison', 'opinion'];
   if (!validCategories.includes(category.toLowerCase())) {
     throw error(404, 'Category not found');
   }
@@ -96,7 +96,11 @@ export const load: PageServerLoad = async ({ params, url }) => {
         country,
         search
       },
-      meta: {
+      meta: categoryCode === 'opinion' ? {
+        title: 'Opinion & Expert Commentary - Nordics Today',
+        description: 'Expert opinions, analysis, and perspectives from academics, researchers, and industry leaders on Nordic affairs. Guest contributors share insights on business, politics, and society.',
+        keywords: ['opinion', 'expert analysis', 'Nordic perspectives', 'guest contributors', 'academic commentary', 'Nordic affairs']
+      } : {
         title: `${categoryName} News - Nordics Today`,
         description: `Latest ${categoryName.toLowerCase()} news from across the Nordic region. Stay updated with developments in Sweden, Norway, Denmark, Finland, and Iceland.`,
         keywords: [`${categoryName} news`, 'Nordic news', categoryName, country || ''].filter(Boolean)
@@ -148,7 +152,8 @@ function getRelatedCategories(category: string): string[] {
     'culture': ['society', 'sports'],
     'sports': ['culture', 'society'],
     'society': ['politics', 'culture'],
-    'breaking': ['politics', 'business']
+    'breaking': ['politics', 'business'],
+    'opinion': ['politics', 'society', 'business']
   };
   
   return relations[category] || ['business', 'politics'];

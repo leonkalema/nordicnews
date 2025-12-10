@@ -7,10 +7,14 @@ export const GET = async () => {
     '/privacy',
     '/terms',
     '/search',
+    '/editorial-policy',
+    '/contribute',
     // Country hubs
     '/sweden', '/norway', '/denmark', '/finland', '/iceland',
     // City hubs (known)
     '/stockholm', '/gothenburg', '/malmo', '/oslo', '/copenhagen', '/helsinki', '/reykjavik',
+    // Categories (canonical URLs)
+    '/category/guide', '/category/politics', '/category/business', '/category/tech', '/category/society', '/category/opinion',
     // Country categories
     '/sweden/politics','/sweden/business','/sweden/tech','/sweden/society',
     '/norway/politics','/norway/business','/norway/tech','/norway/society',

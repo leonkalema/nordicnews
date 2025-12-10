@@ -14,7 +14,7 @@ export interface PublishedArticle {
   content: string;
   summary: string | null;
   country: 'SE' | 'NO' | 'DK' | 'FI' | 'IS';
-  category: 'breaking' | 'business' | 'politics' | 'tech' | 'culture' | 'sports' | 'society' | 'guide' | 'editorial' | 'comparison';
+  category: 'breaking' | 'business' | 'politics' | 'tech' | 'culture' | 'sports' | 'society' | 'guide' | 'editorial' | 'comparison' | 'opinion';
   source_name: string;
   original_url: string;
   slug: string;
@@ -51,7 +51,8 @@ export const CATEGORY_NAMES: Record<string, string> = {
   'society': 'Society',
   'guide': 'Expert Guides',
   'editorial': 'Analysis & Opinion',
-  'comparison': 'Comparisons'
+  'comparison': 'Comparisons',
+  'opinion': 'Opinion'
 };
 
 // Helper function to format dates for Nordic audience
