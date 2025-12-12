@@ -38,6 +38,9 @@
       <p class="mb-4">
         This approach enables coverage of major Nordic developments—from parliamentary elections to corporate news, from climate policy to technology sector updates—with the context international readers need.
       </p>
+      <p class="text-sm text-gray-600 italic">
+        Nordics Today leverages automated systems and editorial processes to deliver timely coverage across the Nordic region.
+      </p>
     </section>
 
     <section class="mb-8">
