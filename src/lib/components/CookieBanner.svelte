@@ -5,12 +5,50 @@
 	let showBanner = $state(false);
 	let isVisible = $state(false);
 
+	const ADSENSE_ID = 'ca-pub-7608249203271599';
+	const GA_ID = 'G-1Y6KPNKXEW';
+
+	function loadAdSense(): void {
+		if (document.getElementById('adsense-script')) return;
+		const script = document.createElement('script');
+		script.id = 'adsense-script';
+		script.async = true;
+		script.crossOrigin = 'anonymous';
+		script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`;
+		document.head.appendChild(script);
+	}
+
+	function loadGoogleAnalytics(): void {
+		if (document.getElementById('gtag-script')) return;
+		const script = document.createElement('script');
+		script.id = 'gtag-script';
+		script.async = true;
+		script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+		document.head.appendChild(script);
+		
+		script.onload = () => {
+			window.dataLayer = window.dataLayer || [];
+			function gtag(...args: unknown[]): void {
+				window.dataLayer.push(args);
+			}
+			gtag('js', new Date());
+			gtag('config', GA_ID);
+			(window as Window & { gtag: typeof gtag }).gtag = gtag;
+		};
+	}
+
+	function loadTrackingScripts(): void {
+		loadAdSense();
+		loadGoogleAnalytics();
+	}
+
 	onMount(() => {
 		if (browser) {
 			const consent = localStorage.getItem('cookie-consent');
-			if (!consent) {
+			if (consent === 'accepted') {
+				loadTrackingScripts();
+			} else if (!consent) {
 				showBanner = true;
-				// Small delay for smooth animation
 				setTimeout(() => {
 					isVisible = true;
 				}, 100);
@@ -18,10 +56,11 @@
 		}
 	});
 
-	function acceptCookies() {
+	function acceptCookies(): void {
 		if (browser) {
 			localStorage.setItem('cookie-consent', 'accepted');
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());
+			loadTrackingScripts();
 		}
 		isVisible = false;
 		setTimeout(() => {
@@ -29,7 +68,7 @@
 		}, 300);
 	}
 
-	function declineCookies() {
+	function declineCookies(): void {
 		if (browser) {
 			localStorage.setItem('cookie-consent', 'declined');
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());

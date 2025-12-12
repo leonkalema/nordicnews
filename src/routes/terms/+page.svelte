@@ -13,7 +13,7 @@
   
   <div class="prose prose-lg max-w-none">
     <p class="text-gray-600 mb-6">
-      <strong>Last updated:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      <strong>Last updated:</strong> December 12, 2024
     </p>
 
     <section class="mb-8">
@@ -97,14 +97,20 @@
         For questions about these Terms of Service, please contact us at:
       </p>
       <p class="mb-4">
-        Email: <a href="mailto:legal@nordicstoday.com" class="text-blue-600 hover:underline">legal@nordicstoday.com</a>
+        Email: <a href="mailto:info@nordicstoday.com" class="text-blue-600 hover:underline">info@nordicstoday.com</a>
       </p>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">12. Governing Law</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">12. Governing Law and Jurisdiction</h2>
       <p class="mb-4">
-        These terms shall be governed by and construed in accordance with the laws of the European Union and the Nordic countries where our content originates.
+        These Terms of Service shall be governed by and construed in accordance with the laws of Sweden, without regard to its conflict of law provisions.
+      </p>
+      <p class="mb-4">
+        Any disputes arising from or relating to these terms or your use of the Service shall be subject to the exclusive jurisdiction of the courts of Sweden.
+      </p>
+      <p class="mb-4 text-sm text-gray-600">
+        Note: If you are a consumer residing in the European Union, you retain any mandatory consumer protection rights granted by the laws of your country of residence. Nothing in these terms affects your statutory rights as a consumer.
       </p>
     </section>
   </div>

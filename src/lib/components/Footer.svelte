@@ -39,12 +39,15 @@
 					<li><a href="/contribute" class="text-gray-600 hover:text-black transition-colors">Contribute</a></li>
 					<li><a href="/editorial-policy" class="text-gray-600 hover:text-black transition-colors">Editorial Policy</a></li>
 					<li><a href="/privacy" class="text-gray-600 hover:text-black transition-colors">Privacy</a></li>
+					<li><a href="/terms" class="text-gray-600 hover:text-black transition-colors">Terms</a></li>
+					<li><button onclick={() => { localStorage.removeItem('cookie-consent'); location.reload(); }} class="text-gray-600 hover:text-black transition-colors text-left">Cookie Settings</button></li>
 				</ul>
 			</div>
 		</div>
 
 		<div class="mt-12 pt-8 border-t border-gray-100 text-center">
-			<p class="text-xs text-gray-400">&copy; {new Date().getFullYear()} Nordics Today. All rights reserved.</p>
+			<p class="text-xs text-gray-400 mb-2">&copy; {new Date().getFullYear()} Nordics Today. All rights reserved.</p>
+			<p class="text-xs text-gray-400 italic">Nordics Today uses editorial bylines to organize content by region and topic.</p>
 		</div>
 	</div>
 </footer>

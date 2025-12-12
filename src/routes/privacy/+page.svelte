@@ -13,7 +13,7 @@
   
   <div class="prose prose-lg max-w-none">
     <p class="text-gray-600 mb-6">
-      <strong>Last updated:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      <strong>Last updated:</strong> December 12, 2024
     </p>
 
     <section class="mb-8">
@@ -38,6 +38,19 @@
         <li>Serve relevant advertisements through Google AdSense</li>
         <li>Ensure website security and prevent abuse</li>
       </ul>
+    </section>
+
+    <section class="mb-8 bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Legal Basis for Processing (GDPR Article 6)</h2>
+      <p class="mb-4">We process your personal data based on the following legal grounds:</p>
+      <ul class="list-disc pl-6 mb-4 space-y-2">
+        <li><strong>Consent (Art. 6(1)(a)):</strong> For advertising cookies and analytics. You provide consent through our cookie banner before any tracking occurs.</li>
+        <li><strong>Legitimate Interest (Art. 6(1)(f)):</strong> For essential website functionality, security measures, and fraud prevention. Our legitimate interest is to operate a secure, functional news platform.</li>
+        <li><strong>Legal Obligation (Art. 6(1)(c)):</strong> Where we are required to retain certain data to comply with legal requirements.</li>
+      </ul>
+      <p class="text-sm text-gray-600">
+        You may withdraw consent at any time by clicking "Cookie Settings" in the website footer. Withdrawal does not affect the lawfulness of processing based on consent before withdrawal.
+      </p>
     </section>
 
     <section class="mb-8">
@@ -142,15 +155,25 @@
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">6. Your Rights (GDPR)</h2>
       <p class="mb-4">
-        If you are located in the European Union, you have the right to:
+        Under the General Data Protection Regulation, you have the following rights:
       </p>
       <ul class="list-disc pl-6 mb-4">
-        <li>Access your personal data</li>
-        <li>Correct inaccurate data</li>
-        <li>Request deletion of your data</li>
-        <li>Object to data processing</li>
-        <li>Data portability</li>
+        <li><strong>Right of Access (Art. 15):</strong> Request a copy of your personal data</li>
+        <li><strong>Right to Rectification (Art. 16):</strong> Correct inaccurate data</li>
+        <li><strong>Right to Erasure (Art. 17):</strong> Request deletion of your data</li>
+        <li><strong>Right to Restriction (Art. 18):</strong> Limit how we use your data</li>
+        <li><strong>Right to Object (Art. 21):</strong> Object to processing based on legitimate interest</li>
+        <li><strong>Right to Data Portability (Art. 20):</strong> Receive your data in a portable format</li>
+        <li><strong>Right to Withdraw Consent (Art. 7):</strong> Withdraw consent at any time via Cookie Settings</li>
       </ul>
+      <p class="mb-4">
+        To exercise these rights, contact us at <a href="mailto:info@nordicstoday.com" class="text-blue-600 hover:underline">info@nordicstoday.com</a>. We will respond within 30 days.
+      </p>
+      <div class="bg-blue-50 p-4 rounded-lg">
+        <p class="text-sm text-gray-700">
+          <strong>Right to Lodge a Complaint:</strong> If you believe your data protection rights have been violated, you have the right to lodge a complaint with a supervisory authority. For Swedish residents, this is Integritetsskyddsmyndigheten (IMY) at <a href="https://www.imy.se" class="text-blue-600 hover:underline" target="_blank" rel="noopener">www.imy.se</a>.
+        </p>
+      </div>
     </section>
 
     <section class="mb-8">
@@ -170,7 +193,17 @@
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">9. International Data Transfers</h2>
       <p class="mb-4">
-        Our servers and service providers may be located in countries outside your jurisdiction. We ensure appropriate safeguards are in place to protect your data during such transfers, in compliance with GDPR and other applicable data protection laws.
+        Some of our service providers are located outside the European Economic Area (EEA). When your data is transferred internationally, we ensure appropriate safeguards are in place:
+      </p>
+      <div class="bg-gray-50 p-4 rounded-lg mb-4">
+        <h3 class="font-semibold text-gray-900 mb-2">Services Involving Data Transfers:</h3>
+        <ul class="list-disc pl-6 text-sm space-y-2">
+          <li><strong>Google (Analytics, AdSense):</strong> United States — protected under the EU-US Data Privacy Framework</li>
+          <li><strong>Hosting Infrastructure:</strong> Data processed within the EEA where possible</li>
+        </ul>
+      </div>
+      <p class="mb-4 text-sm text-gray-600">
+        For transfers to countries without an EU adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission, or the service provider's certification under the EU-US Data Privacy Framework.
       </p>
     </section>
 
@@ -187,7 +220,7 @@
         If you have questions about this Privacy Policy, please contact us at:
       </p>
       <p class="mb-4">
-        Email: <a href="mailto:privacy@nordicstoday.com" class="text-blue-600 hover:underline">privacy@nordicstoday.com</a>
+        Email: <a href="mailto:info@nordicstoday.com" class="text-blue-600 hover:underline">info@nordicstoday.com</a>
       </p>
     </section>
 

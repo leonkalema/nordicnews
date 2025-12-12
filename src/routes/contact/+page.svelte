@@ -36,7 +36,7 @@
           </svg>
           <div>
             <h3 class="font-semibold text-gray-900">News Tips</h3>
-            <p class="text-gray-600">tips@nordicstoday.com</p>
+            <p class="text-gray-600">info@nordicstoday.com</p>
           </div>
         </div>
         
@@ -46,7 +46,7 @@
           </svg>
           <div>
             <h3 class="font-semibold text-gray-900">Business & Partnerships</h3>
-            <p class="text-gray-600">business@nordicstoday.com</p>
+            <p class="text-gray-600">info@nordicstoday.com</p>
           </div>
         </div>
         
@@ -56,7 +56,7 @@
           </svg>
           <div>
             <h3 class="font-semibold text-gray-900">Privacy & Legal</h3>
-            <p class="text-gray-600">legal@nordicstoday.com</p>
+            <p class="text-gray-600">info@nordicstoday.com</p>
           </div>
         </div>
       </div>

@@ -428,6 +428,25 @@
                 the substance of my argument. <span class="text-red-500">*</span>
               </span>
             </label>
+
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" name="agree_license" required class="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+              <span class="text-sm text-gray-700">
+                I grant Nordics Today a non-exclusive, royalty-free, perpetual, worldwide license to publish, 
+                distribute, and display my submitted content on the platform and associated channels. I retain 
+                copyright ownership and may republish elsewhere after 30 days from publication on Nordics Today. <span class="text-red-500">*</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">License Summary</h3>
+            <ul class="text-xs text-gray-600 space-y-1">
+              <li>• <strong>You keep copyright</strong> — your work remains yours</li>
+              <li>• <strong>Non-exclusive license</strong> — we can publish, you can too (after 30 days)</li>
+              <li>• <strong>No payment</strong> — this is a contributor platform, not paid freelance</li>
+              <li>• <strong>Attribution</strong> — your name and bio will appear with your piece</li>
+            </ul>
           </div>
         </div>
 
@@ -456,7 +475,7 @@
     <div class="mt-8 text-center text-sm text-gray-500">
       <p>
         Questions about submissions? Contact us at 
-        <a href="mailto:editorial@nordicstoday.com" class="text-blue-600 hover:underline">editorial@nordicstoday.com</a>
+        <a href="mailto:info@nordicstoday.com" class="text-blue-600 hover:underline">info@nordicstoday.com</a>
       </p>
     </div>
   </div>

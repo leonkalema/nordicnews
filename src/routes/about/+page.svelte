@@ -15,28 +15,28 @@
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">Who We Are</h2>
       <p class="mb-4">
-        Nordics Today is an English-language news platform dedicated to covering the Nordic region. We report on the stories that matter from Sweden, Norway, Denmark, Finland, and Iceland—from breaking political developments to cultural trends shaping Northern Europe.
+        Nordics Today is an English-language news platform dedicated to covering the Nordic region. The platform delivers stories that matter from Sweden, Norway, Denmark, Finland, and Iceland—from breaking political developments to cultural trends shaping Northern Europe.
       </p>
       <p class="mb-4">
-        The Nordic countries punch above their weight on the global stage. They're home to some of the world's most innovative companies, progressive policies, and unique approaches to everything from climate action to social welfare. Yet much of this news never reaches English-speaking audiences. That's where we come in.
+        The Nordic countries punch above their weight on the global stage. They're home to some of the world's most innovative companies, progressive policies, and unique approaches to everything from climate action to social welfare. Yet much of this news never reaches English-speaking audiences. Nordics Today exists to bridge that gap.
       </p>
       <p class="mb-4">
-        We're journalists, editors, and Nordic affairs specialists who believe these stories deserve a wider audience. Whether you're an expat living in Scandinavia, a business professional tracking Nordic markets, or simply curious about this fascinating corner of Europe, we're here to keep you informed.
+        The platform serves expats living in Scandinavia, business professionals tracking Nordic markets, researchers, and anyone seeking reliable English-language coverage of this influential region.
       </p>
     </section>
 
     <section class="mb-8 bg-blue-50 p-6 rounded-lg">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Expertise</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Approach</h2>
       <p class="mb-4">
-        Nordics Today's editorial team brings over a decade of combined experience covering Scandinavian affairs, politics, and business. Our team includes:
+        Nordics Today operates with a clear editorial methodology focused on delivering accurate, timely, and contextual news coverage:
       </p>
       <ul class="list-disc pl-6 mb-4 space-y-2">
-        <li><strong>Nordic News Desk:</strong> Our core editorial team with first-hand experience living and working across Sweden, Norway, Denmark, Finland, and Iceland</li>
-        <li><strong>Analysis Team:</strong> Specialists in Nordic politics, economics, and social policy who provide in-depth commentary and context</li>
-        <li><strong>Regional Correspondents:</strong> On-the-ground contributors throughout the Nordic region who help us identify emerging stories</li>
+        <li><strong>Source Verification:</strong> Content is sourced exclusively from established Nordic news organizations, official government channels, and verified press releases</li>
+        <li><strong>Editorial Standards:</strong> All published content undergoes review for accuracy, context, and relevance to English-speaking audiences</li>
+        <li><strong>Continuous Monitoring:</strong> The platform tracks developments across all five Nordic countries to ensure comprehensive regional coverage</li>
       </ul>
       <p class="mb-4">
-        We've tracked major Nordic developments for years—from parliamentary elections to corporate mergers, from climate policy shifts to tech sector innovations. This experience helps us identify which stories matter and why they're significant for international audiences.
+        This approach enables coverage of major Nordic developments—from parliamentary elections to corporate news, from climate policy to technology sector updates—with the context international readers need.
       </p>
     </section>
 
@@ -97,49 +97,49 @@
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">How We Work</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">How It Works</h2>
       <p class="mb-4">
-        Good journalism requires both speed and accuracy. Our editorial team monitors developments across all five Nordic countries daily, identifying stories that matter to our English-speaking readership.
+        Nordics Today aggregates, curates, and contextualizes news from across the Nordic region. Content is sourced from leading Nordic publications and official sources, then presented in English with appropriate context for international readers.
       </p>
       <p class="mb-4">
-        We work with correspondents and partner organizations throughout the region to ensure our coverage is timely, accurate, and provides the context international readers need. Every story is reviewed for accuracy and includes clear source attribution.
+        Every article includes clear source attribution, linking back to original reporting where applicable. This transparent approach ensures readers can verify information and explore topics in greater depth.
       </p>
       <p class="mb-4">
-        Our focus is simple: if it's important news from the Nordics, we cover it. From parliamentary elections in Stockholm to startup funding rounds in Helsinki, from climate policy debates in Copenhagen to volcanic eruptions in Iceland—we're tracking the stories that shape the region.
+        The editorial focus is straightforward: if it's significant news from Sweden, Norway, Denmark, Finland, or Iceland, it belongs on Nordics Today. From parliamentary developments in Stockholm to startup news in Helsinki, from energy policy in Copenhagen to volcanic activity in Iceland—the platform tracks stories that shape the region.
       </p>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">What Makes Us Different</h2>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">What Makes This Platform Different</h2>
       
       <div class="grid md:grid-cols-3 gap-6 mb-6">
         <div class="border-2 border-blue-200 p-6 rounded-lg">
           <div class="text-3xl mb-3">📊</div>
-          <h3 class="font-semibold text-gray-900 mb-2">Original Analysis</h3>
+          <h3 class="font-semibold text-gray-900 mb-2">Contextual Coverage</h3>
           <p class="text-gray-600 text-sm">
-            Beyond daily news, we publish in-depth guides, analysis, and explainers that help you understand Nordic countries and their impact.
+            Beyond daily headlines, the platform provides guides, background context, and explainers that help international readers understand Nordic developments.
           </p>
         </div>
         
         <div class="border-2 border-blue-200 p-6 rounded-lg">
           <div class="text-3xl mb-3">🎯</div>
-          <h3 class="font-semibold text-gray-900 mb-2">Context for Expats</h3>
+          <h3 class="font-semibold text-gray-900 mb-2">Practical Focus</h3>
           <p class="text-gray-600 text-sm">
-            We explain what Nordic news means for people living, working, or doing business in the region—not just what happened.
+            Coverage is framed for people living, working, or doing business in the Nordics—explaining implications, not just events.
           </p>
         </div>
         
         <div class="border-2 border-blue-200 p-6 rounded-lg">
           <div class="text-3xl mb-3">🌍</div>
-          <h3 class="font-semibold text-gray-900 mb-2">All Five Countries</h3>
+          <h3 class="font-semibold text-gray-900 mb-2">Complete Regional Scope</h3>
           <p class="text-gray-600 text-sm">
-            Complete Nordic coverage—Sweden, Norway, Denmark, Finland, and Iceland—in one place, in English.
+            Comprehensive Nordic coverage—Sweden, Norway, Denmark, Finland, and Iceland—consolidated in one English-language platform.
           </p>
         </div>
       </div>
 
       <p class="mb-4">
-        While many sites cover individual Nordic countries, we provide comprehensive regional coverage. And unlike simple news feeds, we add analysis, context, and practical guides that help readers understand and navigate the Nordic region.
+        While many sources cover individual Nordic countries, Nordics Today offers consolidated regional coverage. Unlike simple aggregation, content includes context and practical information to help readers understand and navigate the Nordic region.
       </p>
 
       <div class="bg-gray-100 p-6 rounded-lg">
@@ -173,20 +173,20 @@
         Nordic companies like Spotify, IKEA, Novo Nordisk, and Ericsson are household names globally. The region's approach to balancing capitalism with social welfare, economic growth with environmental protection, has made it a model others look to—and debate.
       </p>
       <p class="mb-4">
-        For English speakers trying to understand what's happening in this influential region, reliable news coverage has been hard to find. That's the gap Nordics Today fills.
+        For English speakers trying to understand what's happening in this influential region, accessible news coverage has historically been limited. Nordics Today addresses this gap.
       </p>
       <p class="mb-4">
-        <strong>That's why we don't just report what happened—we explain why it matters.</strong> Whether you're an expat navigating Swedish healthcare, a business professional tracking Norwegian markets, or a student researching Nordic social policy, we provide the context and analysis you need to understand the region.
+        <strong>The focus extends beyond reporting events to explaining their significance.</strong> Whether for expats navigating Nordic systems, business professionals tracking regional markets, or researchers studying Nordic policy, the platform provides context essential for understanding the region.
       </p>
     </section>
 
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">Get in Touch</h2>
       <p class="mb-4">
-        Have a story tip? Questions about our coverage? Interested in partnering with us? We're always looking to connect with readers, sources, and fellow journalists covering the Nordic region.
+        Story tips, feedback, partnership inquiries, and corrections are welcome. The platform values reader input in maintaining accurate and relevant coverage.
       </p>
       <p class="mb-4">
-        <a href="/contact" class="text-blue-600 hover:underline">Contact our editorial team</a> or follow us on social media to stay updated on the latest Nordic news.
+        <a href="/contact" class="text-blue-600 hover:underline">Visit the contact page</a> or follow on social media to stay updated on the latest Nordic news.
       </p>
     </section>
 

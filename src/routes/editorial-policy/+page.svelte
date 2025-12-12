@@ -64,20 +64,20 @@
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li>Every story is sourced from established Nordic news organizations and official sources</li>
           <li>We verify information through multiple credible sources before publication</li>
-          <li>Our editorial team cross-references facts with official government announcements, press releases, and trusted media outlets</li>
+          <li>Facts are cross-referenced with official government announcements, press releases, and trusted media outlets</li>
           <li>When information cannot be independently verified, we clearly state this in our reporting</li>
         </ul>
       </div>
 
       <!-- Source Attribution -->
       <div class="border-l-4 border-blue-600 pl-6">
-        <h3 class="text-2xl font-semibold text-gray-900 mb-3">2. Source Attribution</h3>
-        <p class="text-gray-700 mb-2 font-semibold">Transparency is fundamental to our editorial process.</p>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-3">2. Content Sources</h3>
+        <p class="text-gray-700 mb-2 font-semibold">Our coverage draws from publicly available Nordic news and official sources.</p>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li>We credit original news sources for all reported stories</li>
-          <li>Links to original sources are provided whenever possible</li>
-          <li>We distinguish clearly between reported news and our own analysis or commentary</li>
-          <li>All sources used in our articles are identified and accessible to readers</li>
+          <li>Content is informed by reporting from established Nordic media organizations</li>
+          <li>Official government announcements and press releases are referenced where relevant</li>
+          <li>Articles are written for English-speaking audiences with appropriate regional context</li>
+          <li>Original reporting and analysis are clearly distinguished from aggregated news</li>
         </ul>
       </div>
 
@@ -98,7 +98,7 @@
         <h3 class="text-2xl font-semibold text-gray-900 mb-3">4. Fact-Checking Process</h3>
         <p class="text-gray-700 mb-2 font-semibold">Every article undergoes review before publication.</p>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li>Stories are reviewed by our editorial team for accuracy and clarity</li>
+          <li>Stories undergo review for accuracy and clarity before publication</li>
           <li>Statistical data and figures are verified against official sources</li>
           <li>Quotes and statements are checked for accuracy and proper context</li>
           <li>Corrections are made promptly when errors are identified</li>
@@ -135,29 +135,29 @@
     <h3 class="text-xl font-semibold text-gray-900 mb-2">How to Report Errors</h3>
     <p class="text-gray-700 mb-2">If you believe we have published inaccurate information:</p>
     <ol class="list-decimal list-inside space-y-2 text-gray-700">
-      <li>Contact us at: <a href="mailto:editorial@nordicstoday.com" class="text-blue-600 hover:underline">editorial@nordicstoday.com</a></li>
+      <li>Contact us at: <a href="mailto:info@nordicstoday.com" class="text-blue-600 hover:underline">info@nordicstoday.com</a></li>
       <li>Include the article URL and specific error details</li>
       <li>Provide sources or evidence for the correct information</li>
       <li>We will investigate and respond within 48 hours</li>
     </ol>
   </section>
 
-  <!-- Editorial Team -->
+  <!-- Editorial Approach -->
   <section class="mb-12">
-    <h2 class="text-3xl font-bold text-gray-900 mb-4">Editorial Team</h2>
+    <h2 class="text-3xl font-bold text-gray-900 mb-4">Editorial Approach</h2>
     
-    <h3 class="text-2xl font-semibold text-gray-900 mb-3">Our Expertise</h3>
-    <p class="text-gray-700 mb-4">Our editorial team combines:</p>
+    <h3 class="text-2xl font-semibold text-gray-900 mb-3">Regional Expertise</h3>
+    <p class="text-gray-700 mb-4">Nordics Today's coverage is built on:</p>
     <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
-      <li><strong>Years of experience</strong> covering Nordic affairs and international news</li>
-      <li><strong>Deep knowledge</strong> of Nordic languages, cultures, and political systems</li>
-      <li><strong>First-hand experience</strong> living and working in Nordic countries</li>
-      <li><strong>Commitment</strong> to accurate, balanced, and insightful reporting</li>
+      <li><strong>Continuous monitoring</strong> of Nordic news sources and official channels</li>
+      <li><strong>Deep familiarity</strong> with Nordic languages, cultures, and political systems</li>
+      <li><strong>Regional focus</strong> on Sweden, Norway, Denmark, Finland, and Iceland</li>
+      <li><strong>Commitment</strong> to accurate, balanced, and accessible reporting</li>
     </ul>
 
-    <h3 class="text-2xl font-semibold text-gray-900 mb-3">Nordic News Desk</h3>
+    <h3 class="text-2xl font-semibold text-gray-900 mb-3">Content Standards</h3>
     <p class="text-gray-700">
-      Our core editorial team, the Nordic News Desk, consists of analysts and writers with extensive backgrounds in Scandinavian affairs, international journalism, Nordic languages and cultural studies, and expat and immigration issues.
+      All content undergoes review for accuracy, clarity, and relevance to English-speaking audiences. The platform maintains consistent editorial standards across all Nordic coverage areas.
     </p>
   </section>
 
@@ -220,7 +220,7 @@
       <div>
         <h3 class="font-semibold text-gray-900">Editorial Inquiries</h3>
         <p class="text-gray-700">
-          Email: <a href="mailto:editorial@nordicstoday.com" class="text-blue-600 hover:underline">editorial@nordicstoday.com</a>
+          Email: <a href="mailto:info@nordicstoday.com" class="text-blue-600 hover:underline">info@nordicstoday.com</a>
         </p>
         <p class="text-gray-700">Subject: Editorial Policy or Corrections</p>
       </div>
