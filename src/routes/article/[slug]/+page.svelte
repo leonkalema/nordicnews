@@ -48,6 +48,37 @@
 	// Parse markdown content to HTML
 	$: htmlContent = article?.content ? marked.parse(article.content) : '';
 
+	// Split content for mid-article ad placement (after ~3 paragraphs)
+	// Uses regex to work on both server and client
+	function splitContentForAd(html: string): { before: string; after: string } {
+		// Match paragraph tags and other block elements
+		const blockRegex = /<(p|h[1-6]|ul|ol|blockquote|div|table)[^>]*>[\s\S]*?<\/\1>/gi;
+		const blocks = html.match(blockRegex) || [];
+		
+		if (blocks.length <= 3) {
+			return { before: html, after: '' };
+		}
+		
+		// Find position after 3rd paragraph
+		let paragraphCount = 0;
+		let splitPosition = 0;
+		
+		for (const block of blocks) {
+			splitPosition = html.indexOf(block, splitPosition) + block.length;
+			if (block.toLowerCase().startsWith('<p')) {
+				paragraphCount++;
+				if (paragraphCount >= 3) break;
+			}
+		}
+		
+		return {
+			before: html.slice(0, splitPosition),
+			after: html.slice(splitPosition)
+		};
+	}
+
+	$: contentParts = htmlContent ? splitContentForAd(htmlContent as string) : { before: '', after: '' };
+
 	// Helper function to format dates
 	function formatDate(dateString: string | null) {
 		if (!dateString) return 'No date';
@@ -302,18 +333,26 @@
 					</div>
 				{/if}
 
-				<!-- Ad: In-article -->
-				<ins class="adsbygoogle"
-					style="display:block; text-align:center;"
-					data-ad-layout="in-article"
-					data-ad-format="fluid"
-					data-ad-client="ca-pub-7608249203271599"
-					data-ad-slot="9168219982"></ins>
-
-				<!-- Article Body -->
+				<!-- Article Body with Mid-Article Ad -->
 				<div class="prose prose-lg max-w-none article-content">
 					{#if htmlContent}
-						{@html htmlContent}
+						<!-- First part of article -->
+						{@html contentParts.before}
+						
+						<!-- Ad: In-article (mid-content) -->
+						{#if contentParts.after}
+							<div class="my-8 not-prose">
+								<ins class="adsbygoogle"
+									style="display:block; text-align:center;"
+									data-ad-layout="in-article"
+									data-ad-format="fluid"
+									data-ad-client="ca-pub-7608249203271599"
+									data-ad-slot="9168219982"></ins>
+							</div>
+						{/if}
+						
+						<!-- Rest of article -->
+						{@html contentParts.after}
 					{:else}
 						<p class="text-gray-600 italic">Article content is being processed...</p>
 					{/if}
