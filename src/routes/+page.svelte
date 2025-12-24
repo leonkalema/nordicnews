@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import DailySnapshot from '$lib/components/DailySnapshot.svelte';
 	import AcrossTheNordics from '$lib/components/AcrossTheNordics.svelte';
 	import DeepDive from '$lib/components/DeepDive.svelte';
@@ -7,6 +8,14 @@
 	import FeaturedGuides from '$lib/components/FeaturedGuides.svelte';
 
 	export let data;
+
+	onMount(() => {
+		try {
+			((window as Window & { adsbygoogle: unknown[] }).adsbygoogle = (window as Window & { adsbygoogle: unknown[] }).adsbygoogle || []).push({});
+		} catch (e) {
+			console.warn('AdSense init failed:', e);
+		}
+	});
 
 	
 	$: seoData = {
@@ -92,6 +101,15 @@
 
 <FeaturedGuides guideArticles={data.guideArticles || []} />
 <DailySnapshot featuredArticles={data.featuredArticles || []} />
+
+<!-- Ad: Leaderboard -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 flex justify-center">
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:728px;height:90px"
+		data-ad-client="ca-pub-7608249203271599"
+		data-ad-slot="2497849466"></ins>
+</div>
+
 <AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />
 <DeepDive 
 	latestArticles={data.latestArticles || []} 

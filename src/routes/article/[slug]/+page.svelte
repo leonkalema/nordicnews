@@ -92,6 +92,16 @@
 			}
 		};
 		document.addEventListener('click', handleClickOutside);
+
+		// Initialize ads (in-article + sidebar)
+		try {
+			const adsbygoogle = (window as Window & { adsbygoogle: unknown[] }).adsbygoogle = (window as Window & { adsbygoogle: unknown[] }).adsbygoogle || [];
+			adsbygoogle.push({});
+			adsbygoogle.push({});
+		} catch (e) {
+			console.warn('AdSense init failed:', e);
+		}
+
 		return () => document.removeEventListener('click', handleClickOutside);
 	});
 </script>
@@ -292,6 +302,14 @@
 					</div>
 				{/if}
 
+				<!-- Ad: In-article -->
+				<ins class="adsbygoogle"
+					style="display:block; text-align:center;"
+					data-ad-layout="in-article"
+					data-ad-format="fluid"
+					data-ad-client="ca-pub-7608249203271599"
+					data-ad-slot="9168219982"></ins>
+
 				<!-- Article Body -->
 				<div class="prose prose-lg max-w-none article-content">
 					{#if htmlContent}
@@ -421,6 +439,17 @@
 						</div>
 					</div>
 				{/if}
+
+				<!-- Ad: Sidebar -->
+				<div class="bg-white rounded-lg shadow-md p-4 mb-6 sticky top-4">
+					<p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Advertisement</p>
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-client="ca-pub-7608249203271599"
+						data-ad-slot="6255665066"
+						data-ad-format="auto"
+						data-full-width-responsive="true"></ins>
+				</div>
 
 				<!-- Trending Articles -->
 				{#if relatedArticles.trending.length > 0}
