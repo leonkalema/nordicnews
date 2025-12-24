@@ -23,47 +23,6 @@
 	let allArticles: any[] = data.articles || [];
 	const articlesPerPage = 12;
 
-	// SEO optimized - dynamic for all countries
-	$: seoData = {
-		title: `${country} News in English | Latest ${country} Updates | Nordics Today`,
-		description: `Latest ${country} news in English. Real-time updates on ${country} politics, business, culture for English speakers. Read ${country} news today.`,
-		keywords: [`${country} news in English`, `${country} news English`, `English news ${country}`, `${country} breaking news English`, `${country} ${parliament} English`, `${country} politics English`, `${country} expat news`],
-		url: `/${countrySlug}`,
-		type: 'website',
-		structuredData: {
-			"@context": "https://schema.org",
-			"@type": "CollectionPage",
-			"name": `English News in ${country}`,
-			"description": `Latest ${country} news in English for English speakers`,
-			"url": `https://nordicstoday.com/${countrySlug}`,
-			"about": {
-				"@type": "Country",
-				"name": country
-			},
-			"inLanguage": "en",
-			"audience": {
-				"@type": "Audience",
-				"audienceType": `English speakers in ${country}`
-			},
-			"publisher": {
-				"@type": "NewsMediaOrganization",
-				"name": "Nordics Today",
-				"url": "https://nordicstoday.com"
-			},
-			"mainEntity": {
-				"@type": "FAQPage",
-				"mainEntity": countryConfig.faqs.map(faq => ({
-					"@type": "Question",
-					"name": faq.question,
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": faq.answer
-					}
-				}))
-			}
-		}
-	};
-
 	// Filter articles for this country - DYNAMIC
 	$: countryArticles = allArticles.filter((article: any) => 
 		article.source_country === countryCode || 
@@ -74,6 +33,79 @@
 	// Latest articles (shown in hero section)
 	$: latestArticles = countryArticles.slice(0, 6);
 	$: latestArticleIds = new Set(latestArticles.map((a: any) => a.id));
+
+	// SEO optimized - dynamic for all countries
+	// Title: Exact match keyword FIRST for better rankings
+	$: seoData = {
+		title: `${country} News in English - Daily Updates for Expats & English Speakers`,
+		description: `Read ${country} news in English today. Get daily updates on ${country} politics, business, culture & society. The #1 source for English speakers in ${country}. Updated ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}.`,
+		keywords: [
+			`${country} news in English`,
+			`${country.toLowerCase()} news in english`,
+			`${country} news English`,
+			`English news ${country}`,
+			`${country} news today`,
+			`${country} breaking news English`,
+			`${country} ${parliament} English`,
+			`${country} politics English`,
+			`${country} expat news`,
+			`news from ${country} in English`,
+			`${country} daily news English`
+		],
+		url: `/${countrySlug}`,
+		type: 'website',
+		structuredData: {
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "WebPage",
+					"@id": `https://nordicstoday.com/${countrySlug}#webpage`,
+					"url": `https://nordicstoday.com/${countrySlug}`,
+					"name": `${country} News in English - Daily Updates for Expats & English Speakers`,
+					"description": `Read ${country} news in English. Daily updates on politics, business, culture for English speakers.`,
+					"isPartOf": { "@id": "https://nordicstoday.com/#website" },
+					"inLanguage": "en",
+					"dateModified": new Date().toISOString(),
+					"about": {
+						"@type": "Country",
+						"name": country
+					},
+					"audience": {
+						"@type": "Audience",
+						"audienceType": `English speakers in ${country}, expats, international readers`
+					}
+				},
+				{
+					"@type": "CollectionPage",
+					"@id": `https://nordicstoday.com/${countrySlug}#collection`,
+					"name": `${country} News in English`,
+					"description": `Latest ${country} news articles in English`,
+					"url": `https://nordicstoday.com/${countrySlug}`,
+					"mainEntity": {
+						"@type": "ItemList",
+						"itemListElement": latestArticles.slice(0, 10).map((article: any, index: number) => ({
+							"@type": "ListItem",
+							"position": index + 1,
+							"url": `https://nordicstoday.com${article.url_slug}`,
+							"name": article.title
+						}))
+					}
+				},
+				{
+					"@type": "FAQPage",
+					"@id": `https://nordicstoday.com/${countrySlug}#faq`,
+					"mainEntity": countryConfig.faqs.map((faq: any) => ({
+						"@type": "Question",
+						"name": faq.question,
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": faq.answer
+						}
+					}))
+				}
+			]
+		}
+	};
 
 	// Category-specific articles - EXCLUDE articles already shown in Latest
 	$: politicsArticles = countryArticles.filter((a: any) => 
@@ -196,8 +228,11 @@
 		<h1 class="font-serif text-5xl md:text-6xl font-bold mb-6 leading-tight">
 			{country} News in English
 		</h1>
-		<p class="text-xl text-gray-400 max-w-2xl leading-relaxed">
+		<p class="text-xl text-gray-300 max-w-2xl leading-relaxed mb-4">
 			{countryConfig.intro}
+		</p>
+		<p class="text-sm text-gray-500">
+			Updated daily • {countryArticles.length}+ articles • Trusted by expats since 2024
 		</p>
 	</div>
 </div>
