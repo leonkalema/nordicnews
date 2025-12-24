@@ -71,27 +71,41 @@
 		article.title?.toLowerCase().includes(countrySlug)
 	);
 
-	// Category-specific articles - matching your actual database categories
+	// Latest articles (shown in hero section)
+	$: latestArticles = countryArticles.slice(0, 6);
+	$: latestArticleIds = new Set(latestArticles.map((a: any) => a.id));
+
+	// Category-specific articles - EXCLUDE articles already shown in Latest
 	$: politicsArticles = countryArticles.filter((a: any) => 
-		a.category === 'politics'
+		a.category === 'politics' && !latestArticleIds.has(a.id)
 	).slice(0, 4);
 	
 	$: businessArticles = countryArticles.filter((a: any) => 
-		a.category === 'business'
+		a.category === 'business' && !latestArticleIds.has(a.id)
 	).slice(0, 4);
 	
 	$: techArticles = countryArticles.filter((a: any) => 
-		a.category === 'tech'
+		a.category === 'tech' && !latestArticleIds.has(a.id)
 	).slice(0, 4);
 	
 	$: societyArticles = countryArticles.filter((a: any) => 
-		a.category === 'society' || 
-		a.category === 'culture' ||
-		a.category === 'breaking'  // Include breaking news in society section
+		(a.category === 'society' || a.category === 'culture' || a.category === 'breaking') && 
+		!latestArticleIds.has(a.id)
 	).slice(0, 4);
 
-	// Paginated articles for display
-	$: displayedArticles = countryArticles.slice(0, currentPage * articlesPerPage);
+	// Collect all IDs shown in category sections
+	$: categoryArticleIds = new Set([
+		...politicsArticles.map((a: any) => a.id),
+		...businessArticles.map((a: any) => a.id),
+		...techArticles.map((a: any) => a.id),
+		...societyArticles.map((a: any) => a.id)
+	]);
+
+	// "All News" section - EXCLUDE articles already shown in Latest and Category sections
+	$: remainingArticles = countryArticles.filter((a: any) => 
+		!latestArticleIds.has(a.id) && !categoryArticleIds.has(a.id)
+	);
+	$: displayedArticles = remainingArticles.slice(0, currentPage * articlesPerPage);
 
 	// Load more articles function
 	async function loadMoreArticles() {
@@ -217,7 +231,7 @@
 				<p class="font-serif text-3xl font-semibold text-gray-900">Today's {country} News</p>
 			</div>
 			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-				{#each countryArticles.slice(0, 6) as article}
+				{#each latestArticles as article}
 					<article class="group">
 						{#if article.featured_image_url}
 							<div class="aspect-[16/10] overflow-hidden mb-4">
@@ -403,7 +417,7 @@
 
 			<!-- SEO pagination info -->
 			<div class="text-center text-sm text-gray-500 mt-8 mb-4">
-				Showing {displayedArticles.length} of {countryArticles.length} articles
+				Showing {displayedArticles.length} of {remainingArticles.length} articles in this section
 				{#if hasMore}
 					• Scroll down for more
 				{/if}
