@@ -63,15 +63,15 @@
 
 	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 py-8">
-			<ArticleBody
-				category={article.category}
-				content={article.content}
-				featuredImageUrl={article.featured_image_url}
-				featuredImageAlt={article.featured_image_alt || null}
-				featuredImageCaption={article.featured_image_caption}
-			/>
-
 			<div class="lg:col-span-3">
+				<ArticleBody
+					category={article.category}
+					content={article.content}
+					featuredImageUrl={article.featured_image_url}
+					featuredImageAlt={article.featured_image_alt || null}
+					featuredImageCaption={article.featured_image_caption}
+				/>
+
 				{#if contributor}
 					<OpinionAuthorBox contributor={contributor} />
 				{/if}
