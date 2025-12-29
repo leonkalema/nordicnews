@@ -1,12 +1,19 @@
-<script>
+<script lang="ts">
 	import '../app.css';
+	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import SEOHead from '$lib/components/SEOHead.svelte';
 	import CookieBanner from '$lib/components/CookieBanner.svelte';
+	import PwaInstallPrompt from '$lib/components/PwaInstallPrompt.svelte';
 	import { serializeJsonLd } from '$lib/utils/json-ld';
+	import { registerServiceWorker } from '$lib/pwa/service-worker-register';
 
 	let { children } = $props();
+
+	onMount(() => {
+		registerServiceWorker();
+	});
 </script>
 
 <SEOHead baseOnly={true} />
@@ -35,4 +42,5 @@
 	</main>
 	<Footer />
 	<CookieBanner />
+	<PwaInstallPrompt />
 </div>
