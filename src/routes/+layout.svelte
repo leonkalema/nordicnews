@@ -6,6 +6,7 @@
 	import SEOHead from '$lib/components/SEOHead.svelte';
 	import CookieBanner from '$lib/components/CookieBanner.svelte';
 	import PwaInstallPrompt from '$lib/components/PwaInstallPrompt.svelte';
+	import NotificationPrompt from '$lib/components/NotificationPrompt.svelte';
 	import { serializeJsonLd } from '$lib/utils/json-ld';
 	import { registerServiceWorker } from '$lib/pwa/service-worker-register';
 
@@ -43,4 +44,5 @@
 	<Footer />
 	<CookieBanner />
 	<PwaInstallPrompt />
+	<NotificationPrompt />
 </div>
