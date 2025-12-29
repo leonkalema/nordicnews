@@ -43,7 +43,7 @@
 			target="_blank"
 			rel="noopener noreferrer"
 			onclick={() => trackClick(primaryLabel)}
-			class="inline-flex items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+			class="inline-flex items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-semibold !text-white !no-underline hover:bg-gray-800 hover:!no-underline"
 		>
 			{primaryLabel}
 			<ArrowRight size={16} />
@@ -54,7 +54,7 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				onclick={() => trackClick(secondaryLabel)}
-				class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-800 hover:bg-gray-50"
+				class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-semibold !text-gray-800 !no-underline hover:bg-gray-50 hover:!no-underline"
 			>
 				{secondaryLabel}
 				<ArrowRight size={16} />
