@@ -1,24 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import DailySnapshot from '$lib/components/DailySnapshot.svelte';
 	import AcrossTheNordics from '$lib/components/AcrossTheNordics.svelte';
 	import DeepDive from '$lib/components/DeepDive.svelte';
 	import LongRead from '$lib/components/LongRead.svelte';
 	import SEOHead from '$lib/components/SEOHead.svelte';
 	import FeaturedGuides from '$lib/components/FeaturedGuides.svelte';
+	import AdUnit from '$lib/components/AdUnit.svelte';
 
-	export let data;
+	const { data }: { data: any } = $props();
 
-	onMount(() => {
-		try {
-			((window as Window & { adsbygoogle: unknown[] }).adsbygoogle = (window as Window & { adsbygoogle: unknown[] }).adsbygoogle || []).push({});
-		} catch (e) {
-			console.warn('AdSense init failed:', e);
-		}
-	});
-
-	
-	$: seoData = {
+	const seoData = $derived({
 		title: data.meta?.title || 'Nordics Today - Your Daily Source for Nordic News',
 		description: data.meta?.description || 'English news from Sweden, Norway, Denmark, Finland & Iceland. Daily Nordic news for expats and English speakers living in Scandinavia. Latest updates on Swedish politics, culture & society.',
 		keywords: [
@@ -87,7 +78,7 @@
 				}
 			]
 		}
-	};
+	});
 </script>
 
 <SEOHead {...seoData} />
@@ -104,10 +95,7 @@
 
 <!-- Ad: Leaderboard -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 flex justify-center">
-	<ins class="adsbygoogle"
-		style="display:inline-block;width:728px;height:90px"
-		data-ad-client="ca-pub-7608249203271599"
-		data-ad-slot="2497849466"></ins>
+	<AdUnit slot="2497849466" format="horizontal" responsive={false} />
 </div>
 
 <AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />

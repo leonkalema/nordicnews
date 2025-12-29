@@ -8,6 +8,38 @@
 	const ADSENSE_ID = 'ca-pub-7608249203271599';
 	const GA_ID = 'G-1Y6KPNKXEW';
 
+	type GtagFn = (...args: unknown[]) => void;
+
+	const ensureGtag = (): GtagFn => {
+		(window as Window & { dataLayer?: unknown[] }).dataLayer = (window as Window & { dataLayer?: unknown[] }).dataLayer || [];
+		const gtag: GtagFn = (...args: unknown[]) => {
+			(window as Window & { dataLayer: unknown[] }).dataLayer.push(args);
+		};
+		(window as Window & { gtag?: GtagFn }).gtag = gtag;
+		return gtag;
+	};
+
+	const setDefaultConsent = (): void => {
+		const gtag = ensureGtag();
+		gtag('consent', 'default', {
+			ad_storage: 'denied',
+			ad_user_data: 'denied',
+			ad_personalization: 'denied',
+			analytics_storage: 'denied',
+			wait_for_update: 500
+		});
+	};
+
+	const updateConsent = (isGranted: boolean): void => {
+		const gtag = ensureGtag();
+		gtag('consent', 'update', {
+			ad_storage: isGranted ? 'granted' : 'denied',
+			ad_user_data: isGranted ? 'granted' : 'denied',
+			ad_personalization: isGranted ? 'granted' : 'denied',
+			analytics_storage: isGranted ? 'granted' : 'denied'
+		});
+	};
+
 	function loadAdSense(): void {
 		if (document.getElementById('adsense-script')) return;
 		const script = document.createElement('script');
@@ -20,6 +52,7 @@
 
 	function loadGoogleAnalytics(): void {
 		if (document.getElementById('gtag-script')) return;
+		setDefaultConsent();
 		const script = document.createElement('script');
 		script.id = 'gtag-script';
 		script.async = true;
@@ -27,26 +60,23 @@
 		document.head.appendChild(script);
 		
 		script.onload = () => {
-			window.dataLayer = window.dataLayer || [];
-			function gtag(...args: unknown[]): void {
-				window.dataLayer.push(args);
-			}
+			const gtag = ensureGtag();
 			gtag('js', new Date());
-			gtag('config', GA_ID);
-			(window as Window & { gtag: typeof gtag }).gtag = gtag;
+			gtag('config', GA_ID, {
+				anonymize_ip: true
+			});
 		};
-	}
-
-	function loadTrackingScripts(): void {
-		loadAdSense();
-		loadGoogleAnalytics();
 	}
 
 	onMount(() => {
 		if (browser) {
 			const consent = localStorage.getItem('cookie-consent');
+			loadGoogleAnalytics();
 			if (consent === 'accepted') {
-				loadTrackingScripts();
+				updateConsent(true);
+				loadAdSense();
+			} else if (consent === 'declined') {
+				updateConsent(false);
 			} else if (!consent) {
 				showBanner = true;
 				setTimeout(() => {
@@ -60,7 +90,8 @@
 		if (browser) {
 			localStorage.setItem('cookie-consent', 'accepted');
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());
-			loadTrackingScripts();
+			updateConsent(true);
+			loadAdSense();
 		}
 		isVisible = false;
 		setTimeout(() => {
@@ -72,6 +103,7 @@
 		if (browser) {
 			localStorage.setItem('cookie-consent', 'declined');
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());
+			updateConsent(false);
 		}
 		isVisible = false;
 		setTimeout(() => {

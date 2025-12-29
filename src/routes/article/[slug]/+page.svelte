@@ -1,426 +1,90 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Share, Calendar, MapPin, Eye, Clock, ArrowLeft, Facebook, Twitter, Linkedin } from 'lucide-svelte';
-	import { getCountryFlag } from '$lib/supabase.js';
 	import type { PageData } from './$types';
-	import { marked } from 'marked';
-    import { serializeJsonLd } from '$lib/utils/json-ld';
+	import { articlePageUtils } from '$lib/utils/article-page';
+	import ArticleMetaHead from '$lib/components/article/ArticleMetaHead.svelte';
+	import ArticleHeader from '$lib/components/article/ArticleHeader.svelte';
+	import ArticleBody from '$lib/components/article/ArticleBody.svelte';
+	import ArticleSidebar from '$lib/components/article/ArticleSidebar.svelte';
+	import OpinionAuthorBox from '$lib/components/article/OpinionAuthorBox.svelte';
+	import ArticleContentStyles from '$lib/components/article/ArticleContentStyles.svelte';
 
-	export let data: PageData;
+	const { data }: { data: PageData } = $props();
+	const article = $derived(data.article);
+	const contributor = $derived(data.contributor);
+	const relatedArticles = $derived(data.relatedArticles);
+	const structuredData = $derived(data.structuredData);
+	const ogLocale = $derived(articlePageUtils.ogLocaleFor(article?.country, article?.country_name));
 
-	$: article = data.article;
-	$: contributor = data.contributor;
-	$: relatedArticles = data.relatedArticles;
-	$: structuredData = data.structuredData;
-
-	// OpenGraph locale mapping by country code (fallback en_US)
-	function ogLocaleFor(countryCode?: string, countryName?: string) {
-		const map: Record<string, string> = {
-			SE: 'en_SE',
-			NO: 'en_NO',
-			DK: 'en_DK',
-			FI: 'en_FI',
-			IS: 'en_IS'
-		};
-		const code = (countryCode || '').toUpperCase();
-		if (map[code]) return map[code];
-		// Try by name if needed
-		const byName: Record<string, string> = {
-			Sweden: 'en_SE',
-			Norway: 'en_NO',
-			Denmark: 'en_DK',
-			Finland: 'en_FI',
-			Iceland: 'en_IS'
-		};
-		return byName[countryName || ''] || 'en_US';
-	}
-
-	$: ogLocale = ogLocaleFor(article?.country, article?.country_name);
-
-	let showShareMenu = false;
-
-	// Configure marked for safe HTML rendering
-	marked.setOptions({
-		breaks: true,
-		gfm: true
-	});
-
-	// Parse markdown content to HTML
-	$: htmlContent = article?.content ? marked.parse(article.content) : '';
-
-	// Split content for mid-article ad placement (after ~3 paragraphs)
-	// Uses regex to work on both server and client
-	function splitContentForAd(html: string): { before: string; after: string } {
-		// Match paragraph tags and other block elements
-		const blockRegex = /<(p|h[1-6]|ul|ol|blockquote|div|table)[^>]*>[\s\S]*?<\/\1>/gi;
-		const blocks = html.match(blockRegex) || [];
-		
-		if (blocks.length <= 3) {
-			return { before: html, after: '' };
-		}
-		
-		// Find position after 3rd paragraph
-		let paragraphCount = 0;
-		let splitPosition = 0;
-		
-		for (const block of blocks) {
-			splitPosition = html.indexOf(block, splitPosition) + block.length;
-			if (block.toLowerCase().startsWith('<p')) {
-				paragraphCount++;
-				if (paragraphCount >= 3) break;
-			}
-		}
-		
-		return {
-			before: html.slice(0, splitPosition),
-			after: html.slice(splitPosition)
-		};
-	}
-
-	$: contentParts = htmlContent ? splitContentForAd(htmlContent as string) : { before: '', after: '' };
-
-	// Helper function to format dates
-	function formatDate(dateString: string | null) {
-		if (!dateString) return 'No date';
-		return new Date(dateString).toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-	}
-
-	// Share functions
-	const shareOnFacebook = () => {
-		const url = encodeURIComponent(window.location.href);
-		window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-	};
-
-	const shareOnTwitter = () => {
-		const url = encodeURIComponent(window.location.href);
-		const text = encodeURIComponent(article.title);
-		window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
-	};
-
-	const shareOnLinkedIn = () => {
-		const url = encodeURIComponent(window.location.href);
-		window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-	};
-
-	const copyToClipboard = async () => {
+	const initAdsIfConsented = (): void => {
 		try {
-			await navigator.clipboard.writeText(window.location.href);
-			alert('Link copied to clipboard!');
-		} catch (err) {
-			console.error('Failed to copy: ', err);
+			const consent = localStorage.getItem('cookie-consent');
+			if (consent !== 'accepted') return;
+			const w = window as unknown as { adsbygoogle?: unknown[] };
+			if (!w.adsbygoogle) return;
+			w.adsbygoogle.push({});
+			w.adsbygoogle.push({});
+		} catch (e) {
+			console.warn('AdSense init failed:', e);
 		}
 	};
 
 	onMount(() => {
-		// Close share menu when clicking outside
-		const handleClickOutside = (event: MouseEvent) => {
-			if (showShareMenu && !(event.target as Element)?.closest('.share-menu')) {
-				showShareMenu = false;
-			}
-		};
-		document.addEventListener('click', handleClickOutside);
-
-		// Initialize ads (in-article + sidebar)
-		try {
-			const adsbygoogle = (window as Window & { adsbygoogle: unknown[] }).adsbygoogle = (window as Window & { adsbygoogle: unknown[] }).adsbygoogle || [];
-			adsbygoogle.push({});
-			adsbygoogle.push({});
-		} catch (e) {
-			console.warn('AdSense init failed:', e);
-		}
-
-		return () => document.removeEventListener('click', handleClickOutside);
+		initAdsIfConsented();
 	});
 </script>
 
-<svelte:head>
-	<title>{data.meta.title}</title>
-	<meta name="description" content={data.meta.description} />
-	<meta name="keywords" content={data.meta.keywords?.join(', ')} />
-	
-	<!-- Canonical URL -->
-	<link rel="canonical" href={`https://nordicstoday.com/article/${article.slug}`} />
-	
-	<!-- Hreflang Tags -->
-	<link rel="alternate" hreflang="en" href={`https://nordicstoday.com/article/${article.slug}`} />
-	<link rel="alternate" hreflang="x-default" href={`https://nordicstoday.com/article/${article.slug}`} />
-	
-	<!-- Open Graph / Facebook -->
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={article.title} />
-	<meta property="og:description" content={data.meta.description} />
-	<meta property="og:image" content={article.featured_image_url || 'https://nordicstoday.com/og-image.jpg'} />
-	<meta property="og:url" content={`https://nordicstoday.com/article/${article.slug}`} />
-	<meta property="og:site_name" content="Nordics Today" />
-	<meta property="og:locale" content={ogLocale} />
-	<meta
-		property="article:author"
-		content={article.author_name || 'Nordics Today'}
-	/>
-	<meta property="article:published_time" content={data.meta.publishedTime} />
-	<meta property="article:modified_time" content={data.meta.modifiedTime} />
-	{#if data.meta.modifiedTime}
-		<meta property="og:updated_time" content={data.meta.modifiedTime} />
-	{/if}
-	<meta property="article:section" content={data.meta.section} />
-	{#if data.meta.tags}
-		{#each data.meta.tags as tag}
-			<meta property="article:tag" content={tag} />
-		{/each}
-	{/if}
-	
-	<!-- Twitter -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={article.title} />
-	<meta name="twitter:description" content={article.excerpt || data.meta.description} />
-	<meta name="twitter:image" content={article.featured_image_url || 'https://nordicstoday.com/og-image.jpg'} />
-	<meta name="twitter:image:alt" content={article.featured_image_caption || article.title} />
-	
-	<!-- Additional Meta Tags for News -->
-	<meta name="news_keywords" content={article.keywords?.join(', ') || article.category_display} />
-	<meta name="original-source" content={article.original_url || 'Nordic News Sources'} />
-	<meta name="geo.region" content="Nordic Countries" />
-	<meta name="geo.placename" content="Nordic Region" />
-	
-	<!-- Structured Data -->
-	{@html `<script type="application/ld+json">${serializeJsonLd(structuredData)}</script>`}
-
-	<!-- Breadcrumbs -->
-	{@html `<script type="application/ld+json">${serializeJsonLd({
-	  "@context": "https://schema.org",
-	  "@type": "BreadcrumbList",
-	  "itemListElement": [
-	    {
-	      "@type": "ListItem",
-	      "position": 1,
-	      "name": "Home",
-	      "item": "https://nordicstoday.com/"
-	    },
-	    {
-	      "@type": "ListItem",
-	      "position": 2,
-	      "name": article.title,
-	      "item": `https://nordicstoday.com/article/${article.slug}`
-	    }
-	  ]
-	})}</script>`}
-</svelte:head>
+<ArticleMetaHead
+	slug={article.slug}
+	title={article.title}
+	excerpt={article.excerpt}
+	featuredImageUrl={article.featured_image_url}
+	featuredImageCaption={article.featured_image_caption}
+	meta={data.meta}
+	ogLocale={ogLocale}
+	structuredData={structuredData}
+/>
 
 <article class="min-h-screen bg-off-white">
-	<!-- Back Navigation -->
-	<div class="bg-white border-b border-gray-200">
-		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-			<a href="/" class="inline-flex items-center text-nordic-blue hover:text-blue-800 transition-colors">
-				<ArrowLeft size={20} class="mr-2" />
-				Back to Home
-			</a>
-		</div>
-	</div>
+	<ArticleHeader
+		title={article.title}
+		slug={article.slug}
+		country={article.country}
+		countryName={article.country_name}
+		categoryDisplay={article.category_display}
+		publishedAt={article.published_at}
+		relativeTime={article.relative_time}
+		viewCount={article.view_count}
+		authorName={article.author_name || null}
+		authorSlug={article.author_slug || null}
+		summary={article.summary || null}
+		excerpt={article.excerpt}
+	/>
 
-	<!-- Article Header -->
-	<header class="bg-white">
-		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-			<!-- Article Meta -->
-			<div class="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-600 mb-6">
-				<div class="flex flex-wrap items-center gap-4">
-					<div class="flex items-center gap-2">
-						<span>{getCountryFlag(article.country)}</span>
-						<span class="font-medium">{article.country_name}</span>
-					</div>
-					<div class="flex items-center gap-1">
-						<Calendar size={16} />
-						<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
-					</div>
-					<div class="flex items-center gap-1">
-						<Clock size={16} />
-						<span>{article.relative_time}</span>
-					</div>
-					<div class="flex items-center gap-1">
-						<Eye size={16} />
-						<span>{article.view_count || 0} views</span>
-					</div>
-					<span class="px-2 py-1 bg-nordic-blue text-white text-xs font-semibold rounded-full">
-						{article.category_display}
-					</span>
-				</div>
-				
-				<!-- Compact Share Button -->
-				<div class="relative share-menu">
-					<button 
-						on:click={() => showShareMenu = !showShareMenu}
-						class="flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm"
-					>
-						<Share size={14} />
-						Share
-					</button>
-
-					{#if showShareMenu}
-						<div class="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10 min-w-48">
-							<button on:click={shareOnFacebook} class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3">
-								<Facebook size={18} class="text-blue-600" />
-								Facebook
-							</button>
-							<button on:click={shareOnTwitter} class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3">
-								<Twitter size={18} class="text-blue-400" />
-								Twitter
-							</button>
-							<button on:click={shareOnLinkedIn} class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3">
-								<Linkedin size={18} class="text-blue-700" />
-								LinkedIn
-							</button>
-							<button on:click={copyToClipboard} class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3">
-								<Share size={18} class="text-gray-600" />
-								Copy Link
-							</button>
-						</div>
-					{/if}
-				</div>
-			</div>
-
-			<!-- Article Title -->
-			<h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-				{article.title}
-			</h1>
-
-			<!-- Author Byline -->
-			<div class="flex items-center gap-3 text-sm text-gray-500 mb-8">
-				{#if article.author_name}
-					{#if article.author_slug}
-						<a href={`/author/${article.author_slug}`} class="font-medium text-gray-900 hover:underline">By {article.author_name}</a>
-					{:else}
-						<span class="font-medium text-gray-900">By {article.author_name}</span>
-					{/if}
-				{:else}
-					<span class="font-medium text-gray-900">By Nordics Today</span>
-				{/if}
-				<span>•</span>
-				<time datetime={article.published_at}>{formatDate(article.published_at)}</time>
-			</div>
-
-			<!-- Article Summary -->
-			{#if article.summary || article.excerpt}
-				<p class="text-xl text-gray-700 leading-relaxed mb-8 font-medium">
-					{article.summary || article.excerpt}
-				</p>
-			{/if}
-
-		</div>
-	</header>
-
-	<!-- Article Content -->
 	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 py-8">
-			<!-- Main Content -->
+			<ArticleBody
+				category={article.category}
+				content={article.content}
+				featuredImageUrl={article.featured_image_url}
+				featuredImageAlt={article.featured_image_alt || null}
+				featuredImageCaption={article.featured_image_caption}
+			/>
+
 			<div class="lg:col-span-3">
-				<!-- Featured Image -->
-				{#if article.featured_image_url}
-					<div class="mb-8">
-						<img 
-							src={article.featured_image_url} 
-							alt={article.featured_image_alt || article.title}
-							class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
-							decoding="async"
-							loading="eager"
-							fetchpriority="high"
-						/>
-						{#if article.featured_image_caption}
-							<p class="text-sm text-gray-600 mt-2 italic">{article.featured_image_caption}</p>
-						{/if}
-					</div>
-				{/if}
-
-				<!-- Article Body with Mid-Article Ad -->
-				<div class="prose prose-lg max-w-none article-content">
-					{#if htmlContent}
-						<!-- First part of article -->
-						{@html contentParts.before}
-						
-						<!-- Ad: In-article (mid-content) -->
-						{#if contentParts.after}
-							<div class="my-8 not-prose">
-								<ins class="adsbygoogle"
-									style="display:block; text-align:center;"
-									data-ad-layout="in-article"
-									data-ad-format="fluid"
-									data-ad-client="ca-pub-7608249203271599"
-									data-ad-slot="9168219982"></ins>
-							</div>
-						{/if}
-						
-						<!-- Rest of article -->
-						{@html contentParts.after}
-					{:else}
-						<p class="text-gray-600 italic">Article content is being processed...</p>
-					{/if}
-				</div>
-
-				<!-- Opinion Author Box -->
 				{#if contributor}
-					<div class="mt-10 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl">
-						<div class="flex items-start gap-4">
-							{#if contributor.headshot_url}
-								<img 
-									src={contributor.headshot_url} 
-									alt={contributor.name}
-									class="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
-								/>
-							{:else}
-								<div class="w-20 h-20 rounded-full bg-blue-200 flex items-center justify-center text-blue-600 text-2xl font-bold border-2 border-white shadow-md">
-									{contributor.name.charAt(0)}
-								</div>
-							{/if}
-							<div class="flex-1">
-								<p class="text-xs uppercase tracking-wide text-blue-600 font-semibold mb-1">About the Author</p>
-								<h4 class="text-xl font-bold text-gray-900">{contributor.name}</h4>
-								<p class="text-sm text-gray-600 mb-2">{contributor.title}, {contributor.institution}</p>
-								<p class="text-gray-700 text-sm leading-relaxed mb-4">{contributor.bio}</p>
-								<div class="flex items-center gap-3">
-									{#if contributor.linkedin_url}
-										<a 
-											href={contributor.linkedin_url} 
-											target="_blank" 
-											rel="noopener noreferrer"
-											class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 transition-colors"
-										>
-											<Linkedin class="w-4 h-4" />
-											<span>LinkedIn</span>
-										</a>
-									{/if}
-									{#if contributor.website_url}
-										<a 
-											href={contributor.website_url} 
-											target="_blank" 
-											rel="noopener noreferrer"
-											class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 transition-colors"
-										>
-											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-											</svg>
-											<span>Website</span>
-										</a>
-									{/if}
-								</div>
-							</div>
-						</div>
-					</div>
+					<OpinionAuthorBox contributor={contributor} />
 				{/if}
 
-				<!-- Article Footer -->
 				<footer class="mt-12 pt-8 border-t border-gray-200">
 					<div class="flex flex-wrap items-center justify-between gap-4">
 						<div class="text-sm text-gray-600">
-							<p>Published: {formatDate(article.published_at)}</p>
+							<p>Published: {articlePageUtils.formatDate(article.published_at)}</p>
 							{#if article.keywords && article.keywords.length > 0}
 								<div class="mt-2">
 									<span class="font-medium">Tags:</span>
 									{#each article.keywords as keyword}
-										<span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs mr-2 mt-1">
-											{keyword}
-										</span>
+										<span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs mr-2 mt-1">{keyword}</span>
 									{/each}
 								</div>
 							{/if}
@@ -429,146 +93,13 @@
 				</footer>
 			</div>
 
-			<!-- Sidebar -->
-			<aside class="lg:col-span-1">
-				<!-- Related Articles by Category -->
-				{#if relatedArticles.byCategory.length > 0}
-					<div class="bg-white rounded-lg shadow-md p-6 mb-6">
-						<h3 class="text-lg font-bold text-nordic-blue border-b-2 border-arctic-gray pb-2 mb-4">
-							More in {article.category_display}
-						</h3>
-						<div class="space-y-4">
-							{#each relatedArticles.byCategory as related}
-								<article class="border-b border-gray-100 pb-3 last:border-b-0">
-									<a href={related.url_slug} class="group">
-										<h4 class="text-sm font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 mb-1">
-											{related.title}
-										</h4>
-										<div class="flex items-center justify-between text-xs text-gray-500">
-											<span>{related.country_name}</span>
-											<span>{related.relative_time}</span>
-										</div>
-									</a>
-								</article>
-							{/each}
-						</div>
-					</div>
-				{/if}
-
-				<!-- Related Articles by Country -->
-				{#if relatedArticles.byCountry.length > 0}
-					<div class="bg-white rounded-lg shadow-md p-6 mb-6">
-						<h3 class="text-lg font-bold text-nordic-blue border-b-2 border-arctic-gray pb-2 mb-4">
-							More from {article.country_name}
-						</h3>
-						<div class="space-y-4">
-							{#each relatedArticles.byCountry as related}
-								<article class="border-b border-gray-100 pb-3 last:border-b-0">
-									<a href={related.url_slug} class="group">
-										<h4 class="text-sm font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 mb-1">
-											{related.title}
-										</h4>
-										<div class="flex items-center justify-between text-xs text-gray-500">
-											<span>{related.category_display}</span>
-											<span>{related.relative_time}</span>
-										</div>
-									</a>
-								</article>
-							{/each}
-						</div>
-					</div>
-				{/if}
-
-				<!-- Ad: Sidebar -->
-				<div class="bg-white rounded-lg shadow-md p-4 mb-6 sticky top-4">
-					<p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Advertisement</p>
-					<ins class="adsbygoogle"
-						style="display:block"
-						data-ad-client="ca-pub-7608249203271599"
-						data-ad-slot="6255665066"
-						data-ad-format="auto"
-						data-full-width-responsive="true"></ins>
-				</div>
-
-				<!-- Trending Articles -->
-				{#if relatedArticles.trending.length > 0}
-					<div class="bg-white rounded-lg shadow-md p-6">
-						<h3 class="text-lg font-bold text-nordic-blue border-b-2 border-arctic-gray pb-2 mb-4">
-							Trending Now
-						</h3>
-						<div class="space-y-4">
-							{#each relatedArticles.trending as trending}
-								<article class="border-b border-gray-100 pb-3 last:border-b-0">
-									<a href={trending.url_slug} class="group">
-										<h4 class="text-sm font-medium text-gray-800 group-hover:text-nordic-blue transition-colors line-clamp-2 mb-1">
-											{trending.title}
-										</h4>
-										<div class="flex items-center justify-between text-xs text-gray-500">
-											<span>{trending.country_name}</span>
-											<span>{trending.relative_time}</span>
-										</div>
-									</a>
-								</article>
-							{/each}
-						</div>
-					</div>
-				{/if}
-			</aside>
+			<ArticleSidebar
+				articleCategoryDisplay={article.category_display}
+				articleCountryName={article.country_name}
+				relatedArticles={relatedArticles}
+			/>
 		</div>
 	</main>
 </article>
 
-<style>
-	:global(.article-content h2) {
-		@apply text-2xl font-bold text-gray-900 mt-8 mb-4;
-	}
-	
-	:global(.article-content h3) {
-		@apply text-xl font-semibold text-gray-800 mt-6 mb-3;
-	}
-	
-	:global(.article-content h4) {
-		@apply text-lg font-semibold text-gray-800 mt-4 mb-2;
-	}
-	
-	:global(.article-content p) {
-		@apply mb-4 text-gray-800 leading-relaxed;
-	}
-	
-	:global(.article-content ul),
-	:global(.article-content ol) {
-		@apply mb-4 ml-6;
-	}
-	
-	:global(.article-content li) {
-		@apply mb-2 text-gray-800;
-	}
-	
-	:global(.article-content strong) {
-		@apply font-bold text-gray-900;
-	}
-	
-	:global(.article-content em) {
-		@apply italic;
-	}
-	
-	:global(.article-content a) {
-		@apply text-nordic-blue hover:underline;
-	}
-	
-	:global(.article-content blockquote) {
-		@apply border-l-4 border-nordic-blue pl-4 italic text-gray-700 my-4;
-	}
-	
-	:global(.article-content code) {
-		@apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
-	}
-	
-	:global(.article-content pre) {
-		@apply bg-gray-100 p-4 rounded overflow-x-auto mb-4;
-	}
-	
-	:global(.article-content pre code) {
-		@apply bg-transparent p-0;
-	}
-</style>
+<ArticleContentStyles />
