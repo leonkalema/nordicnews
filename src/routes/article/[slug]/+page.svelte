@@ -21,9 +21,42 @@
 			const consent = localStorage.getItem('cookie-consent');
 			if (consent !== 'accepted') return;
 			const w = window as unknown as { adsbygoogle?: unknown[] };
-			if (!w.adsbygoogle) return;
-			w.adsbygoogle.push({});
-			w.adsbygoogle.push({});
+			const pushAds = (): void => {
+				if (!w.adsbygoogle) return;
+				const adSlots = document.querySelectorAll('.adsbygoogle');
+				adSlots.forEach(() => {
+					try {
+						w.adsbygoogle?.push({});
+					} catch (err) {
+						console.warn('Ad push failed:', err);
+					}
+				});
+			};
+			if (w.adsbygoogle) {
+				pushAds();
+			} else {
+				const script = document.getElementById('adsense-script') as HTMLScriptElement | null;
+				if (script) {
+					if (script.dataset.loaded === 'true') {
+						setTimeout(pushAds, 100);
+					} else {
+						script.addEventListener('load', () => {
+							script.dataset.loaded = 'true';
+							pushAds();
+						});
+					}
+				} else {
+					const observer = new MutationObserver(() => {
+						const s = document.getElementById('adsense-script');
+						if (s) {
+							observer.disconnect();
+							s.addEventListener('load', pushAds);
+						}
+					});
+					observer.observe(document.head, { childList: true });
+					setTimeout(() => observer.disconnect(), 5000);
+				}
+			}
 		} catch (e) {
 			console.warn('AdSense init failed:', e);
 		}

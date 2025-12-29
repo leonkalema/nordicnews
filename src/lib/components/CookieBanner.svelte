@@ -47,6 +47,9 @@
 		script.async = true;
 		script.crossOrigin = 'anonymous';
 		script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`;
+		script.onload = () => {
+			script.dataset.loaded = 'true';
+		};
 		document.head.appendChild(script);
 	}
 
