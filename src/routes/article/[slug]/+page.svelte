@@ -113,6 +113,18 @@
 					<OpinionAuthorBox contributor={contributor} />
 				{/if}
 
+				<!-- Mobile-only ad (sidebar ad is hidden on mobile) -->
+				<div class="lg:hidden my-8">
+					<p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Advertisement</p>
+					<ins
+						class="adsbygoogle"
+						style="display:block"
+						data-ad-client="ca-pub-7608249203271599"
+						data-ad-slot="6255665066"
+						data-ad-format="auto"
+						data-full-width-responsive="true"></ins>
+				</div>
+
 				<footer class="mt-12 pt-8 border-t border-gray-200">
 					<div class="flex flex-wrap items-center justify-between gap-4">
 						<div class="text-sm text-gray-600">
