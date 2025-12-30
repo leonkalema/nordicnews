@@ -9,6 +9,7 @@
 	import OpinionAuthorBox from '$lib/components/article/OpinionAuthorBox.svelte';
 	import ArticleContentStyles from '$lib/components/article/ArticleContentStyles.svelte';
 	import NewsletterSignup from '$lib/components/NewsletterSignup.svelte';
+	import ReadingProgress from '$lib/components/ReadingProgress.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const article = $derived(data.article);
@@ -78,6 +79,8 @@
 	ogLocale={ogLocale}
 	structuredData={structuredData}
 />
+
+<ReadingProgress />
 
 <article class="min-h-screen bg-off-white">
 	<ArticleHeader

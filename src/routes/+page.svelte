@@ -6,6 +6,7 @@
 	import SEOHead from '$lib/components/SEOHead.svelte';
 	import FeaturedGuides from '$lib/components/FeaturedGuides.svelte';
 	import AdUnit from '$lib/components/AdUnit.svelte';
+	import TrendingNow from '$lib/components/TrendingNow.svelte';
 
 	const { data }: { data: any } = $props();
 
@@ -98,7 +99,19 @@
 	<AdUnit slot="2497849466" format="horizontal" responsive={false} />
 </div>
 
-<AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+	<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+		<div class="lg:col-span-3">
+			<AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />
+		</div>
+		<aside class="lg:col-span-1">
+			<div class="sticky top-4">
+				<TrendingNow articles={data.trendingArticles || []} />
+			</div>
+		</aside>
+	</div>
+</div>
+
 <DeepDive 
 	latestArticles={data.latestArticles || []} 
 	articlesByCategory={data.articlesByCategory || []} 
