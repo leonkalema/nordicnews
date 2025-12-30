@@ -25,20 +25,6 @@
 		<!-- AdSense and Analytics loaded conditionally after cookie consent - see CookieBanner.svelte -->
 		<meta name="google-adsense-account" content="ca-pub-7608249203271599">
 		
-		<!-- Google News Subscribe with Google Basic -->
-		<script async type="application/javascript"
-		        src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
-		<script>
-		  (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
-		    basicSubscriptions.init({
-		      type: "NewsArticle",
-		      isPartOfType: ["Product"],
-		      isPartOfProductId: "CAow5ebCDA:openaccess",
-		      clientOptions: { theme: "light", lang: "en" },
-		    });
-		  });
-		</script>
-		
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
