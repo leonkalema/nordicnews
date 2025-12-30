@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Twitter, Facebook, Linkedin } from 'svelte-lucide-icons';
+	import { Twitter } from 'svelte-lucide-icons';
 </script>
 
 <footer class="bg-white border-t border-gray-200 py-16">

@@ -8,6 +8,7 @@
 	import ArticleSidebar from '$lib/components/article/ArticleSidebar.svelte';
 	import OpinionAuthorBox from '$lib/components/article/OpinionAuthorBox.svelte';
 	import ArticleContentStyles from '$lib/components/article/ArticleContentStyles.svelte';
+	import NewsletterSignup from '$lib/components/NewsletterSignup.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const article = $derived(data.article);
@@ -122,6 +123,10 @@
 								</div>
 							{/if}
 						</div>
+					</div>
+
+					<div class="mt-8">
+						<NewsletterSignup />
 					</div>
 				</footer>
 			</div>
