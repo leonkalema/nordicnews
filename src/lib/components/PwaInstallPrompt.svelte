@@ -30,12 +30,18 @@
 			? (Date.now() - dismissedAt.getTime()) / (1000 * 60 * 60 * 24)
 			: Infinity;
 
-		if (daysSinceDismissed < 7) return;
+		// Don't show again for 60 days after dismissal
+		if (daysSinceDismissed < 60) return;
+
+		// Require 5+ visits before showing
+		const visitCount = parseInt(localStorage.getItem('pwa-visit-count') || '0', 10) + 1;
+		localStorage.setItem('pwa-visit-count', visitCount.toString());
+		if (visitCount < 5) return;
 
 		if (isIos) {
 			setTimeout(() => {
 				showPrompt = true;
-			}, 3000);
+			}, 10000);
 			return;
 		}
 
@@ -44,7 +50,7 @@
 			deferredPrompt = e as BeforeInstallPromptEvent;
 			setTimeout(() => {
 				showPrompt = true;
-			}, 3000);
+			}, 10000);
 		});
 	});
 
