@@ -29,16 +29,20 @@
 			? (Date.now() - dismissedAt.getTime()) / (1000 * 60 * 60 * 24)
 			: Infinity;
 
-		if (daysSinceDismissed < 14) return;
+		// Don't show again for 60 days after dismissal
+		if (daysSinceDismissed < 60) return;
 
+		// Only show to PWA users or after 5+ visits
 		const pwaInstalled = window.matchMedia('(display-mode: standalone)').matches;
-		const visitCount = parseInt(localStorage.getItem('visit-count') || '0', 10) + 1;
-		localStorage.setItem('visit-count', visitCount.toString());
+		const visitCount = parseInt(localStorage.getItem('notification-visit-count') || '0', 10) + 1;
+		localStorage.setItem('notification-visit-count', visitCount.toString());
 
-		if (pwaInstalled || visitCount >= 3) {
+		// PWA users: show after 2 visits, regular users: show after 5 visits
+		const threshold = pwaInstalled ? 2 : 5;
+		if (visitCount >= threshold) {
 			setTimeout(() => {
 				showPrompt = true;
-			}, 5000);
+			}, 8000);
 		}
 	});
 
