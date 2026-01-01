@@ -96,6 +96,7 @@
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());
 			updateConsent(true);
 			loadAdSense();
+			window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: { status: 'accepted' } }));
 		}
 		isVisible = false;
 		setTimeout(() => {
@@ -108,6 +109,7 @@
 			localStorage.setItem('cookie-consent', 'declined');
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());
 			updateConsent(false);
+			window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: { status: 'declined' } }));
 		}
 		isVisible = false;
 		setTimeout(() => {

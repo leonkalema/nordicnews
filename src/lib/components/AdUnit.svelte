@@ -41,11 +41,18 @@
 			const consent = localStorage.getItem('cookie-consent');
 			hasConsent = consent === 'accepted';
 			tryLoadAd();
+			const onConsentUpdated = (event: Event): void => {
+				const customEvent = event as CustomEvent<{ status?: string }>;
+				hasConsent = customEvent.detail?.status === 'accepted';
+				tryLoadAd();
+			};
 			const onAdSenseLoaded = (): void => {
 				tryLoadAd();
 			};
+			window.addEventListener('cookie-consent-updated', onConsentUpdated);
 			window.addEventListener('adsense-loaded', onAdSenseLoaded);
 			return () => {
+				window.removeEventListener('cookie-consent-updated', onConsentUpdated);
 				window.removeEventListener('adsense-loaded', onAdSenseLoaded);
 			};
 		}
