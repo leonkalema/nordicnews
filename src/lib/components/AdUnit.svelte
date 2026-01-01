@@ -20,20 +20,34 @@
 
 	let adLoaded = $state(false);
 	let hasConsent = $state(false);
+	let hasPushed = $state(false);
+
+	const tryLoadAd = (): void => {
+		if (!browser) return;
+		if (!hasConsent) return;
+		if (hasPushed) return;
+		if (!window.adsbygoogle) return;
+		try {
+			(window.adsbygoogle = window.adsbygoogle || []).push({});
+			hasPushed = true;
+			adLoaded = true;
+		} catch (e) {
+			console.warn('AdSense push failed:', e);
+		}
+	};
 
 	onMount(() => {
 		if (browser) {
 			const consent = localStorage.getItem('cookie-consent');
 			hasConsent = consent === 'accepted';
-
-			if (hasConsent && window.adsbygoogle) {
-				try {
-					(window.adsbygoogle = window.adsbygoogle || []).push({});
-					adLoaded = true;
-				} catch (e) {
-					console.warn('AdSense push failed:', e);
-				}
-			}
+			tryLoadAd();
+			const onAdSenseLoaded = (): void => {
+				tryLoadAd();
+			};
+			window.addEventListener('adsense-loaded', onAdSenseLoaded);
+			return () => {
+				window.removeEventListener('adsense-loaded', onAdSenseLoaded);
+			};
 		}
 	});
 </script>
