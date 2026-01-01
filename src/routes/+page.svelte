@@ -91,6 +91,11 @@
   </h1>
 </section>
 
+<!-- Ad: Above the fold (leaderboard) -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex justify-center">
+	<AdUnit slot="2497849466" format="horizontal" responsive={false} />
+</div>
+
 <FeaturedGuides guideArticles={data.guideArticles || []} />
 <DailySnapshot featuredArticles={data.featuredArticles || []} />
 
@@ -103,13 +108,28 @@
 	<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 		<div class="lg:col-span-3">
 			<AcrossTheNordics articlesByCountry={data.articlesByCountry || []} />
+
+			<!-- Ad: Mid-page (rectangle) -->
+			<div class="my-10 flex justify-center">
+				<AdUnit slot="6255665066" format="rectangle" responsive={true} />
+			</div>
 		</div>
 		<aside class="lg:col-span-1">
 			<div class="sticky top-4">
 				<TrendingNow articles={data.trendingArticles || []} />
+
+				<!-- Ad: Sidebar (desktop only) -->
+				<div class="hidden lg:block mt-6">
+					<AdUnit slot="6255665066" format="rectangle" responsive={true} />
+				</div>
 			</div>
 		</aside>
 	</div>
+</div>
+
+<!-- Ad: Lower page (leaderboard) -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 flex justify-center">
+	<AdUnit slot="2497849466" format="horizontal" responsive={false} />
 </div>
 
 <DeepDive 
