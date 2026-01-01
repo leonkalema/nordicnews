@@ -1,6 +1,5 @@
-const CACHE_NAME = 'nordicstoday-v1';
+const CACHE_NAME = 'nordicstoday-v2';
 const STATIC_ASSETS = [
-  '/',
   '/favicon.ico',
   '/favicon-32x32.png',
   '/android-chrome-192x192.png',
@@ -38,7 +37,17 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith('/api/')) return;
+  if (url.pathname.startsWith('/_app/')) return;
   if (url.pathname.includes('adsbygoogle') || url.pathname.includes('googlesyndication')) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request).catch(() => {
+        return caches.match('/');
+      })
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
