@@ -7,7 +7,6 @@
 	import CountryAllArticlesSection from '$lib/components/country/CountryAllArticlesSection.svelte';
 	import CountryCategoryModules from '$lib/components/country/CountryCategoryModules.svelte';
 	import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
-	import { internalLinkGroups } from '$lib/config/internal-links';
 	import { buildRecommendedLinks } from '$lib/utils/recommended-links';
 	import { onMount } from 'svelte';
     import { serializeJsonLd } from '$lib/utils/json-ld';
@@ -21,10 +20,6 @@
 	$: countryCode = countryConfig?.code || '';
 	$: parliament = countryConfig?.parliament || '';
 	$: cities = countryConfig?.cities || [];
-	$: recommendedKey = `country:${countrySlug}`;
-	$: recommendedGroup = internalLinkGroups[recommendedKey] || null;
-	$: computedRecommendedLinks = buildRecommendedLinks({ articles: countryArticles, maxLinks: 5 });
-	$: recommendedLinks = (recommendedGroup && recommendedGroup.links.length > 0) ? recommendedGroup.links : computedRecommendedLinks;
 
 	// Pagination and infinite scroll
 	let currentPage = 1;
@@ -148,6 +143,7 @@
 		!latestArticleIds.has(a.id) && !categoryArticleIds.has(a.id)
 	);
 	$: displayedArticles = remainingArticles.slice(0, currentPage * articlesPerPage);
+	$: bottomRecommendedLinks = buildRecommendedLinks({ articles: countryArticles, maxLinks: 5 });
 
 	// Load more articles function
 	async function loadMoreArticles() {
@@ -251,11 +247,6 @@
 <div class="container mx-auto px-4 -mt-8 relative z-20">
 
 	{#if displayedArticles.length > 0}
-		{#if recommendedLinks.length > 0}
-			<div class="mb-16">
-				<RecommendedLinks heading={(recommendedGroup && recommendedGroup.heading) ? recommendedGroup.heading : 'Recommended reads'} links={recommendedLinks} maxLinks={5} />
-			</div>
-		{/if}
 		<CountryCityHubsSection country={country} cities={cities} />
 
 		<!-- Latest News Section - Shows freshness immediately -->
@@ -304,6 +295,12 @@
 			loading={loading}
 			onLoadMore={loadMoreArticles}
 		/>
+
+		{#if bottomRecommendedLinks.length > 0}
+			<div class="mb-16">
+				<RecommendedLinks heading="Recommended reads" links={bottomRecommendedLinks} maxLinks={5} />
+			</div>
+		{/if}
 
 		<!-- FAQ Section -->
 		<CountryFAQ faqs={countryConfig.faqs} />

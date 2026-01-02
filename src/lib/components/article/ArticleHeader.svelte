@@ -17,6 +17,7 @@
 		readonly authorSlug: string | null;
 		readonly summary: string | null;
 		readonly excerpt: string;
+		readonly showIntro?: boolean;
 	};
 
 	const {
@@ -31,7 +32,8 @@
 		authorName,
 		authorSlug,
 		summary,
-		excerpt
+		excerpt,
+		showIntro = true
 	}: ArticleHeaderProps = $props();
 </script>
 
@@ -87,7 +89,7 @@
 			<time datetime={publishedAt || ''}>{articlePageUtils.formatDate(publishedAt)}</time>
 		</div>
 
-		{#if summary || excerpt}
+		{#if showIntro && (summary || excerpt)}
 			<p class="text-xl text-gray-700 leading-relaxed mb-8 font-medium">{summary || excerpt}</p>
 		{/if}
 	</div>

@@ -2,10 +2,8 @@
   import SEOHead from '$lib/components/SEOHead.svelte';
   import { page } from '$app/stores';
   import { serializeJsonLd } from '$lib/utils/json-ld';
-  import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
-  import CategoryBrowseSection from '$lib/components/category/CategoryBrowseSection.svelte';
-  import { internalLinkGroups } from '$lib/config/internal-links';
-	import { buildRecommendedLinks } from '$lib/utils/recommended-links';
+  import CategoryFooter from '$lib/components/category/CategoryFooter.svelte';
+  import { buildRecommendedLinks } from '$lib/utils/recommended-links';
   
   export let data;
   
@@ -17,10 +15,7 @@
   $: currentPage = parseInt($page.url.searchParams.get('page') || '1');
   $: totalPages = data.pagination?.totalPages || 1;
   $: isOpinion = categorySlug === 'opinion';
-	$: recommendedKey = `category:${categorySlug}`;
-	$: recommendedGroup = internalLinkGroups[recommendedKey] || null;
-	$: computedRecommendedLinks = buildRecommendedLinks({ articles, maxLinks: 5 });
-	$: recommendedLinks = (recommendedGroup && recommendedGroup.links.length > 0) ? recommendedGroup.links : computedRecommendedLinks;
+	$: bottomRecommendedLinks = buildRecommendedLinks({ articles, maxLinks: 5 });
   
   function buildHref(targetPage: number) {
     const params = new URLSearchParams($page.url.searchParams);
@@ -201,12 +196,6 @@
       </div>
     </div>
   {/if}
-
-	{#if recommendedLinks.length > 0}
-		<div class="mb-12">
-			<RecommendedLinks heading={(recommendedGroup && recommendedGroup.heading) ? recommendedGroup.heading : 'Recommended reads'} links={recommendedLinks} maxLinks={5} />
-		</div>
-	{/if}
 
   <!-- Featured Articles -->
   {#if featuredArticles.length > 0}
@@ -394,5 +383,5 @@
     {/if}
   </section>
 
-	<CategoryBrowseSection isOpinion={isOpinion} />
+	<CategoryFooter isOpinion={isOpinion} recommendedLinks={bottomRecommendedLinks} />
 </div>
