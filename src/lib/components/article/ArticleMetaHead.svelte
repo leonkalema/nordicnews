@@ -6,8 +6,8 @@
 		readonly description: string;
 		readonly keywords?: string[];
 		readonly image?: string | null;
-		readonly publishedTime?: string;
-		readonly modifiedTime?: string;
+		readonly publishedTime?: string | null;
+		readonly modifiedTime?: string | null;
 		readonly section?: string;
 		readonly tags?: string[];
 	};

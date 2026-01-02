@@ -8,6 +8,7 @@
 	import ArticleSidebar from '$lib/components/article/ArticleSidebar.svelte';
 	import OpinionAuthorBox from '$lib/components/article/OpinionAuthorBox.svelte';
 	import ArticleContentStyles from '$lib/components/article/ArticleContentStyles.svelte';
+	import AnswerBlock from '$lib/components/article/AnswerBlock.svelte';
 	import NewsletterSignup from '$lib/components/NewsletterSignup.svelte';
 	import ReadingProgress from '$lib/components/ReadingProgress.svelte';
 
@@ -17,6 +18,12 @@
 	const relatedArticles = $derived(data.relatedArticles);
 	const structuredData = $derived(data.structuredData);
 	const ogLocale = $derived(articlePageUtils.ogLocaleFor(article?.country, article?.country_name));
+	const answerSummary = $derived(article.summary || article.excerpt || '');
+	const answerBullets = $derived([
+		article.country_name ? `Location: ${article.country_name}` : null,
+		article.category_display ? `Category: ${article.category_display}` : null,
+		article.relative_time ? `Published: ${article.relative_time}` : null
+	].filter((value): value is string => Boolean(value)));
 
 	const initAdsIfConsented = (): void => {
 		try {
@@ -101,6 +108,11 @@
 	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 py-8">
 			<div class="lg:col-span-3">
+				{#if answerSummary}
+					<div class="mb-8">
+						<AnswerBlock summary={answerSummary} bullets={answerBullets.slice(0, 5)} />
+					</div>
+				{/if}
 				<ArticleBody
 					category={article.category}
 					content={article.content}

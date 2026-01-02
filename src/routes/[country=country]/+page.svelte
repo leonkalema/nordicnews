@@ -3,6 +3,11 @@
 	import DailySnapshot from '$lib/components/DailySnapshot.svelte';
 	import AcrossTheNordics from '$lib/components/AcrossTheNordics.svelte';
 	import CountryFAQ from '$lib/components/CountryFAQ.svelte';
+	import CountryCityHubsSection from '$lib/components/country/CountryCityHubsSection.svelte';
+	import CountryAllArticlesSection from '$lib/components/country/CountryAllArticlesSection.svelte';
+	import CountryCategoryModules from '$lib/components/country/CountryCategoryModules.svelte';
+	import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
+	import { internalLinkGroups } from '$lib/config/internal-links';
 	import { onMount } from 'svelte';
     import { serializeJsonLd } from '$lib/utils/json-ld';
 
@@ -15,6 +20,8 @@
 	$: countryCode = countryConfig?.code || '';
 	$: parliament = countryConfig?.parliament || '';
 	$: cities = countryConfig?.cities || [];
+	$: recommendedKey = `country:${countrySlug}`;
+	$: recommendedGroup = internalLinkGroups[recommendedKey] || null;
 
 	// Pagination and infinite scroll
 	let currentPage = 1;
@@ -241,23 +248,12 @@
 <div class="container mx-auto px-4 -mt-8 relative z-20">
 
 	{#if displayedArticles.length > 0}
-		<!-- City Hubs Section - Glassmorphism Cards -->
-		<section class="mb-16">
-			<div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100">
-				<div class="mb-10">
-					<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">By City</h2>
-					<p class="font-serif text-3xl font-semibold text-gray-900">News from {country}'s Cities</p>
-				</div>
-				<div class="grid gap-6 md:grid-cols-{cities.length}">
-					{#each cities as city}
-						<a href="/{city.slug}" class="group bg-white p-6 border border-gray-200 hover:border-black transition-all">
-							<h3 class="font-serif text-xl font-semibold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">{city.name}</h3>
-							<p class="text-gray-500 text-sm leading-relaxed">{city.description}</p>
-						</a>
-					{/each}
-				</div>
+		{#if recommendedGroup && recommendedGroup.links.length > 0}
+			<div class="mb-16">
+				<RecommendedLinks heading={recommendedGroup.heading} links={recommendedGroup.links} maxLinks={5} />
 			</div>
-		</section>
+		{/if}
+		<CountryCityHubsSection country={country} cities={cities} />
 
 		<!-- Latest News Section - Shows freshness immediately -->
 		<section class="mb-16">
@@ -288,176 +284,23 @@
 			</div>
 		</section>
 
-		<!-- Category Modules -->
-		{#if politicsArticles.length > 0}
-		<section class="mb-16">
-			<div class="flex justify-between items-center mb-8">
-				<div>
-					<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Politics</h2>
-					<p class="font-serif text-2xl font-semibold text-gray-900">{country} Politics</p>
-				</div>
-				<a href="/{countrySlug}/politics" class="text-sm text-gray-500 hover:text-black">
-					View all →
-				</a>
-			</div>
-			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-				{#each politicsArticles as article}
-					<article class="group">
-						{#if article.featured_image_url}
-							<div class="aspect-[16/10] overflow-hidden mb-3">
-								<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-full object-cover" />
-							</div>
-						{/if}
-						<h3 class="font-serif text-base font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mb-2">
-							<a href={article.url_slug}>{article.title}</a>
-						</h3>
-						<span class="text-xs text-gray-400">{article.relative_time}</span>
-					</article>
-				{/each}
-			</div>
-		</section>
-		{/if}
+		<CountryCategoryModules
+			country={country}
+			countrySlug={countrySlug}
+			politicsArticles={politicsArticles}
+			businessArticles={businessArticles}
+			techArticles={techArticles}
+			societyArticles={societyArticles}
+		/>
 
-		{#if businessArticles.length > 0}
-		<section class="mb-16">
-			<div class="flex justify-between items-center mb-8">
-				<div>
-					<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Business</h2>
-					<p class="font-serif text-2xl font-semibold text-gray-900">{country} Business</p>
-				</div>
-				<a href="/{countrySlug}/business" class="text-sm text-gray-500 hover:text-black">
-					View all →
-				</a>
-			</div>
-			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-				{#each businessArticles as article}
-					<article class="group">
-						{#if article.featured_image_url}
-							<div class="aspect-[16/10] overflow-hidden mb-3">
-								<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-full object-cover" />
-							</div>
-						{/if}
-						<h3 class="font-serif text-base font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mb-2">
-							<a href={article.url_slug}>{article.title}</a>
-						</h3>
-						<span class="text-xs text-gray-400">{article.relative_time}</span>
-					</article>
-				{/each}
-			</div>
-		</section>
-		{/if}
-
-		{#if techArticles.length > 0}
-		<section class="mb-16">
-			<div class="flex justify-between items-center mb-8">
-				<div>
-					<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Technology</h2>
-					<p class="font-serif text-2xl font-semibold text-gray-900">{country} Tech</p>
-				</div>
-				<a href="/{countrySlug}/tech" class="text-sm text-gray-500 hover:text-black">
-					View all →
-				</a>
-			</div>
-			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-				{#each techArticles as article}
-					<article class="group">
-						{#if article.featured_image_url}
-							<div class="aspect-[16/10] overflow-hidden mb-3">
-								<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-full object-cover" />
-							</div>
-						{/if}
-						<h3 class="font-serif text-base font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mb-2">
-							<a href={article.url_slug}>{article.title}</a>
-						</h3>
-						<span class="text-xs text-gray-400">{article.relative_time}</span>
-					</article>
-				{/each}
-			</div>
-		</section>
-		{/if}
-
-		{#if societyArticles.length > 0}
-		<section class="mb-16">
-			<div class="flex justify-between items-center mb-8">
-				<div>
-					<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Society</h2>
-					<p class="font-serif text-2xl font-semibold text-gray-900">{country} Society & Culture</p>
-				</div>
-				<a href="/{countrySlug}/society" class="text-sm text-gray-500 hover:text-black">
-					View all →
-				</a>
-			</div>
-			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-				{#each societyArticles as article}
-					<article class="group">
-						{#if article.featured_image_url}
-							<div class="aspect-[16/10] overflow-hidden mb-3">
-								<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-full object-cover" />
-							</div>
-						{/if}
-						<h3 class="font-serif text-base font-medium text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mb-2">
-							<a href={article.url_slug}>{article.title}</a>
-						</h3>
-						<span class="text-xs text-gray-400">{article.relative_time}</span>
-					</article>
-				{/each}
-			</div>
-		</section>
-		{/if}
-
-		<!-- All Articles Section -->
-		<section class="mb-16">
-			<div class="mb-10">
-				<h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">All News</h2>
-				<p class="font-serif text-3xl font-semibold text-gray-900">All {country} News</p>
-			</div>
-			<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-				{#each displayedArticles as article}
-					<article class="group">
-						{#if article.featured_image_url}
-							<div class="aspect-[16/10] overflow-hidden mb-4">
-								<img src={article.featured_image_url} alt={article.image_alt || article.title} class="w-full h-full object-cover" />
-							</div>
-						{/if}
-						<span class="text-xs text-gray-400 uppercase tracking-widest">{article.category_display || ''}</span>
-						<h3 class="font-serif text-lg font-semibold text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2 mt-2 mb-2">
-							<a href={article.url_slug}>{article.title}</a>
-						</h3>
-						<p class="text-gray-500 text-sm line-clamp-2 mb-2">
-							{article.summary || article.excerpt}
-						</p>
-						<span class="text-xs text-gray-400">{article.relative_time}</span>
-					</article>
-				{/each}
-			</div>
-
-			<!-- Loading indicator -->
-			{#if loading}
-				<div class="text-center py-12">
-					<span class="text-gray-500">Loading more articles...</span>
-				</div>
-			{/if}
-
-			<!-- Load more button -->
-			{#if hasMore && !loading}
-				<div class="text-center py-12">
-					<button 
-						on:click={loadMoreArticles}
-						class="bg-black hover:bg-gray-800 text-white px-8 py-3 text-sm font-medium transition-colors"
-					>
-						Load More
-					</button>
-				</div>
-			{/if}
-
-			<!-- SEO pagination info -->
-			<div class="text-center text-sm text-gray-500 mt-8 mb-4">
-				Showing {displayedArticles.length} of {remainingArticles.length} articles in this section
-				{#if hasMore}
-					• Scroll down for more
-				{/if}
-			</div>
-		</section>
+		<CountryAllArticlesSection
+			country={country}
+			displayedArticles={displayedArticles}
+			remainingCount={remainingArticles.length}
+			hasMore={hasMore}
+			loading={loading}
+			onLoadMore={loadMoreArticles}
+		/>
 
 		<!-- FAQ Section -->
 		<CountryFAQ faqs={countryConfig.faqs} />

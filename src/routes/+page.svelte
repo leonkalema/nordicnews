@@ -7,6 +7,8 @@
 	import FeaturedGuides from '$lib/components/FeaturedGuides.svelte';
 	import AdUnit from '$lib/components/AdUnit.svelte';
 	import TrendingNow from '$lib/components/TrendingNow.svelte';
+	import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
+	import { internalLinkGroups } from '$lib/config/internal-links';
 
 	const { data }: { data: any } = $props();
 
@@ -90,6 +92,12 @@
     Nordic News in English
   </h1>
 </section>
+
+{#if internalLinkGroups.home.links.length > 0}
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+		<RecommendedLinks heading={internalLinkGroups.home.heading} links={internalLinkGroups.home.links} maxLinks={5} />
+	</div>
+{/if}
 
 <!-- Ad: Above the fold (leaderboard) -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex justify-center">

@@ -1,5 +1,6 @@
 import { fetchArticleBySlug, fetchArticles } from '$lib/data/articles.js';
 import { incrementViewCount, supabase } from '$lib/supabase.js';
+import { buildSeoTitle } from '$lib/utils/seo-title';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -116,6 +117,9 @@ export const load: PageServerLoad = async ({ params }) => {
       description = description.substring(0, 157) + '...';
     }
 
+    const seoTitleOverride = (article as unknown as { seo_title?: string; meta_title?: string }).seo_title || (article as unknown as { seo_title?: string; meta_title?: string }).meta_title || '';
+    const seoTitle = seoTitleOverride.trim() || buildSeoTitle({ title: article.title, countryName: article.country_name, publishedAt: article.published_at });
+
     return {
       article,
       contributor,
@@ -126,9 +130,7 @@ export const load: PageServerLoad = async ({ params }) => {
       },
       structuredData,
       meta: {
-        title: article.meta_description ? 
-          `${article.title} - Nordics Today` : 
-          `${article.title} - ${article.country_name} News - Nordics Today`,
+        title: seoTitle,
         description: description,
         keywords: article.keywords || [
           article.category_display,
