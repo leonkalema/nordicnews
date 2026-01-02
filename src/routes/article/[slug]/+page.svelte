@@ -18,7 +18,7 @@
 	const relatedArticles = $derived(data.relatedArticles);
 	const structuredData = $derived(data.structuredData);
 	const ogLocale = $derived(articlePageUtils.ogLocaleFor(article?.country, article?.country_name));
-	const answerSummary = $derived(article.summary || article.excerpt || '');
+	const answerSummary = $derived(article.summary || '');
 	const answerBullets = $derived([
 		article.country_name ? `Location: ${article.country_name}` : null,
 		article.category_display ? `Category: ${article.category_display}` : null,
@@ -108,7 +108,7 @@
 	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 py-8">
 			<div class="lg:col-span-3">
-				{#if answerSummary}
+				{#if article.summary}
 					<div class="mb-8">
 						<AnswerBlock summary={answerSummary} bullets={answerBullets.slice(0, 5)} />
 					</div>
