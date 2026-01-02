@@ -5,6 +5,7 @@
   import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
   import CategoryBrowseSection from '$lib/components/category/CategoryBrowseSection.svelte';
   import { internalLinkGroups } from '$lib/config/internal-links';
+	import { buildRecommendedLinks } from '$lib/utils/recommended-links';
   
   export let data;
   
@@ -18,6 +19,8 @@
   $: isOpinion = categorySlug === 'opinion';
 	$: recommendedKey = `category:${categorySlug}`;
 	$: recommendedGroup = internalLinkGroups[recommendedKey] || null;
+	$: computedRecommendedLinks = buildRecommendedLinks({ articles, maxLinks: 5 });
+	$: recommendedLinks = (recommendedGroup && recommendedGroup.links.length > 0) ? recommendedGroup.links : computedRecommendedLinks;
   
   function buildHref(targetPage: number) {
     const params = new URLSearchParams($page.url.searchParams);
@@ -199,9 +202,9 @@
     </div>
   {/if}
 
-	{#if recommendedGroup && recommendedGroup.links.length > 0}
+	{#if recommendedLinks.length > 0}
 		<div class="mb-12">
-			<RecommendedLinks heading={recommendedGroup.heading} links={recommendedGroup.links} maxLinks={5} />
+			<RecommendedLinks heading={(recommendedGroup && recommendedGroup.heading) ? recommendedGroup.heading : 'Recommended reads'} links={recommendedLinks} maxLinks={5} />
 		</div>
 	{/if}
 

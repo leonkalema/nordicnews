@@ -8,6 +8,7 @@
 	import CountryCategoryModules from '$lib/components/country/CountryCategoryModules.svelte';
 	import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
 	import { internalLinkGroups } from '$lib/config/internal-links';
+	import { buildRecommendedLinks } from '$lib/utils/recommended-links';
 	import { onMount } from 'svelte';
     import { serializeJsonLd } from '$lib/utils/json-ld';
 
@@ -22,6 +23,8 @@
 	$: cities = countryConfig?.cities || [];
 	$: recommendedKey = `country:${countrySlug}`;
 	$: recommendedGroup = internalLinkGroups[recommendedKey] || null;
+	$: computedRecommendedLinks = buildRecommendedLinks({ articles: countryArticles, maxLinks: 5 });
+	$: recommendedLinks = (recommendedGroup && recommendedGroup.links.length > 0) ? recommendedGroup.links : computedRecommendedLinks;
 
 	// Pagination and infinite scroll
 	let currentPage = 1;
@@ -248,9 +251,9 @@
 <div class="container mx-auto px-4 -mt-8 relative z-20">
 
 	{#if displayedArticles.length > 0}
-		{#if recommendedGroup && recommendedGroup.links.length > 0}
+		{#if recommendedLinks.length > 0}
 			<div class="mb-16">
-				<RecommendedLinks heading={recommendedGroup.heading} links={recommendedGroup.links} maxLinks={5} />
+				<RecommendedLinks heading={(recommendedGroup && recommendedGroup.heading) ? recommendedGroup.heading : 'Recommended reads'} links={recommendedLinks} maxLinks={5} />
 			</div>
 		{/if}
 		<CountryCityHubsSection country={country} cities={cities} />

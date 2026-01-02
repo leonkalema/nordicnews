@@ -4,6 +4,7 @@ import {
   fetchTrendingArticles,
   type ProcessedArticle 
 } from '$lib/data/articles.js';
+import { buildRecommendedLinks } from '$lib/utils/recommended-links';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -109,6 +110,8 @@ export const load: PageServerLoad = async ({ url }) => {
       categoriesActive: articlesByCategory.filter(c => c.articles.length > 0).length
     };
 
+	const recommendedLinks = buildRecommendedLinks({ articles: trendingArticles, maxLinks: 5 });
+
     return {
       // Expert Guides (NEW - featured above news)
       guideArticles,
@@ -123,6 +126,7 @@ export const load: PageServerLoad = async ({ url }) => {
       latestArticles, // Now this is the filtered array without featured articles
       articlesByCategory,
       trendingArticles,
+		recommendedLinks,
       
       // Site statistics
       stats,
