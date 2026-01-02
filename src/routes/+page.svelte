@@ -7,13 +7,9 @@
 	import FeaturedGuides from '$lib/components/FeaturedGuides.svelte';
 	import AdUnit from '$lib/components/AdUnit.svelte';
 	import TrendingNow from '$lib/components/TrendingNow.svelte';
-	import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
 	import { internalLinkGroups } from '$lib/config/internal-links';
-	import { buildRecommendedLinks } from '$lib/utils/recommended-links';
 
 	const { data }: { data: any } = $props();
-	const computedRecommendedLinks = $derived(buildRecommendedLinks({ articles: data.trendingArticles || [], maxLinks: 5 }));
-	const recommendedLinks = $derived(internalLinkGroups.home.links.length > 0 ? internalLinkGroups.home.links : (data.recommendedLinks || computedRecommendedLinks));
 
 	const seoData = $derived({
 		title: data.meta?.title || 'Nordics Today - Your Daily Source for Nordic News',
@@ -95,12 +91,6 @@
     Nordic News in English
   </h1>
 </section>
-
-{#if recommendedLinks.length > 0}
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-		<RecommendedLinks heading={internalLinkGroups.home.heading} links={recommendedLinks} maxLinks={5} />
-	</div>
-{/if}
 
 <!-- Ad: Above the fold (leaderboard) -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex justify-center">
