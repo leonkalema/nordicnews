@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { marked } from 'marked';
 	import GuideCtaBox from '$lib/components/article/GuideCtaBox.svelte';
+	import SkincarePromoBox from '$lib/components/article/SkincarePromoBox.svelte';
 	import { articlePageUtils } from '$lib/utils/article-page';
 
 	type ArticleBodyProps = {
@@ -24,6 +25,13 @@
 	const isGuideLike = $derived(category === 'guide' || category === 'comparison');
 	const htmlContent = $derived(content ? (marked.parse(content) as string) : '');
 	const contentParts = $derived(htmlContent ? articlePageUtils.splitContentForAd(htmlContent) : { before: '', after: '' });
+
+	const isBeautyContent = $derived(() => {
+		const lower = (content || '').toLowerCase();
+		return lower.includes('skincare') || lower.includes('beauty') || lower.includes('cosmetic') || 
+			   lower.includes('skin care') || lower.includes('anti-aging') || lower.includes('wellness') ||
+			   category === 'lifestyle' || category === 'health';
+	});
 
 	const getPrimaryCta = (): { href: string; label: string; secondaryHref?: string; secondaryLabel?: string } => {
 		const lower = (content || '').toLowerCase();
@@ -85,6 +93,10 @@
 					data-ad-client="ca-pub-7608249203271599"
 					data-ad-slot="9168219982"></ins>
 			</div>
+		{/if}
+
+		{#if isBeautyContent()}
+			<SkincarePromoBox />
 		{/if}
 
 		{@html contentParts.after}
