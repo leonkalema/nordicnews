@@ -57,12 +57,12 @@
 	<meta name="robots" content={robots} />
 	<meta name="googlebot" content={robots} />
 	
-	<!-- Canonical URL -->
-	<link rel="canonical" href={canonicalUrl} />
-	
-	<!-- Hreflang Tags for International SEO -->
-	<link rel="alternate" hreflang="en" href={canonicalUrl} />
-	<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+	<!-- Canonical URL - only render if NOT baseOnly (let page-specific components handle canonical) -->
+	{#if !baseOnly}
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="en" href={canonicalUrl} />
+		<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+	{/if}
 	
 	<!-- Icons are managed globally in app.html -->
 	{#if !baseOnly}
