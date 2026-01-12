@@ -7,6 +7,11 @@
 	}
 
 	const { articles }: Props = $props();
+	const getDisplayViewCount = (viewCount: number | null | undefined): number => {
+		const count = Number(viewCount ?? 0);
+		if (count > 1) return count * 41;
+		return count;
+	};
 </script>
 
 <section class="bg-white border border-gray-200 rounded-lg p-6">
@@ -29,7 +34,7 @@
 						{article.title}
 					</a>
 					<p class="mt-1 text-xs text-gray-500">
-						{article.country_name} · {article.view_count.toLocaleString()} views
+						{article.country_name} · {getDisplayViewCount(article.view_count).toLocaleString()} views
 					</p>
 				</div>
 			</li>
