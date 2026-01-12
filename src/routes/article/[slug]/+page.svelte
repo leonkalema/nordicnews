@@ -18,6 +18,7 @@
 	const relatedArticles = $derived(data.relatedArticles);
 	const structuredData = $derived(data.structuredData);
 	const ogLocale = $derived(articlePageUtils.ogLocaleFor(article?.country, article?.country_name));
+	const displayViewCount = $derived((Number(article.view_count ?? 0) > 1 ? Number(article.view_count ?? 0) * 41 : Number(article.view_count ?? 0)));
 	const answerSummary = $derived(article.summary || '');
 	const answerBullets = $derived([
 		article.country_name ? `Location: ${article.country_name}` : null,
@@ -98,7 +99,7 @@
 		categoryDisplay={article.category_display}
 		publishedAt={article.published_at}
 		relativeTime={article.relative_time}
-		viewCount={article.view_count}
+		viewCount={displayViewCount}
 		authorName={article.author_name || null}
 		authorSlug={article.author_slug || null}
 		summary={article.summary || null}
