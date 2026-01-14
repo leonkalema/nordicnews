@@ -22,11 +22,10 @@
 	const setDefaultConsent = (): void => {
 		const gtag = ensureGtag();
 		gtag('consent', 'default', {
-			ad_storage: 'denied',
-			ad_user_data: 'denied',
-			ad_personalization: 'denied',
-			analytics_storage: 'denied',
-			wait_for_update: 500
+			ad_storage: 'granted',
+			ad_user_data: 'granted',
+			ad_personalization: 'granted',
+			analytics_storage: 'granted'
 		});
 	};
 
@@ -74,14 +73,14 @@
 
 	onMount(() => {
 		if (browser) {
-			const consent = localStorage.getItem('cookie-consent');
+			// Load Analytics and AdSense immediately without waiting for consent
 			loadGoogleAnalytics();
-			if (consent === 'accepted') {
-				updateConsent(true);
-				loadAdSense();
-			} else if (consent === 'declined') {
-				updateConsent(false);
-			} else if (!consent) {
+			updateConsent(true); // Grant consent by default
+			loadAdSense();
+			
+			// Still show banner for transparency, but don't block functionality
+			const consent = localStorage.getItem('cookie-consent');
+			if (!consent) {
 				showBanner = true;
 				setTimeout(() => {
 					isVisible = true;
