@@ -65,6 +65,7 @@
 		{#if featuredImageCaption}
 			<p class="text-sm text-gray-600 mt-2 italic">{featuredImageCaption}</p>
 		{/if}
+		<p class="text-xs text-gray-400 mt-1">Visual created with AI to complement this story</p>
 	</div>
 {/if}
 
