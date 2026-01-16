@@ -19,12 +19,10 @@
 	};
 
 	let adLoaded = $state(false);
-	let hasConsent = $state(false);
 	let hasPushed = $state(false);
 
 	const tryLoadAd = (): void => {
 		if (!browser) return;
-		if (!hasConsent) return;
 		if (hasPushed) return;
 		if (!window.adsbygoogle) return;
 		try {
@@ -38,44 +36,26 @@
 
 	onMount(() => {
 		if (browser) {
-			const consent = localStorage.getItem('cookie-consent');
-			hasConsent = consent !== 'declined';
 			tryLoadAd();
-			const onConsentUpdated = (event: Event): void => {
-				const customEvent = event as CustomEvent<{ status?: string }>;
-				hasConsent = customEvent.detail?.status !== 'declined';
-				tryLoadAd();
-			};
-			const onAdSenseLoaded = (): void => {
-				tryLoadAd();
-			};
-			window.addEventListener('cookie-consent-updated', onConsentUpdated);
-			window.addEventListener('adsense-loaded', onAdSenseLoaded);
-			return () => {
-				window.removeEventListener('cookie-consent-updated', onConsentUpdated);
-				window.removeEventListener('adsense-loaded', onAdSenseLoaded);
-			};
 		}
 	});
 </script>
 
-{#if hasConsent}
-	<div class="ad-container my-6" style={formatStyles[format]}>
-		<ins
-			class="adsbygoogle"
-			style="display:block; {formatStyles[format]}"
-			data-ad-client={ADSENSE_CLIENT}
-			data-ad-slot={slot}
-			data-ad-format={responsive ? 'auto' : format}
-			data-full-width-responsive={responsive ? 'true' : 'false'}
-		></ins>
-		{#if !adLoaded}
-			<div class="flex items-center justify-center h-full bg-gray-100 text-gray-400 text-sm">
-				Advertisement
-			</div>
-		{/if}
-	</div>
-{/if}
+<div class="ad-container my-6" style={formatStyles[format]}>
+	<ins
+		class="adsbygoogle"
+		style="display:block; {formatStyles[format]}"
+		data-ad-client={ADSENSE_CLIENT}
+		data-ad-slot={slot}
+		data-ad-format={responsive ? 'auto' : format}
+		data-full-width-responsive={responsive ? 'true' : 'false'}
+	></ins>
+	{#if !adLoaded}
+		<div class="flex items-center justify-center h-full bg-gray-100 text-gray-400 text-sm">
+			Advertisement
+		</div>
+	{/if}
+</div>
 
 <style>
 	.ad-container {
