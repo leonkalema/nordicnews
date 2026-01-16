@@ -29,8 +29,9 @@
 			(window.adsbygoogle = window.adsbygoogle || []).push({});
 			hasPushed = true;
 			adLoaded = true;
-		} catch (e) {
-			console.warn('AdSense push failed:', e);
+		} catch {
+			// Expected in SPA navigation when ad slot already filled
+			adLoaded = true;
 		}
 	};
 
