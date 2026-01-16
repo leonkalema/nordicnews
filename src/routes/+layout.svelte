@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
+	import { browser } from '$app/environment';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import SEOHead from '$lib/components/SEOHead.svelte';
@@ -14,6 +16,16 @@
 
 	onMount(() => {
 		registerServiceWorker();
+	});
+
+	afterNavigate(({ to }) => {
+		if (browser && to?.url && typeof window.gtag === 'function') {
+			window.gtag('event', 'page_view', {
+				page_path: to.url.pathname,
+				page_location: to.url.href,
+				page_title: document.title
+			});
+		}
 	});
 </script>
 

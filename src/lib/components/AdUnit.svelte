@@ -39,11 +39,11 @@
 	onMount(() => {
 		if (browser) {
 			const consent = localStorage.getItem('cookie-consent');
-			hasConsent = consent === 'accepted';
+			hasConsent = consent !== 'declined';
 			tryLoadAd();
 			const onConsentUpdated = (event: Event): void => {
 				const customEvent = event as CustomEvent<{ status?: string }>;
-				hasConsent = customEvent.detail?.status === 'accepted';
+				hasConsent = customEvent.detail?.status !== 'declined';
 				tryLoadAd();
 			};
 			const onAdSenseLoaded = (): void => {
