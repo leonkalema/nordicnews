@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import type { ProcessedArticle } from '$lib/data/articles';
 
 	type RelatedArticles = {
@@ -14,6 +16,35 @@
 	};
 
 	const { articleCategoryDisplay, articleCountryName, relatedArticles }: ArticleSidebarProps = $props();
+
+	let adContainer: HTMLElement;
+	let adPushed = false;
+
+	const tryPushAd = (): void => {
+		if (!browser || adPushed) return;
+		const w = window as unknown as { adsbygoogle?: unknown[] };
+		if (!w.adsbygoogle) return;
+		if (!adContainer || adContainer.offsetWidth === 0) return;
+		
+		try {
+			w.adsbygoogle.push({});
+			adPushed = true;
+		} catch {
+			// Ad already loaded
+		}
+	};
+
+	onMount(() => {
+		// Wait for layout to settle
+		setTimeout(tryPushAd, 800);
+		
+		// Also listen for adsense load
+		const handleAdsenseLoaded = (): void => {
+			window.removeEventListener('adsense-loaded', handleAdsenseLoaded);
+			setTimeout(tryPushAd, 100);
+		};
+		window.addEventListener('adsense-loaded', handleAdsenseLoaded);
+	});
 </script>
 
 <aside class="lg:col-span-1">
@@ -63,11 +94,11 @@
 		</div>
 	{/if}
 
-	<div class="bg-white rounded-lg shadow-md p-4 mb-6 sticky top-4">
+	<div class="bg-white rounded-lg shadow-md p-4 mb-6 sticky top-4" bind:this={adContainer}>
 		<p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Advertisement</p>
 		<ins
 			class="adsbygoogle"
-			style="display:block"
+			style="display:block; min-height:250px;"
 			data-ad-client="ca-pub-7608249203271599"
 			data-ad-slot="6255665066"
 			data-ad-format="auto"
