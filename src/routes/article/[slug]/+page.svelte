@@ -27,54 +27,42 @@
 		article.relative_time ? `Published: ${article.relative_time}` : null
 	].filter((value): value is string => Boolean(value)));
 
-	const initAdsIfConsented = (): void => {
-		try {
-			const consent = localStorage.getItem('cookie-consent');
-			if (consent !== 'accepted') return;
-			const w = window as unknown as { adsbygoogle?: unknown[] };
-			const pushAds = (): void => {
-				if (!w.adsbygoogle) return;
-				const adSlots = document.querySelectorAll('.adsbygoogle');
-				adSlots.forEach(() => {
-					try {
-						w.adsbygoogle?.push({});
-					} catch (err) {
-						console.warn('Ad push failed:', err);
-					}
-				});
-			};
-			if (w.adsbygoogle) {
-				pushAds();
-			} else {
-				const script = document.getElementById('adsense-script') as HTMLScriptElement | null;
-				if (script) {
-					if (script.dataset.loaded === 'true') {
-						setTimeout(pushAds, 100);
-					} else {
-						script.addEventListener('load', () => {
-							script.dataset.loaded = 'true';
-							pushAds();
-						});
-					}
-				} else {
-					const observer = new MutationObserver(() => {
-						const s = document.getElementById('adsense-script');
-						if (s) {
-							observer.disconnect();
-							s.addEventListener('load', pushAds);
-						}
-					});
-					observer.observe(document.head, { childList: true });
-					setTimeout(() => observer.disconnect(), 5000);
-				}
+	let adsPushed = false;
+	
+	const initAds = (): void => {
+		if (adsPushed) return;
+		
+		const w = window as unknown as { adsbygoogle?: unknown[] };
+		if (!w.adsbygoogle) return;
+		
+		const adSlots = document.querySelectorAll('.adsbygoogle:not([data-ad-status])');
+		if (adSlots.length === 0) return;
+		
+		adSlots.forEach((slot) => {
+			const el = slot as HTMLElement;
+			// Skip if not visible (width=0 causes errors)
+			if (el.offsetWidth === 0) return;
+			
+			try {
+				w.adsbygoogle?.push({});
+			} catch {
+				// Silently ignore - ad already loaded or other issue
 			}
-		} catch (e) {
-			console.warn('AdSense init failed:', e);
-		}
+		});
+		
+		adsPushed = true;
 	};
 
 	onMount(() => {
-		initAdsIfConsented();
+		// Wait for DOM to be fully rendered with visible widths
+		setTimeout(initAds, 500);
+		
+		// Also try when adsense loads
+		const handleAdsenseLoaded = (): void => {
+			window.removeEventListener('adsense-loaded', handleAdsenseLoaded);
+			setTimeout(initAds, 100);
+		};
+		window.addEventListener('adsense-loaded', handleAdsenseLoaded);
 	});
 </script>
 

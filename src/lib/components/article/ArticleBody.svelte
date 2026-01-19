@@ -34,18 +34,9 @@
 	});
 
 	const getPrimaryCta = (): { href: string; label: string; secondaryHref?: string; secondaryLabel?: string } => {
-		const lower = (content || '').toLowerCase();
-		if (lower.includes('wise')) {
-			return {
-				href: 'https://wise.com/',
-				label: 'Check fees on Wise',
-				secondaryHref: 'https://revolut.com/',
-				secondaryLabel: 'Compare Revolut'
-			};
-		}
 		return {
-			href: 'https://wise.com/',
-			label: 'Compare money transfer fees'
+			href: 'https://reb.tel/JDXwNP',
+			label: 'Cheap calls abroad'
 		};
 	};
 
@@ -75,8 +66,8 @@
 
 		{#if isGuideLike}
 			<GuideCtaBox
-				title="Best next step"
-				description="Use a trusted tool mentioned in this guide." 
+				title="Call home for less"
+				description="Save up to 90% on international calls to family and friends." 
 				primaryHref={cta.href}
 				primaryLabel={cta.label}
 				secondaryHref={cta.secondaryHref}

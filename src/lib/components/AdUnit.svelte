@@ -21,28 +21,40 @@
 	let adLoaded = $state(false);
 	let hasPushed = $state(false);
 
+	let adContainer: HTMLElement;
+	
 	const tryLoadAd = (): void => {
 		if (!browser) return;
 		if (hasPushed) return;
 		if (!window.adsbygoogle) return;
+		// Don't push if container has no width
+		if (adContainer && adContainer.offsetWidth === 0) return;
+		
 		try {
 			(window.adsbygoogle = window.adsbygoogle || []).push({});
 			hasPushed = true;
 			adLoaded = true;
 		} catch {
-			// Expected in SPA navigation when ad slot already filled
 			adLoaded = true;
 		}
 	};
 
 	onMount(() => {
-		if (browser) {
-			tryLoadAd();
-		}
+		if (!browser) return;
+		
+		// Wait for DOM to render with proper width
+		setTimeout(tryLoadAd, 500);
+		
+		// Also try when adsense loads
+		const handleAdsenseLoaded = (): void => {
+			window.removeEventListener('adsense-loaded', handleAdsenseLoaded);
+			setTimeout(tryLoadAd, 100);
+		};
+		window.addEventListener('adsense-loaded', handleAdsenseLoaded);
 	});
 </script>
 
-<div class="ad-container my-6" style={formatStyles[format]}>
+<div class="ad-container my-6" style={formatStyles[format]} bind:this={adContainer}>
 	<ins
 		class="adsbygoogle"
 		style="display:block; {formatStyles[format]}"
