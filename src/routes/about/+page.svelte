@@ -102,13 +102,13 @@
     <section class="mb-8">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">How It Works</h2>
       <p class="mb-4">
-        Nordics Today aggregates, curates, and contextualizes news from across the Nordic region. Content is sourced from leading Nordic publications and official sources, then presented in English with appropriate context for international readers.
+        Nordics Today publishes original English-language coverage of news across the Nordic region. Our editorial team monitors developments in Sweden, Norway, Denmark, Finland, and Iceland, then writes articles with the context international readers need.
       </p>
       <p class="mb-4">
-        Every article includes clear source attribution, linking back to original reporting where applicable. This transparent approach ensures readers can verify information and explore topics in greater depth.
+        We cite our sources and link to official documents, government statements, and press releases where applicable. This transparent approach lets readers verify information and explore topics further.
       </p>
       <p class="mb-4">
-        The editorial focus is straightforward: if it's significant news from Sweden, Norway, Denmark, Finland, or Iceland, it belongs on Nordics Today. From parliamentary developments in Stockholm to startup news in Helsinki, from energy policy in Copenhagen to volcanic activity in Iceland—the platform tracks stories that shape the region.
+        The editorial focus is straightforward: if it's significant news from Sweden, Norway, Denmark, Finland, or Iceland, it belongs on Nordics Today. From parliamentary developments in Stockholm to startup news in Helsinki, from energy policy in Copenhagen to volcanic activity in Iceland—we cover stories that shape the region.
       </p>
     </section>
 
@@ -142,7 +142,7 @@
       </div>
 
       <p class="mb-4">
-        While many sources cover individual Nordic countries, Nordics Today offers consolidated regional coverage. Unlike simple aggregation, content includes context and practical information to help readers understand and navigate the Nordic region.
+        While many sources cover individual Nordic countries, Nordics Today offers consolidated regional coverage. Every article includes context and practical information to help readers understand and navigate the Nordic region.
       </p>
 
       <div class="bg-gray-100 p-6 rounded-lg">

@@ -77,7 +77,7 @@
           <li>Content is informed by reporting from established Nordic media organizations</li>
           <li>Official government announcements and press releases are referenced where relevant</li>
           <li>Articles are written for English-speaking audiences with appropriate regional context</li>
-          <li>Original reporting and analysis are clearly distinguished from aggregated news</li>
+          <li>Original reporting and analysis form the foundation of our coverage</li>
         </ul>
       </div>
 
