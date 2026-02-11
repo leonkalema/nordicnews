@@ -11,7 +11,6 @@
 	import AnswerBlock from '$lib/components/article/AnswerBlock.svelte';
 	import NewsletterSignup from '$lib/components/NewsletterSignup.svelte';
 	import ReadingProgress from '$lib/components/ReadingProgress.svelte';
-	import SourceAttribution from '$lib/components/article/SourceAttribution.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const article = $derived(data.article);
@@ -110,11 +109,6 @@
 					featuredImageUrl={article.featured_image_url}
 					featuredImageAlt={article.featured_image_alt || null}
 					featuredImageCaption={article.featured_image_caption}
-				/>
-
-				<SourceAttribution 
-					sourceName={article.source_name}
-					originalUrl={article.original_url}
 				/>
 
 				{#if contributor}
