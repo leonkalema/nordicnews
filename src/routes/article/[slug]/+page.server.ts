@@ -61,32 +61,28 @@ export const load: PageServerLoad = async ({ params }) => {
       }
     }
 
-    // Fetch related articles in parallel
-    const [
-      relatedByCategory,
-      relatedByCountry,
-      trending
-    ] = await Promise.allSettled([
-      // Articles from same category
-      fetchArticles({ category: article.category }, 1, 4),
-      // Articles from same country
-      fetchArticles({ country: article.country }, 1, 4),
-      // Trending articles
-      fetchArticles({}, 1, 6) // Latest articles as trending fallback
-    ]);
+    // Fetch related articles - simplified to prevent timeout
+    // Priority: same country, then recent articles
+    let relatedCategoryArticles: any[] = [];
+    let relatedCountryArticles: any[] = [];
+    let trendingArticles: any[] = [];
 
-    // Extract related articles, excluding the current article
-    const relatedCategoryArticles = relatedByCategory.status === 'fulfilled' 
-      ? relatedByCategory.value.articles.filter(a => a.id !== article.id).slice(0, 3)
-      : [];
-
-    const relatedCountryArticles = relatedByCountry.status === 'fulfilled'
-      ? relatedByCountry.value.articles.filter(a => a.id !== article.id).slice(0, 3)
-      : [];
-
-    const trendingArticles = trending.status === 'fulfilled'
-      ? trending.value.articles.filter(a => a.id !== article.id).slice(0, 5)
-      : [];
+    try {
+      // Single optimized query for same-country articles
+      const relatedResponse = await Promise.race([
+        fetchArticles({ country: article.country }, 1, 8),
+        new Promise<ArticleListResponse>((_, reject) => 
+          setTimeout(() => reject(new Error('Related articles timeout')), 5000)
+        )
+      ]);
+      
+      const filtered = relatedResponse.articles.filter(a => a.id !== article.id);
+      relatedCountryArticles = filtered.slice(0, 3);
+      trendingArticles = filtered.slice(0, 5);
+    } catch (err) {
+      console.error('Failed to fetch related articles:', err);
+      // Non-critical - page can load without related articles
+    }
 
     // Generate structured data for SEO
     const hasAuthorPerson = Boolean((article as any).author || (article as any).author_name);
