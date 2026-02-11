@@ -1,4 +1,4 @@
-import { fetchArticleBySlug, fetchArticles } from '$lib/data/articles.js';
+import { fetchArticleBySlug, fetchArticles, type ArticleListResponse } from '$lib/data/articles.js';
 import { incrementViewCount, supabase } from '$lib/supabase.js';
 import { buildSeoTitle } from '$lib/utils/seo-title';
 import { error } from '@sveltejs/kit';
