@@ -36,7 +36,7 @@ export interface ArticleFilters {
 // Constants for query optimization
 const DEFAULT_LIMIT = 20;
 const FEATURED_LIMIT = 5;
-const CACHE_TTL = 30 * 1000; // 30 seconds - news sites need fresh content!
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes - emergency cache to reduce database load
 
 // In-memory cache for performance (NASA-level caching strategy)
 const cache = new Map<string, { data: any; timestamp: number }>();
