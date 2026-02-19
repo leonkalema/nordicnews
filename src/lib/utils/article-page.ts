@@ -34,6 +34,20 @@
 	});
  };
 
+ const separateReadMoreLinks = (html: string): string => {
+	const readMorePattern = /\s*(Read more:\s*<a[^>]*>.*?<\/a>\.?)/gi;
+	const matches = html.match(readMorePattern);
+	if (!matches || matches.length === 0) return html;
+	let cleaned: string = html;
+	for (const match of matches) {
+		cleaned = cleaned.replace(match, '');
+	}
+	const linksHtml: string = matches
+		.map((m) => `<p class="read-more-link">${m.trim()}</p>`)
+		.join('\n');
+	return `${cleaned}\n<hr />\n${linksHtml}`;
+ };
+
  const splitContentForAd = (html: string): SplitContentResult => {
 	const blockRegex = /<(p|h[1-6]|ul|ol|blockquote|div|table)[^>]*>[\s\S]*?<\/\1>/gi;
 	const blocks = html.match(blockRegex) || [];
@@ -56,5 +70,6 @@
  export const articlePageUtils = {
 	ogLocaleFor,
 	formatDate,
+	separateReadMoreLinks,
 	splitContentForAd
  } as const;

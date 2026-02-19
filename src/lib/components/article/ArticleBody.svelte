@@ -23,7 +23,8 @@
 	marked.setOptions({ breaks: true, gfm: true });
 
 	const isGuideLike = $derived(category === 'guide' || category === 'comparison');
-	const htmlContent = $derived(content ? (marked.parse(content) as string) : '');
+	const rawHtml = $derived(content ? (marked.parse(content) as string) : '');
+	const htmlContent = $derived(articlePageUtils.separateReadMoreLinks(rawHtml));
 	const contentParts = $derived(htmlContent ? articlePageUtils.splitContentForAd(htmlContent) : { before: '', after: '' });
 
 	const isBeautyContent = $derived(() => {

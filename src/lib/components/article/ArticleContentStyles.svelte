@@ -51,4 +51,16 @@
 	:global(.article-content pre code) {
 		@apply bg-transparent p-0;
 	}
+
+	:global(.article-content hr) {
+		@apply my-8 border-t border-gray-200;
+	}
+
+	:global(.article-content .read-more-link) {
+		@apply text-sm text-gray-600 mb-2;
+	}
+
+	:global(.article-content .read-more-link a) {
+		@apply text-nordic-blue font-semibold hover:underline;
+	}
 </style>
