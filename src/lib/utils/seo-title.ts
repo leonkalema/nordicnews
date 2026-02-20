@@ -59,5 +59,5 @@ export const buildSeoTitle = (input: SeoTitleInput): string => {
 	}
 	const withDate = date ? `${base} (${date})` : base;
 	const withBrand = `${withDate} | Nordics Today`;
-	return clamp(withBrand, 75);
+	return clamp(withBrand, 60);
 };
