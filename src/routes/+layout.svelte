@@ -20,7 +20,7 @@
 	});
 
 	afterNavigate(({ to }) => {
-		if (browser && to?.url && typeof window.gtag === 'function') {
+		if (browser && to?.url && typeof window.gtag === 'function' && localStorage.getItem('cookie-consent') === 'accepted') {
 			window.gtag('event', 'page_view', {
 				page_path: to.url.pathname,
 				page_location: to.url.href,

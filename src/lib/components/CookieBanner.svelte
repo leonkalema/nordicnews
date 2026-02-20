@@ -7,6 +7,8 @@
 
 	const ADSENSE_ID = 'ca-pub-7608249203271599';
 	const GA_ID = 'G-1Y6KPNKXEW';
+	const CONSENT_BANNER_ANIMATION_DELAY_MS: number = 100;
+	const CONSENT_BANNER_HIDE_DELAY_MS: number = 300;
 
 	type GtagFn = (...args: unknown[]) => void;
 
@@ -22,10 +24,10 @@
 	const setDefaultConsent = (): void => {
 		const gtag = ensureGtag();
 		gtag('consent', 'default', {
-			ad_storage: 'granted',
-			ad_user_data: 'granted',
-			ad_personalization: 'granted',
-			analytics_storage: 'granted'
+			ad_storage: 'denied',
+			ad_user_data: 'denied',
+			ad_personalization: 'denied',
+			analytics_storage: 'denied'
 		});
 	};
 
@@ -55,7 +57,6 @@
 
 	function loadGoogleAnalytics(): void {
 		if (document.getElementById('gtag-script')) return;
-		setDefaultConsent();
 		const script = document.createElement('script');
 		script.id = 'gtag-script';
 		script.async = true;
@@ -65,27 +66,37 @@
 		script.onload = () => {
 			const gtag = ensureGtag();
 			gtag('js', new Date());
-			gtag('config', GA_ID, {
-				anonymize_ip: true
-			});
+			if (localStorage.getItem('cookie-consent') === 'accepted') {
+				gtag('config', GA_ID, {
+					anonymize_ip: true,
+					send_page_view: false
+				});
+			}
 		};
 	}
 
+	function configureGoogleAnalytics(): void {
+		const gtag = ensureGtag();
+		gtag('config', GA_ID, {
+			anonymize_ip: true,
+			send_page_view: false
+		});
+	}
+
 	onMount(() => {
-		if (browser) {
-			// Load Analytics and AdSense immediately without waiting for consent
-			loadGoogleAnalytics();
-			updateConsent(true); // Grant consent by default
-			loadAdSense();
-			
-			// Still show banner for transparency, but don't block functionality
-			const consent = localStorage.getItem('cookie-consent');
-			if (!consent) {
-				showBanner = true;
-				setTimeout(() => {
-					isVisible = true;
-				}, 100);
-			}
+		if (!browser) return;
+		setDefaultConsent();
+		const consent: string = localStorage.getItem('cookie-consent') || '';
+		const isGranted: boolean = consent === 'accepted';
+		updateConsent(isGranted);
+		loadGoogleAnalytics();
+		loadAdSense();
+		if (isGranted) configureGoogleAnalytics();
+		if (!consent) {
+			showBanner = true;
+			setTimeout(() => {
+				isVisible = true;
+			}, CONSENT_BANNER_ANIMATION_DELAY_MS);
 		}
 	});
 
@@ -94,13 +105,15 @@
 			localStorage.setItem('cookie-consent', 'accepted');
 			localStorage.setItem('cookie-consent-date', new Date().toISOString());
 			updateConsent(true);
+			loadGoogleAnalytics();
+			configureGoogleAnalytics();
 			loadAdSense();
 			window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: { status: 'accepted' } }));
 		}
 		isVisible = false;
 		setTimeout(() => {
 			showBanner = false;
-		}, 300);
+		}, CONSENT_BANNER_HIDE_DELAY_MS);
 	}
 
 	function declineCookies(): void {
@@ -113,7 +126,7 @@
 		isVisible = false;
 		setTimeout(() => {
 			showBanner = false;
-		}, 300);
+		}, CONSENT_BANNER_HIDE_DELAY_MS);
 	}
 </script>
 
