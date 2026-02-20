@@ -8,6 +8,7 @@
 	import CountryCategoryModules from '$lib/components/country/CountryCategoryModules.svelte';
 	import RecommendedLinks from '$lib/components/RecommendedLinks.svelte';
 	import { buildRecommendedLinks } from '$lib/utils/recommended-links';
+	import AdUnit from '$lib/components/AdUnit.svelte';
 	import { onMount } from 'svelte';
     import { serializeJsonLd } from '$lib/utils/json-ld';
 
@@ -278,6 +279,11 @@
 			</div>
 		</section>
 
+		<!-- Ad: After latest news -->
+		<div class="my-10 flex justify-center">
+			<AdUnit slot="2497849466" format="horizontal" responsive={true} />
+		</div>
+
 		<CountryCategoryModules
 			country={country}
 			countrySlug={countrySlug}
@@ -295,6 +301,11 @@
 			loading={loading}
 			onLoadMore={loadMoreArticles}
 		/>
+
+		<!-- Ad: Before FAQ (bottom of page) -->
+		<div class="my-10 flex justify-center">
+			<AdUnit slot="6255665066" format="rectangle" responsive={true} />
+		</div>
 
 		{#if bottomRecommendedLinks.length > 0}
 			<div class="mb-16">

@@ -76,23 +76,23 @@
 			/>
 		{/if}
 
-		{#if contentParts.after}
-			<div class="my-8 not-prose">
-				<ins
-					class="adsbygoogle"
-					style="display:block; text-align:center;"
-					data-ad-layout="in-article"
-					data-ad-format="fluid"
-					data-ad-client="ca-pub-7608249203271599"
-					data-ad-slot="9168219982"></ins>
-			</div>
-		{/if}
+		<div class="my-8 not-prose">
+			<ins
+				class="adsbygoogle"
+				style="display:block; text-align:center;"
+				data-ad-layout="in-article"
+				data-ad-format="fluid"
+				data-ad-client="ca-pub-7608249203271599"
+				data-ad-slot="9168219982"></ins>
+		</div>
 
 		{#if isBeautyContent()}
 			<SkincarePromoBox />
 		{/if}
 
-		{@html contentParts.after}
+		{#if contentParts.after}
+			{@html contentParts.after}
+		{/if}
 	{:else}
 		<p class="text-gray-600 italic">Article content is being processed...</p>
 	{/if}

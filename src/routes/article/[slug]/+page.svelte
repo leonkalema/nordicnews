@@ -142,6 +142,18 @@
 						</div>
 					</div>
 
+					<!-- Ad: End of article (highest engagement spot) -->
+					<div class="mt-8 mb-8">
+						<p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Advertisement</p>
+						<ins
+							class="adsbygoogle"
+							style="display:block; text-align:center;"
+							data-ad-client="ca-pub-7608249203271599"
+							data-ad-slot="2497849466"
+							data-ad-format="auto"
+							data-full-width-responsive="true"></ins>
+					</div>
+
 					<div class="mt-8">
 						<NewsletterSignup />
 					</div>

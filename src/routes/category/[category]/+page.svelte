@@ -4,6 +4,7 @@
   import { serializeJsonLd } from '$lib/utils/json-ld';
   import CategoryFooter from '$lib/components/category/CategoryFooter.svelte';
   import { buildRecommendedLinks } from '$lib/utils/recommended-links';
+  import AdUnit from '$lib/components/AdUnit.svelte';
   
   export let data;
   
@@ -248,6 +249,11 @@
     </section>
   {/if}
 
+  <!-- Ad: After featured articles -->
+  <div class="my-10 flex justify-center">
+    <AdUnit slot="2497849466" format="horizontal" responsive={true} />
+  </div>
+
   <!-- Articles by Country -->
   {#if articlesByCountry.length > 0}
     <section class="mb-16">
@@ -336,6 +342,11 @@
             </div>
           </article>
         {/each}
+      </div>
+
+      <!-- Ad: Before pagination -->
+      <div class="my-10 flex justify-center">
+        <AdUnit slot="6255665066" format="rectangle" responsive={true} />
       </div>
 
       <!-- Pagination -->

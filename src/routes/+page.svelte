@@ -99,9 +99,9 @@
 <FeaturedGuides guideArticles={data.guideArticles || []} />
 <DailySnapshot featuredArticles={data.featuredArticles || []} />
 
-<!-- Ad: Leaderboard -->
+<!-- Ad: Mid-page leaderboard (different slot from above-fold) -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 flex justify-center">
-	<AdUnit slot="2497849466" format="horizontal" responsive={false} />
+	<AdUnit slot="9168219982" format="horizontal" responsive={true} />
 </div>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -127,6 +127,11 @@
 	articlesByCategory={data.articlesByCategory || []} 
 	trendingArticles={data.trendingArticles || []} 
 />
+
+<!-- Ad: Bottom of page (high engagement spot) -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 flex justify-center">
+	<AdUnit slot="6255665066" format="rectangle" responsive={true} />
+</div>
 
 
 <style>
