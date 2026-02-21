@@ -1,11 +1,28 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
 
+const allowedLegacyCountryCodes: ReadonlySet<string> = new Set(['se', 'no', 'dk', 'fi', 'is']);
+
 /**
  * SvelteKit server-side hooks for NordicNews
  * Handles redirects, security headers, and error logging
  */
 export const handle: Handle = async ({ event, resolve }) => {
-  const { url, request } = event;
+  const { url } = event;
+
+  const legacyArticleMatch: RegExpMatchArray | null = url.pathname.match(/^\/([a-z]{2})\/[a-z0-9-]+\/([a-z0-9-]+)\/?$/);
+  if (legacyArticleMatch) {
+    const countryCode: string = legacyArticleMatch[1];
+    const slug: string = legacyArticleMatch[2];
+    if (allowedLegacyCountryCodes.has(countryCode)) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          'Location': `/article/${slug}${url.search}`,
+          'Cache-Control': 'max-age=31536000, public'
+        }
+      });
+    }
+  }
   
   // Handle trailing slash redirects for SEO consistency
   if (url.pathname !== '/' && url.pathname.endsWith('/')) {
