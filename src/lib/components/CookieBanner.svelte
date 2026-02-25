@@ -5,7 +5,6 @@
 	let showBanner = $state(false);
 	let isVisible = $state(false);
 
-	const ADSENSE_ID = 'ca-pub-7608249203271599';
 	const GA_ID = 'G-1Y6KPNKXEW';
 	const CONSENT_BANNER_ANIMATION_DELAY_MS: number = 100;
 	const CONSENT_BANNER_HIDE_DELAY_MS: number = 300;
@@ -41,20 +40,6 @@
 		});
 	};
 
-	function loadAdSense(): void {
-		if (document.getElementById('adsense-script')) return;
-		const script = document.createElement('script');
-		script.id = 'adsense-script';
-		script.async = true;
-		script.crossOrigin = 'anonymous';
-		script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`;
-		script.onload = () => {
-			script.dataset.loaded = 'true';
-			window.dispatchEvent(new Event('adsense-loaded'));
-		};
-		document.head.appendChild(script);
-	}
-
 	function loadGoogleAnalytics(): void {
 		if (document.getElementById('gtag-script')) return;
 		const script = document.createElement('script');
@@ -83,14 +68,22 @@
 		});
 	}
 
+	const hasTcfCmp = (): boolean => {
+		const w = window as unknown as { __tcfapi?: unknown };
+		return typeof w.__tcfapi === 'function';
+	};
+
 	onMount(() => {
 		if (!browser) return;
+		if (hasTcfCmp()) {
+			loadGoogleAnalytics();
+			return;
+		}
 		setDefaultConsent();
 		const consent: string = localStorage.getItem('cookie-consent') || '';
 		const isGranted: boolean = consent === 'accepted';
 		updateConsent(isGranted);
 		loadGoogleAnalytics();
-		loadAdSense();
 		if (isGranted) configureGoogleAnalytics();
 		if (!consent) {
 			showBanner = true;
@@ -107,7 +100,6 @@
 			updateConsent(true);
 			loadGoogleAnalytics();
 			configureGoogleAnalytics();
-			loadAdSense();
 			window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: { status: 'accepted' } }));
 		}
 		isVisible = false;
