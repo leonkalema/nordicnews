@@ -52,6 +52,14 @@
 	<meta property="og:site_name" content="Nordics Today" />
 	<meta property="og:locale" content={ogLocale} />
 
+	<meta property="article:published_time" content={meta.publishedTime} />
+	{#if meta.modifiedTime}
+		<meta property="article:modified_time" content={meta.modifiedTime} />
+	{/if}
+	{#if meta.section}
+		<meta property="article:section" content={meta.section} />
+	{/if}
+
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={excerpt || meta.description} />

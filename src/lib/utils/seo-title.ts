@@ -46,18 +46,6 @@ const clamp = (value: string, maxLength: number): string => {
 
 export const buildSeoTitle = (input: SeoTitleInput): string => {
 	const rawTitle = normalizeWhitespace(input.title);
-	const hasColon = rawTitle.includes(':');
-	const date = toShortDate(input.publishedAt);
-	let base = rawTitle;
-	if (hasColon) {
-		const [left, right] = rawTitle.split(/:(.+)/).map(s => normalizeWhitespace(s));
-		const leftClean = removeLeadingCountryPossessive(left);
-		base = normalizeWhitespace(`${leftClean} ${right}`);
-	}
-	if (input.countryName && base.toLowerCase().startsWith(input.countryName.toLowerCase())) {
-		base = normalizeWhitespace(base.slice(input.countryName.length));
-	}
-	const withDate = date ? `${base} (${date})` : base;
-	const withBrand = `${withDate} | Nordics Today`;
-	return clamp(withBrand, 60);
+	const withBrand = `${rawTitle} | Nordics Today`;
+	return clamp(withBrand, 70);
 };
